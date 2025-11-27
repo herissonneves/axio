@@ -19,7 +19,11 @@ A TODO list web application built with **vanilla HTML, CSS and JavaScript** - su
 ├── css/
     └── style.css
 ├── js/
-    └── app.js
+    └── modules/
+        └── storage.js
+        └── todo.js
+        └── ui.js
+    └── main.js
 ```
 
 ## 💻 Getting Started - How to Run Locally
