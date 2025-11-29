@@ -1,5 +1,6 @@
 :root {
-    --md-sys-color-primary: #6750e4;
+    --md-color-white: #FFFFFF;
+    --md-color-black: #000000;
     --md-color-ref-primary-primary0: #000000;
     --md-color-ref-primary-primary5: #160041;
     --md-color-ref-primary-primary10: #21005D;
@@ -73,44 +74,261 @@
     --md-color-ref-error-error99: #FFFBF9;
     --md-color-ref-error-error100: #FFFFFF;
     --md-color-ref-neutral-neutral0: #000000;
-    --md-color-ref-neutral-neutral4: #2D0002;
-    --md-color-ref-neutral-neutral5: #2D0002;
-    --md-color-ref-neutral-neutral6: #410E0B;
-    --md-color-ref-neutral-neutral10: #540006;
-    --md-color-ref-neutral-neutral12: #601410;
-    --md-color-ref-neutral-neutral15: #751617;
-    --md-color-ref-neutral-neutral17: #751617;
-    --md-color-ref-neutral-neutral20: #8C1D18;
-    --md-color-ref-neutral-neutral22: #952E2B;
-    --md-color-ref-neutral-neutral24: #B3261E;
-    --md-color-ref-neutral-neutral25: #B3261E;
-    --md-color-ref-neutral-neutral30: #DC362E;
-    --md-color-ref-neutral-neutral35: #DC362E;
-    --md-color-ref-neutral-neutral40: #E46962;
-    --md-color-ref-neutral-neutral50: #EC928E;
-    --md-color-ref-neutral-neutral60: #F2B8B5;
-    --md-color-ref-neutral-neutral70: #F9DEDC;
-    --md-color-ref-neutral-neutral80: #FCEEEE;
-    --md-color-ref-neutral-neutral87: #FFF8F7;
-    --md-color-ref-neutral-neutral90: #FFFBF9;
-    --md-color-ref-neutral-neutral92: #FFFFFF;
-    --md-color-ref-neutral-neutral94: #FFFFFF;
-    --md-color-ref-neutral-neutral95: #FFFFFF;
-    --md-color-ref-neutral-neutral96: #FFFFFF;
-    --md-color-ref-neutral-neutral98: #FFFFFF;
-    --md-color-ref-neutral-neutral99: #FFFFFF;
+    --md-color-ref-neutral-neutral4: #0F0D13;
+    --md-color-ref-neutral-neutral5: #111111;
+    --md-color-ref-neutral-neutral6: #141218;
+    --md-color-ref-neutral-neutral10: #1D1B20;
+    --md-color-ref-neutral-neutral12: #211F26;
+    --md-color-ref-neutral-neutral15: #262526;
+    --md-color-ref-neutral-neutral17: #2B2930;
+    --md-color-ref-neutral-neutral20: #322F35;
+    --md-color-ref-neutral-neutral22: #36343B;
+    --md-color-ref-neutral-neutral24: #3B383E;
+    --md-color-ref-neutral-neutral25: #3C3B3B;
+    --md-color-ref-neutral-neutral30: #48464C;
+    --md-color-ref-neutral-neutral35: #545252;
+    --md-color-ref-neutral-neutral40: #605D64;
+    --md-color-ref-neutral-neutral50: #79767D;
+    --md-color-ref-neutral-neutral60: #938F96;
+    --md-color-ref-neutral-neutral70: #AEA9B1;
+    --md-color-ref-neutral-neutral80: #CAC5CD;
+    --md-color-ref-neutral-neutral87: #DED8E1;
+    --md-color-ref-neutral-neutral90: #E6E0E9;
+    --md-color-ref-neutral-neutral92: #ECE6F0;
+    --md-color-ref-neutral-neutral94: #F3EDF7;
+    --md-color-ref-neutral-neutral95: #F5EFF7;
+    --md-color-ref-neutral-neutral96: #F7F2FA;
+    --md-color-ref-neutral-neutral98: #FEF7FF;
+    --md-color-ref-neutral-neutral99: #FFFBFF;
     --md-color-ref-neutral-neutral100: #FFFFFF;
+    --md-color-ref-neutral-variant-neutral-variant0: #000000;
+    --md-color-ref-neutral-variant-neutral-variant5: #111112;
+    --md-color-ref-neutral-variant-neutral-variant10: #1D1A22;
+    --md-color-ref-neutral-variant-neutral-variant15: #262526;
+    --md-color-ref-neutral-variant-neutral-variant20: #322F37;
+    --md-color-ref-neutral-variant-neutral-variant25: #3C3B3C;
+    --md-color-ref-neutral-variant-neutral-variant30: #49454F;
+    --md-color-ref-neutral-variant-neutral-variant35: #545253;
+    --md-color-ref-neutral-variant-neutral-variant40: #605D66;
+    --md-color-ref-neutral-variant-neutral-variant50: #79747E;
+    --md-color-ref-neutral-variant-neutral-variant60: #938F99;
+    --md-color-ref-neutral-variant-neutral-variant70: #AEA9B4;
+    --md-color-ref-neutral-variant-neutral-variant80: #CAC4D0;
+    --md-color-ref-neutral-variant-neutral-variant90: #E7E0EC;
+    --md-color-ref-neutral-variant-neutral-variant95: #F5EEFA;
+    --md-color-ref-neutral-variant-neutral-variant98: #FDF7FF;
+    --md-color-ref-neutral-variant-neutral-variant99: #FFFBFE;
+    --md-color-ref-neutral-variant-neutral-variant100: #FFFFFF;
+    --md-color-key-colors-primary: var(--md-color-ref-primary-primary40);
+    --md-color-key-colors-secondary: var(--md-color-ref-secondary-secondary60);
+    --md-color-key-colors-tertiary: var(--md-color-ref-tertiary-tertiary60);
+    --md-color-key-colors-error: var(--md-color-ref-error-error60);
+    --md-color-key-colors-neutral: var(--md-color-ref-neutral-neutral60);
+    --md-color-key-colors-neutral-variant: var(--md-color-ref-neutral-variant-neutral-variant60);
+    --md-color-sys-light-primary: var(--md-color-ref-primary-primary40);
+    --md-color-sys-light-on-primary: var(--md-color-ref-primary-primary100);
+    --md-color-sys-light-primary-container: var(--md-color-ref-primary-primary90);
+    --md-color-sys-light-on-primary-container: var(--md-color-ref-primary-primary30);
+    --md-color-sys-light-primary-fixed: var(--md-color-ref-primary-primary90);
+    --md-color-sys-light-on-primary-fixed: var(--md-color-ref-primary-primary10);
+    --md-color-sys-light-primary-fixed-dim: var(--md-color-ref-primary-primary80);
+    --md-color-sys-light-on-primary-fixed-variant: var(--md-color-ref-primary-primary30);
+    --md-color-sys-light-secondary: var(--md-color-ref-secondary-secondary40);
+    --md-color-sys-light-on-secondary: var(--md-color-ref-secondary-secondary100);
+    --md-color-sys-light-secondary-container: var(--md-color-ref-secondary-secondary90);
+    --md-color-sys-light-on-secondary-container: var(--md-color-ref-secondary-secondary30);
+    --md-color-sys-light-secondary-fixed: var(--md-color-ref-secondary-secondary90);
+    --md-color-sys-light-on-secondary-fixed: var(--md-color-ref-secondary-secondary10);
+    --md-color-sys-light-secondary-fixed-dim: var(--md-color-ref-secondary-secondary80);
+    --md-color-sys-light-on-secondary-fixed-variant: var(--md-color-ref-secondary-secondary30);
+    --md-color-sys-light-tertiary: var(--md-color-ref-tertiary-tertiary40);
+    --md-color-sys-light-on-tertiary: var(--md-color-ref-tertiary-tertiary100);
+    --md-color-sys-light-tertiary-container: var(--md-color-ref-tertiary-tertiary90);
+    --md-color-sys-light-on-tertiary-container: var(--md-color-ref-tertiary-tertiary30);
+    --md-color-sys-light-tertiary-fixed: var(--md-color-ref-tertiary-tertiary90);
+    --md-color-sys-light-on-tertiary-fixed: var(--md-color-ref-tertiary-tertiary10);
+    --md-color-sys-light-tertiary-fixed-dim: var(--md-color-ref-tertiary-tertiary80);
+    --md-color-sys-light-on-tertiary-fixed-variant: var(--md-color-ref-tertiary-tertiary30);
+    --md-color-sys-light-error: var(--md-color-ref-error-error40);
+    --md-color-sys-light-on-error: var(--md-color-ref-error-error100);
+    --md-color-sys-light-error-container: var(--md-color-ref-error-error90);
+    --md-color-sys-light-on-error-container: var(--md-color-ref-error-error30);
+
+    --md-color-sys-light-outline: var(--md-color-ref-neutral-variant-neutral-variant50);
+    --md-color-sys-light-background: var(--md-color-ref-neutral-neutral98);
+    --md-color-sys-light-on-background: var(--md-color-ref-neutral-neutral10);
+    --md-color-sys-light-surface: var(--md-color-ref-neutral-neutral98);
+    --md-color-sys-light-on-surface: var(--md-color-ref-neutral-neutral10);
+    --md-color-sys-light-surface-variant: var(--md-color-ref-neutral-variant-neutral-variant90);
+    --md-color-sys-light-on-surface-variant: var(--md-color-ref-neutral-variant-neutral-variant30);
+    --md-color-sys-light-inverse-surface: var(--md-color-ref-neutral-neutral20);
+    --md-color-sys-light-inverse-on-surface: var(--md-color-ref-neutral-neutral95);
+    --md-color-sys-light-inverse-primary: var(--md-color-ref-primary-primary80);
+    --md-color-sys-light-shadow: var(--md-color-ref-neutral-neutral0);
+    --md-color-sys-light-surface-tin: var(--md-color-ref-primary-primary40);
+    --md-color-sys-light-outline-variant: var(--md-color-ref-neutral-variant-neutral-variant80);
+    --md-color-sys-light-scrim: var(--md-color-ref-neutral-neutral0);
+    --md-color-sys-light-surface-container-highest: var(--md-color-ref-neutral-neutral90);
+    --md-color-sys-light-surface-container-high: var(--md-color-ref-neutral-neutral92);
+    --md-color-sys-light-surface-container: var(--md-color-ref-neutral-neutral94);
+    --md-color-sys-light-surface-container-low: var(--md-color-ref-neutral-neutral96);
+    --md-color-sys-light-surface-container-lowest: var(--md-color-ref-neutral-neutral100);
+    --md-color-sys-light-surface-bright: var(--md-color-ref-neutral-neutral98);
+    --md-color-sys-light-surface-dim: var(--md-color-ref-neutral-neutral87);
+
+    --md-color-sys-dark-primary: var(--md-color-ref-primary-primary80);
+    --md-color-sys-dark-on-primary: var(--md-color-ref-primary-primary20);
+    --md-color-sys-dark-primary-container: var(--md-color-ref-primary-primary30);
+    --md-color-sys-dark-on-primary-container: var(--md-color-ref-primary-primary90);
+    --md-color-sys-dark-primary-fixed: var(--md-color-ref-primary-primary90);
+    --md-color-sys-dark-on-primary-fixed: var(--md-color-ref-primary-primary10);
+    --md-color-sys-dark-primary-fixed-dim: var(--md-color-ref-primary-primary80);
+    --md-color-sys-dark-on-primary-fixed-variant: var(--md-color-ref-primary-primary30);
+    --md-color-sys-dark-secondary: var(--md-color-ref-secondary-secondary80);
+    --md-color-sys-dark-on-secondary: var(--md-color-ref-secondary-secondary20);
+    --md-color-sys-dark-secondary-container: var(--md-color-ref-secondary-secondary30);
+    --md-color-sys-dark-on-secondary-container: var(--md-color-ref-secondary-secondary90);
+    --md-color-sys-dark-secondary-fixed: var(--md-color-ref-secondary-secondary90);
+    --md-color-sys-dark-on-secondary-fixed: var(--md-color-ref-secondary-secondary10);
+    --md-color-sys-dark-secondary-fixed-dim: var(--md-color-ref-secondary-secondary80);
+    --md-color-sys-dark-on-secondary-fixed-variant: var(--md-color-ref-secondary-secondary30);
+    --md-color-sys-dark-tertiary: var(--md-color-ref-tertiary-tertiary80);
+    --md-color-sys-dark-on-tertiary: var(--md-color-ref-tertiary-tertiary20);
+    --md-color-sys-dark-tertiary-container: var(--md-color-ref-tertiary-tertiary30);
+    --md-color-sys-dark-on-tertiary-container: var(--md-color-ref-tertiary-tertiary90);
+    --md-color-sys-dark-tertiary-fixed: var(--md-color-ref-tertiary-tertiary90);
+    --md-color-sys-dark-on-tertiary-fixed: var(--md-color-ref-tertiary-tertiary10);
+    --md-color-sys-dark-tertiary-fixed-dim: var(--md-color-ref-tertiary-tertiary80);
+    --md-color-sys-dark-on-tertiary-fixed-variant: var(--md-color-ref-tertiary-tertiary30);
+    --md-color-sys-dark-error: var(--md-color-ref-error-error80);
+    --md-color-sys-dark-on-error: var(--md-color-ref-error-error20);
+    --md-color-sys-dark-error-container: var(--md-color-ref-error-error30);
+    --md-color-sys-dark-on-error-container: var(--md-color-ref-error-error90);
+
+    --md-color-sys-dark-outline: var(--md-color-ref-neutral-variant-neutral-variant60);
+    --md-color-sys-dark-background: var(--md-color-ref-neutral-neutral6);
+    --md-color-sys-dark-on-background: var(--md-color-ref-neutral-neutral90);
+    --md-color-sys-dark-surface: var(--md-color-ref-neutral-neutral6);
+    --md-color-sys-dark-on-surface: var(--md-color-ref-neutral-neutral90);
+    --md-color-sys-dark-surface-variant: var(--md-color-ref-neutral-variant-neutral-variant30);
+    --md-color-sys-dark-on-surface-variant: var(--md-color-ref-neutral-variant-neutral-variant80);
+    --md-color-sys-dark-inverse-surface: var(--md-color-ref-neutral-neutral90);
+    --md-color-sys-dark-inverse-on-surface: var(--md-color-ref-neutral-neutral20);
+    --md-color-sys-dark-inverse-primary: var(--md-color-ref-primary-primary40);
+    --md-color-sys-dark-shadow: var(--md-color-ref-neutral-neutral0);
+    --md-color-sys-dark-surface-tin: var(--md-color-ref-primary-primary80);
+    --md-color-sys-dark-outline-variant: var(--md-color-ref-neutral-variant-neutral-variant30);
+    --md-color-sys-dark-scrim: var(--md-color-ref-neutral-neutral0);
+    --md-color-sys-dark-surface-container-highest: var(--md-color-ref-neutral-neutral22);
+    --md-color-sys-dark-surface-container-high: var(--md-color-ref-neutral-neutral17);
+    --md-color-sys-dark-surface-container: var(--md-color-ref-neutral-neutral12);
+    --md-color-sys-dark-surface-container-low: var(--md-color-ref-neutral-neutral10);
+    --md-color-sys-dark-surface-container-lowest: var(--md-color-ref-neutral-neutral4);
+    --md-color-sys-dark-surface-bright: var(--md-color-ref-neutral-neutral24);
+    --md-color-sys-dark-surface-dim: var(--md-color-ref-neutral-neutral6);
+
+    /* State Layers */
+    /* Light Theme */
+    /* On Primary */
+    --md-state-layers-light-on-primary-opacity-08: rgba(255, 255, 255, 0.08);
+    --md-state-layers-light-on-primary-opacity-10: rgba(255, 255, 255, 0.10);
+
+    /* Font Family */
+    --md-font-family: "Roboto", sans-serif;
+
+    /* Typography */
+
+    /* Text Display */
+    --md-text-display-large: 400 57px/64px var(--md-font-family);
+    --md-text-display-large-emphasized: 500 57px/64px var(--md-font-family);
+    --md-text-display-medium: 400 45px/52px var(--md-font-family);
+    --md-text-display-medium-emphasized: 500 45px/52px var(--md-font-family);
+    --md-text-display-small: 400 36px/44px var(--md-font-family);
+    --md-text-display-small-emphasized: 500 36px/44px var(--md-font-family);
+
+    /* Text Headline */
+    --md-text-headline-large: 400 32px/40px var(--md-font-family);
+    --md-text-headline-large-emphasized: 500 32px/40px var(--md-font-family);
+    --md-text-headline-medium: 400 28px/36px var(--md-font-family);
+    --md-text-headline-medium-emphasized: 500 28px/36px var(--md-font-family);
+    --md-text-headline-small: 400 24px/32px var(--md-font-family);
+    --md-text-headline-small-emphasized: 500 24px/32px var(--md-font-family);
+
+    /* Text Title */
+    --md-text-title-large: 400 22px/28px var(--md-font-family);
+    --md-text-title-large-emphasized: 500 22px/28px var(--md-font-family);
+    --md-text-title-medium: 500 16px/24px var(--md-font-family);
+    --md-text-title-medium-emphasized: 700 16px/24px var(--md-font-family);
+    --md-text-title-small: 500 14px/20px var(--md-font-family);
+    --md-text-title-small-emphasized: 700 14px/20px var(--md-font-family);
+
+    /* Text Label */
+    --md-text-label-large: 500 14px/20px var(--md-font-family);
+    --md-text-label-large-emphasized: 700 14px/20px var(--md-font-family);
+    --md-text-label-medium: 500 12px/16px var(--md-font-family);
+    --md-text-label-medium-emphasized: 700 12px/16px var(--md-font-family);
+    --md-text-label-small: 500 11px/16px var(--md-font-family);
+    --md-text-label-small-emphasized: 700 11px/16px var(--md-font-family);
+
+    /* Text Body */
+    --md-text-body-large: 400 16px/24px var(--md-font-family);
+    --md-text-body-large-emphasized: 500 16px/24px var(--md-font-family);
+    --md-text-body-medium: 400 14px/20px var(--md-font-family);
+    --md-text-body-medium-emphasized: 500 14px/20px var(--md-font-family);
+    --md-text-body-small: 400 12px/16px var(--md-font-family);
+    --md-text-body-small-emphasized: 500 12px/16px var(--md-font-family);
+
+    /* Letter spacing */
+    --md-text-display-large-letter-spacing: -.25px;
+    --md-text-display-medium-letter-spacing: 0;
+    --md-text-display-small-letter-spacing: 0;
+    --md-text-headline-large-letter-spacing: 0;
+    --md-text-headline-medium-letter-spacing: 0;
+    --md-text-headline-small-letter-spacing: 0;
+    --md-text-title-large-letter-spacing: 0;
+    --md-text-title-medium-letter-spacing: .15px;
+    --md-text-title-small-letter-spacing: .1px;
+    --md-text-label-large-letter-spacing: .1px;
+    --md-text-label-medium-letter-spacing: .5px;
+    --md-text-label-small-letter-spacing: .5px;
+    --md-text-body-large-letter-spacing: .5px;
+    --md-text-body-medium-letter-spacing: .25px;
+    --md-text-body-small-letter-spacing: .4px;
+
+    /* Material Design - Spacing - Increments of 4px */
+    --md-spacing: 4px;
+
+    --md-elevation-light-1-border-radius: 1rem;
+    --md-elevation-light-1-background-color: var(--md-color-sys-light-surface-container-low);
+    --md-elevation-light-1-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+
+    --md-elevation-light-2-border-radius: 1rem;
+    --md-elevation-light-2-background-color: var(--md-color-sys-light-surface-container);
+    --md-elevation-light-2-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+
+    --md-elevation-light-3-border-radius: 1rem;
+    --md-elevation-light-3-background-color: var(--md-color-sys-light-surface-container-high);
+    --md-elevation-light-3-box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+
+    --md-elevation-light-4-border-radius: 1rem;
+    --md-elevation-light-4-background-color: var(--md-color-sys-light-surface-container-high);
+    --md-elevation-light-4-box-shadow: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px 0 rgba(0, 0, 0, 0.30);
+
+    --md-elevation-light-5-border-radius: 1rem;
+    --md-elevation-light-5-background-color: var(--md-color-sys-light-surface-container-highest);
+    --md-elevation-light-5-box-shadow: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px 0 rgba(0, 0, 0, 0.30);
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: var(--md-font-family), sans-serif;
 }
 
 body {
-    background-color: #f2f2f2;
+    background-color: var(--md-color-sys-light-background);
+    color: var(--md-color-sys-light-on-background);
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -119,48 +337,144 @@ body {
 }
 
 .todo-container {
-    background-color: #fff;
+    background-color: var(--md-elevation-light-1-background-color);
     max-width: 500px;
     width: 100%;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: var(--md-elevation-light-1-border-radius);
+    box-shadow: var(--md-elevation-light-1-box-shadow);
 }
 
 .todo-container h1 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+    margin: 1rem 0 2.5rem 0;
+    color: var(--md-color-sys-light-on-surface);
+    font: var(--md-text-headline-large);
+    letter-spacing: var(--md-text-headline-large-letter-spacing);
 }
 
 #todo-form {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 20px;
 }
 
+
+#todo-input-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 0.25rem;
+    outline: 1px solid var(--md-color-sys-light-outline);
+    background-color: var(--md-color-sys-light-surface);
+}
+
+#todo-input-div:focus-within {
+    outline: 3px solid var(--md-color-sys-light-primary);
+}
+
+#todo-input-div:hover {
+    outline: 1px solid var(--md-color-sys-light-on-surface);
+}
+
+#todo-input-label {
+    display: flex;
+    padding: 0.25rem 0 0.25rem 1rem;
+    align-items: flex-start;
+    gap: 0.25rem;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
 #todo-input {
-    flex: 1 1 200px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-}
-
-#todo-form button {
-    padding: 10px 20px;
+    display: flex;
+    height: 3rem;
+    padding: 0.25rem 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 1 1 0;
     border: none;
-    background-color: #3498db;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
+
+    /* Input Text */
+    font: var(--md-text-body-large);
+    letter-spacing: var(--md-text-body-large-letter-spacing);
+    color: var(--md-color-sys-light-on-surface);
 }
 
-#todo-form button:hover {
-    background-color: #2980b9;
+#todo-input::placeholder {
+    font: var(--md-text-body-large);
+    letter-spacing: var(--md-text-body-large-letter-spacing);
+    color: var(--md-color-sys-light-on-surface-variant);
 }
+
+#todo-input:focus,
+#todo-input:active {
+    outline: none;
+    box-shadow: none;
+}
+
+#todo-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#todo-button-wrapper button {
+    display: flex;
+    padding: 1rem 1.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    border-radius: 1rem;
+    border: none;
+
+    background: var(--md-color-sys-light-primary);
+    font: var(--md-text-title-medium);
+    color: var(--md-color-sys-light-on-primary);
+    letter-spacing: var(--md-text-title-medium-letter-spacing);
+
+    position: relative;
+    overflow: hidden;
+}
+
+#todo-button-wrapper button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity .2s ease;
+    pointer-events: none;
+}
+
+
+#todo-button-wrapper button:hover::before {
+    opacity: 0.08;
+}
+
+#todo-button-wrapper button:focus-within::before {
+    opacity: 0.10;
+
+    width: calc(100% + 0.25rem);
+    height: calc(100% + 0.25rem);
+    top: -0.125rem;
+    left: -0.125rem;
+
+    border-radius: 1.125rem;
+    border: 3px solid var(--md-color-sys-light-secondary);
+}
+
+#todo-button-wrapper button:active::before {
+    opacity: 0.08;
+}
+
 
 #todo-list {
     list-style: none;
@@ -201,15 +515,94 @@ body {
     gap: 10px;
 }
 
-.todo-filters button,
+.todo-filters button {
+    display: flex;
+    height: 2rem;
+    padding: 0.375rem 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    border-radius: 0.5rem;
+    border: 1px solid var(--md-color-sys-light-outline-variant);
+
+    font: var(--md-text-label-large);
+    letter-spacing: var(--md-text-label-large-letter-spacing);
+    text-align: center;
+    color: var(--md-color-sys-light-on-surface-variant);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-filters button:hover {
+    background: var(--md-color-sys-light-surface);
+}
+
+.todo-filters button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity .2s ease;
+    pointer-events: none;
+}
+
+.todo-filters button:hover::before {
+    opacity: 0.08;
+}
+
+.todo-filters button:focus-within {
+    background: var(--md-color-sys-light-surface);
+}
+
+.todo-filters button:focus-within::before {
+    opacity: 0.10;
+
+    width: calc(100% + 0.25rem);
+    height: calc(100% + 0.25rem);
+    top: -0.125rem;
+    left: -0.125rem;
+
+    border-radius: 0.625rem;
+    border: 3px solid var(--md-color-sys-light-secondary);
+}
+
+#todo-button-wrapper button:active::before {
+    opacity: 0.10;
+}
+
 .clear-completed button {
-    flex: 1 1 auto;
-    padding: 8px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.375rem 0.75rem;
+    gap: 0.25rem;
+
+    border-radius: 6.25rem;
+    background: var(--md-color-sys-light-secondary-container);
+
+    font: var(--md-text-label-large);
+    letter-spacing: var(--md-text-label-large-letter-spacing);
+    color: var(--md-color-sys-light-on-secondary-container);
+
     border: none;
-    background-color: #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
+}
+
+.clear-completed button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: var(--md-color-sys-light-on-secondary-container);
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin-bottom: 1.5rem;
 }
 
 .todo-filters button.active {

@@ -4,24 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo List App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
   <div class="todo-container">
     <h1>My Todo List</h1>
+
     <form id="todo-form">
-      <label for="todo-input">
-        <input type="text" id="todo-input" placeholder="Add a new task..." required />
-      </label>
-      <button type="submit">Add Task</button>
+      <div id="todo-input-div">
+        <label id="todo-input-label" for="todo-input">
+          <input type="text" id="todo-input" placeholder="Add a new task..." required />
+        </label>
+      </div>
+      <div id="todo-button-wrapper">
+        <button type="submit">Add Task</button>
+      </div>
     </form>
-    <div class="todo-filters">
-      <button type="button" id="filter-all">All</button>
-      <button type="button" id="filter-active">Active</button>
-      <button type="button" id="filter-completed">Completed</button>
-    </div>
-    <div class="clear-completed">
-      <button type="button" id="clear-completed">Clear Completed</button>
+    <div class="filters-container">
+      <div class="todo-filters">
+        <button type="button" id="filter-all">All</button>
+        <button type="button" id="filter-active">Active</button>
+        <button type="button" id="filter-completed">Completed</button>
+      </div>
+      <div class="clear-completed">
+        <button type="button" id="clear-completed">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#e3e3e3"><path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z"/></svg>
+          Clear Completed
+        </button>
+      </div>
     </div>
 
     <ul id="todo-list"></ul>
