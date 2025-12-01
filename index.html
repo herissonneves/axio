@@ -3,42 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple and efficient todo list app to manage your daily tasks">
+  <meta name="theme-color" content="#6750A4">
   <title>Todo List App</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-  <div class="todo-container">
+  <main class="todo-container">
     <h1>My Todo List</h1>
-
     <form id="todo-form">
       <div id="todo-input-div">
-        <label id="todo-input-label" for="todo-input">
+        <div id="todo-input-layout">
+          <label id="todo-input-label" for="todo-input" class="visually-hidden">Task description</label>
           <input type="text" id="todo-input" placeholder="Add a new task..." required />
-        </label>
+        </div>
       </div>
       <div id="todo-button-wrapper">
         <button type="submit">Add Task</button>
       </div>
     </form>
-    <div class="filters-container">
-      <div class="todo-filters">
-        <button type="button" id="filter-all">All</button>
-        <button type="button" id="filter-active">Active</button>
-        <button type="button" id="filter-completed">Completed</button>
-      </div>
+    <section class="filters-container">
+      <nav class="todo-filters" role="navigation" aria-label="Task filters">
+        <button type="button" id="filter-all" aria-pressed="true">All</button>
+        <button type="button" id="filter-active" aria-pressed="false">Active</button>
+        <button type="button" id="filter-completed" aria-pressed="false">Completed</button>
+      </nav>
       <div class="clear-completed">
-        <button type="button" id="clear-completed">
-          <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#e3e3e3"><path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z"/></svg>
+        <button type="button" id="clear-completed" aria-label="Clear all completed tasks">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#e3e3e3" aria-hidden="true"><path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z"/></svg>
           Clear Completed
         </button>
       </div>
-    </div>
+    </section>
 
-    <ul id="todo-list"></ul>
-  </div>
+    <ul id="todo-list" aria-live="polite" aria-label="Task list"></ul>
+  </main>
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>

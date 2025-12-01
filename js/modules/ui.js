@@ -13,11 +13,25 @@ export function renderTasks(filter = 'all') {
     }).forEach(task => {
       const li = document.createElement('li');
       li.setAttribute("data-id", task.id);
-      if (task.completed) li.classList.add('completed');
+
+      const itemDiv = document.createElement('div');
+      itemDiv.classList.add('todo-item');
+
+      const checkbox = document.createElement('input');
+      checkbox.setAttribute('type', 'checkbox');
+      checkbox.checked = task.completed;
+      checkbox.addEventListener('change', () => {
+        toggleTask(task.id);
+        renderTasks(filter);
+      });
 
       const span = document.createElement('span');
       span.textContent = task.text;
       if (task.completed) span.classList.add('completed');
+
+
+      if (task.completed) li.classList.add('completed');
+
 
       span.addEventListener('click', () => {
         toggleTask(task.id);
@@ -25,7 +39,6 @@ export function renderTasks(filter = 'all') {
       });
 
       const removeBtn = document.createElement('button');
-
       removeBtn.classList.add('remove-btn');
       removeBtn.setAttribute('aria-label', 'Remove task');
 
@@ -36,7 +49,6 @@ export function renderTasks(filter = 'all') {
       svg.setAttribute("width", "1.5rem");
       svg.setAttribute("viewBox", "0 -960 960 960");
       svg.setAttribute("fill", "#e3e3e3");
-
       const path = document.createElementNS(svgns, "path");
       path.setAttribute("d",
           "m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
@@ -50,7 +62,8 @@ export function renderTasks(filter = 'all') {
         renderTasks(filter);
       });
 
-      li.append(span, removeBtn);
+      li.append(checkbox, span, removeBtn);
+      li.appendChild(itemDiv);
       listElement.appendChild(li);
     });
 }
