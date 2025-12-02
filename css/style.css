@@ -305,7 +305,6 @@
     --md-sys-color-dark-mc-surface-container-high: rgb(52 50 49);
     --md-sys-color-dark-mc-surface-container-highest: rgb(63 61 60);
 
-
     /* Font Family */
     --md-font-family: "Roboto", sans-serif;
 
@@ -564,29 +563,46 @@ body {
 
 #todo-list {
     display: flex;
-    width: 100%;
+    width: 22.5rem;
     flex-direction: column;
     align-items: flex-start;
-
+    background: var(--md-sys-color-light-surface);
+    justify-self: center;
     /*list-style: none;*/
     /*padding: 0;*/
 }
 
 #todo-list li {
     display: flex;
-    align-items: center;
+    width: 22.5rem;
+    height: 3.5rem;
     min-height: 3.5rem;
     justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    background: var(--md-sys-color-light-surface);
+
     padding: 0.5rem 1rem;
     gap: 1rem;
     flex: 1 0 0;
-    align-self: stretch;
-    background: var(--md-sys-color-light-surface);
 }
 
 #todo-list li.completed span {
     text-decoration: line-through;
     opacity: 0.6;
+}
+
+#todo-list li span {
+    display: flex;
+    justify-content: center;
+    flex: 1 0 0;
+
+    align-self: center;
+
+    color: var(--md-sys-color-light-on-surface);
+    font: var(--md-text-body-large);
+    letter-spacing: var(--md-text-body-large-letter-spacing);
+
 }
 
 #todo-list li div.leading-element {
@@ -595,12 +611,52 @@ body {
     align-items: center;
 }
 
+#todo-list li div.leading-element div.checkboxes {
+    display: flex;
+    padding: 0.25rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#todo-list li div.leading-element div.checkboxes div.state-layer {
+    display: flex;
+    padding: 0.6875rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6.25rem;
+}
+
+#todo-list li div.leading-element div.checkboxes div.state-layer input[type="checkbox"] {
+    width: 1.125rem;
+    height: 1.125rem;
+
+    border-radius: 0.125rem;
+    border: 2px solid var(--md-sys-color-light-on-surface-variant);
+    cursor: pointer;
+}
+
+#todo-list li div.leading-element div.checkboxes div.state-layer input[type="checkbox"]::before {
+    width: 0.75rem;
+    height: 0.5875rem;
+    background-color: var(--md-sys-color-light-on-primary);
+    transition: transform 0.1s ease-in-out;
+}
+
+#todo-list li div.leading-element div.checkboxes div.state-layer input[type="checkbox"]:checked {
+    background-color: var(--md-sys-color-light-primary);
+    border-radius: 0.125rem;
+    border: none;
+}
+
 .remove-btn {
     display: flex;
     align-items: center;
     width: 1.5rem;
     height: 1.5rem;
     gap: 0.625rem;
+    border: none;
+    background: none;
 }
 
 .remove-btn svg {
