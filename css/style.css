@@ -485,17 +485,6 @@ body {
     outline: 3px solid var(--md-sys-color-light-primary);
 }
 
-
-#todo-input-layout {
-    display: flex;
-    padding: 0.25rem 0 0.25rem 1rem;
-    align-items: flex-start;
-    gap: 0.25rem;
-    flex: 1 0 0;
-    align-self: stretch;
-    border-radius: 0.25rem 0.25rem 0 0;
-}
-
 .todo-form__input {
     height: 3rem;
     padding: 0.25rem 1rem;
