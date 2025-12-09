@@ -1,0 +1,71 @@
+/* ------------------------------ */
+/* Page Wrapper */
+/* ------------------------------ */
+
+.todo-page {
+    max-width: 34.5rem;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+
+    overflow: hidden;
+}
+
+.todo-page__title,
+.todo-page__form,
+.todo-page__filters,
+.todo-clear {
+    flex-shrink: 0;
+}
+
+/* ------------------------------ */
+/* Scrollable List */
+/* ------------------------------ */
+
+.todo-page__list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    list-style: none;
+
+    background: var(--md-sys-color-surface);
+    width: 34.5rem;
+    padding-right: 0.25rem;
+}
+
+.todo-page__filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+    .todo-page {
+        padding: 15px;
+    }
+
+    .todo-form {
+        flex-direction: column;
+    }
+
+    .todo-form__button {
+        width: 100%;
+    }
+
+    .todo-filters,
+    .todo-clear {
+        flex-direction: column;
+    }
+}

@@ -40,6 +40,7 @@ export function renderTasks(filter = 'all') {
       checkbox.type = "checkbox";
 
       checkbox.classList.add("todo-item__checkbox");
+      checkbox.setAttribute("aria-label", "Mark task as completed");
       checkbox.checked = task.completed;
 
       checkbox.addEventListener("change", () => {
