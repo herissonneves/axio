@@ -109,33 +109,74 @@
 /* TODO ITEM */
 /* ------------------------------ */
 
-.todo-item {
+.todo-item__container {
     display: flex;
-    align-items: center;
-    width: 100%;
-    min-height: 3.5rem;
-    padding: 0.5rem 1rem;
-    gap: 1rem;
+    min-height: 3rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    border-radius: 0.25rem;
 }
 
+.todo-item {
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*width: 100%;*/
+    /*min-height: 3rem;*/
+    /*padding: 0.625rem 1rem;*/
+    /*gap: 0.75rem;*/
+    /*border-radius: 0.75rem;*/
+    position: relative;
+    display: flex;
+    padding: 0.625rem 1rem;
+    align-items: center;
+    gap: 0.75rem;
+    align-self: stretch;
+    border-radius: 0.75rem;
+}
+
+.todo-item::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* cobre 100% do li */
+
+    background: #1d1b20;
+    opacity: 0; /* invisível inicialmente */
+
+    pointer-events: none; /* não bloqueia clique no checkbox */
+
+    transition: opacity .15s ease;
+    border-radius: 0.75rem;
+}
+
+.todo-item:hover::before {
+    opacity: 0.08; /* overlay visível */
+}
+
+
 .todo-item__text {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    min-height: 2rem;
+    flex: 1 0 0;
     color: var(--md-sys-color-on-surface);
     font: var(--md-text-body-large);
     letter-spacing: var(--md-text-body-large-letter-spacing);
 }
 
-/* Checkbox */
-
-.todo-item__checkbox-wrapper {
+.todo-item__checkbox-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0.25rem 0.25rem 0.25rem 0;
+    gap: 0.5rem;
 }
 
-.todo-item__checkbox-layer {
+.todo-item__checkbox-inner-container {
     display: flex;
     padding: 0.6875rem;
     justify-content: center;
@@ -143,19 +184,105 @@
     border-radius: 6.25rem;
 }
 
-.todo-item__checkbox {
-    width: 1.125rem;
-    height: 1.125rem;
-    border-radius: 0.125rem;
-    border: 2px solid var(--md-sys-color-on-surface-variant);
-    cursor: pointer;
+/* Checkbox */
+
+/* Wrapper mantém espaçamento, mas não prejudica o layout */
+.todo-item__checkbox-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
 }
 
+/* A área visual do checkbox */
+.todo-item__checkbox-layer {
+    position: relative;
 
-.todo-item__checkbox:checked {
+    /*width: 1.125rem;*/
+    /*height: 1.125rem;*/
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6875rem;
+    border-radius: 6.25rem;
+    z-index: 1;
+}
+
+/* Caixa do checkbox */
+.todo-item__checkbox-layer::before {
+    content: "";
+    position: absolute;
+
+    width: 1.125rem;
+    height: 1.125rem;
+
+    /*width: 100%;*/
+    /*height: 100%;*/
+
+    border-radius: 0.125rem;
+    border: 2px solid var(--md-sys-color-on-surface-variant);
+
+    background: transparent;
+
+    transition: background .15s ease, border-color .15s ease;
+}
+
+/* SVG checkmark */
+.todo-item__checkbox-icon {
+    width: 0.75rem;
+    height: 0.5875rem;
+
+    display: block;
+    position: relative;
+
+    pointer-events: none;
+    z-index: 2;
+}
+
+.todo-item__checkbox-check {
+    fill: var(--md-sys-color-on-primary);
+
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform .15s ease;
+}
+
+/* Input invisível clicável */
+.todo-item__checkbox {
+    position: absolute;
+    inset: 0;
+
+    width: 1.125rem;
+    height: 1.125rem;
+
+    cursor: pointer;
+    opacity: 0;
+    z-index: 3;
+}
+
+/* Checked state */
+.todo-item__checkbox:checked + .todo-item__checkbox-layer::before {
     background: var(--md-sys-color-primary);
-    color: var(--md-sys-color-on-primary);
-    border: none;
+    border-color: var(--md-sys-color-primary);
+}
+
+/* Check aparece */
+.todo-item__checkbox:checked + .todo-item__checkbox-layer .todo-item__checkbox-check {
+    transform: scale(1);
+}
+
+/* Hover */
+.todo-item__checkbox:hover + .todo-item__checkbox-layer::before {
+    border-color: var(--md-sys-color-on-surface);
+}
+
+/* Focus acessível */
+.todo-item__checkbox:focus-visible + .todo-item__checkbox-layer::before {
+    outline: 3px solid var(--md-sys-color-primary);
+    outline-offset: 3px;
 }
 
 /* Item options */

@@ -15,9 +15,13 @@ export function renderTasks(filter = 'all') {
       /* -----------------------------
        * LIST ITEM (todo-item)
        * ----------------------------- */
+
       const li = document.createElement('li');
-      li.classList.add("todo-item");
+      li.classList.add("todo-item__container");
       li.dataset.id = task.id;
+
+      const div = document.createElement('div');
+      div.classList.add("todo-item");
 
       if (task.completed) {
         li.classList.add("todo-item--completed");
@@ -30,6 +34,12 @@ export function renderTasks(filter = 'all') {
       * └── todo-item__checkbox-layer
       *     └── todo-item__checkbox
       * ----------------------------- */
+      const checkboxContainer = document.createElement("div");
+      checkboxContainer.classList.add("todo-item__checkbox-container");
+
+      const checkboxInnerContainer = document.createElement("div");
+      checkboxInnerContainer.classList.add("todo-item__checkbox-inner-container");
+
       const checkboxWrapper = document.createElement("div");
       checkboxWrapper.classList.add("todo-item__checkbox-wrapper");
 
@@ -48,9 +58,27 @@ export function renderTasks(filter = 'all') {
         renderTasks(filter);
       });
 
-      checkboxLayer.appendChild(checkbox);
+      const svgns = "http://www.w3.org/2000/svg";
+      const checkIcon = document.createElementNS(svgns, "svg");
+      checkIcon.setAttribute("width", "12");
+      checkIcon.setAttribute("height", "10");
+      checkIcon.setAttribute("viewBox", "0 0 12 10");
+      checkIcon.classList.add("todo-item__checkbox-icon");
+
+      const checkIconPath = document.createElementNS(svgns, "path");
+      checkIconPath.setAttribute("d", "M4 9.4L0 5.4L1.4 4L4 6.6L10.6 0L12 1.4L4 9.4Z");
+      // checkIconPath.setAttribute("fill", "white");
+      checkIconPath.classList.add("todo-item__checkbox-check");
+
+      checkIcon.appendChild(checkIconPath);
+
+      checkboxLayer.appendChild(checkIcon);
+      checkboxWrapper.append(checkbox);
       checkboxWrapper.appendChild(checkboxLayer);
 
+      checkboxInnerContainer.appendChild(checkboxWrapper);
+
+      checkboxContainer.appendChild(checkboxInnerContainer);
       /* -----------------------------
        * TEXT SPAN (todo-item__text)
        * ----------------------------- */
@@ -71,7 +99,6 @@ export function renderTasks(filter = 'all') {
       optionsBtn.setAttribute("aria-label", "Task options");
 
       // SVG icon
-      const svgns = "http://www.w3.org/2000/svg";
       const svg = document.createElementNS(svgns, "svg");
       svg.setAttribute("height", "16");
       svg.setAttribute("width", "4");
@@ -94,7 +121,9 @@ export function renderTasks(filter = 'all') {
       /* -----------------------------
        * APPEND FINAL STRUCTURE
        * ----------------------------- */
-      li.append(checkboxWrapper, span, optionsBtn);
+
+      div.append(checkboxContainer, span, optionsBtn);
+      li.appendChild(div);
       listElement.appendChild(li);
     });
 }
