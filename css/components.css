@@ -112,7 +112,9 @@
 .todo-item__container {
     display: flex;
     min-height: 3rem;
+    width: 100%;
     flex-direction: column;
+    flex: 0 0 auto;
     justify-content: center;
     align-items: flex-start;
     align-self: stretch;
@@ -314,7 +316,6 @@
     height: 3rem;
     justify-content: center;
     align-items: center;
-    gap: -0.0625rem;
 }
 
 .todo-filters__button-wrapper {
@@ -325,6 +326,12 @@
     align-items: center;
     flex: 1 0 0;
 }
+
+.todo-filters__button-wrapper:nth-child(2) {
+    margin-left: -1px;
+    margin-right: -1px;
+}
+
 
 .todo-filters__button-wrapper:first-child > button  {
     display: flex;
@@ -386,6 +393,28 @@
     letter-spacing: var(--md-text-label-large-letter-spacing);
     color: var(--md-sys-color-on-surface);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-filters__button-wrapper > button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity .2s ease;
+    pointer-events: none;
+}
+
+.todo-filters__button-wrapper > button:hover::before {
+    background: #1d1b20;
+    opacity: 0.08;
+}
+
+.todo-filters__button-wrapper > button:focus-visible::before {
+    background: #1d1b20;
+    opacity: 0.10;
 }
 
 .todo-filters__button-wrapper:first-child > .todo-filters__button--active {
@@ -474,4 +503,3 @@
     opacity: 0.10;
     background: var(--md-sys-color-on-surface-variant);
 }
-
