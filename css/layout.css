@@ -39,6 +39,23 @@
     background: var(--md-sys-color-surface);
     width: 34.5rem;
     padding-right: 0.25rem;
+
+    scrollbar-color: var(--md-sys-color-outline-variant) var(--md-sys-color-surface);
+    scrollbar-width: thin;
+}
+
+.todo-page__list::-webkit-scrollbar-track {
+    background: var(--md-sys-color-surface);
+}
+
+.todo-page__list::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline-variant);
+    border-radius: 999px;
+    border: 2px solid var(--md-sys-color-surface);
+}
+
+.todo-page__list::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-on-surface-variant);
 }
 
 .todo-page__filters {

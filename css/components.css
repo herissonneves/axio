@@ -255,10 +255,13 @@
 /* Input invisível clicável */
 .todo-item__checkbox {
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-    width: 1.125rem;
-    height: 1.125rem;
+    /* Match the padded visual layer size so the hitbox aligns */
+    width: 2.5rem;
+    height: 2.5rem;
 
     cursor: pointer;
     opacity: 0;
