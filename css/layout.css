@@ -1,0 +1,91 @@
+/* Layout: page shell, scrolling list, and responsive adjustments. */
+
+/* ------------------------------ */
+/* Page Wrapper */
+/* ------------------------------ */
+
+.todo-page {
+    max-width: 34.5rem;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+
+    overflow: hidden;
+}
+
+.todo-page__title,
+.todo-page__form,
+.todo-page__filters,
+.todo-clear {
+    flex-shrink: 0;
+}
+
+/* ------------------------------ */
+/* Scrollable List */
+/* ------------------------------ */
+
+.todo-page__list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    list-style: none;
+
+    background: var(--md-sys-color-surface);
+    width: 100%;
+    padding-right: 0.25rem;
+
+    scrollbar-color: var(--md-sys-color-outline-variant) var(--md-sys-color-surface);
+    scrollbar-width: thin;
+}
+
+.todo-page__list::-webkit-scrollbar-track {
+    background: var(--md-sys-color-surface);
+}
+
+.todo-page__list::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline-variant);
+    border-radius: 999px;
+    border: 2px solid var(--md-sys-color-surface);
+}
+
+.todo-page__list::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-on-surface-variant);
+}
+
+.todo-page__filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+    .todo-page {
+        padding: 15px;
+    }
+
+    .todo-form {
+        flex-direction: column;
+    }
+
+    .todo-form__button {
+        width: 100%;
+    }
+
+    .todo-filters,
+    .todo-clear {
+        flex-direction: column;
+    }
+}

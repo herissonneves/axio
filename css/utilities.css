@@ -1,0 +1,11 @@
+/* Utility helpers: quick flex centering and forced hiding. */
+
+.u-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.u-hidden {
+    display: none !important;
+}
