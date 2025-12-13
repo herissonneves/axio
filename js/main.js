@@ -1,58 +1,81 @@
-import {addTask, clearCompleted} from "./modules/todo.js";
-import {renderTasks} from "./modules/ui.js";
+import { addTask, clearCompleted } from "./modules/todo.js";
+import { renderTasks } from "./modules/ui.js";
 
-document.documentElement.setAttribute("data-theme", "light");
-
+/**
+ * App entry: wires form submission, filters, and clear controls.
+ */
 document.addEventListener("DOMContentLoaded", () => {
-  renderTasks();
+  const DEFAULT_THEME = "light";
+  document.documentElement.dataset.theme = DEFAULT_THEME;
 
   const form = document.getElementById("todo-form");
   const input = document.getElementById("todo-input");
-  const btnClear = document.getElementById('clear-completed');
-
+  const btnClear = document.getElementById("clear-completed");
   const filterButtons = document.querySelectorAll(".todo-filters__button");
 
-  /* ------------------------- */
-  /* SET ACTIVE FILTER BUTTON  */
+  const FILTER_MAP = {
+    "filter-all": "all",
+    "filter-active": "active",
+    "filter-completed": "completed",
+  };
 
-  /* ------------------------- */
-  function setActiveFilter(activeButtonId) {
-    const buttons = document.querySelectorAll(".todo-filters__button");
+  const SVG_NS = "http://www.w3.org/2000/svg";
 
-    buttons.forEach((btn) => {
-      btn.classList.remove("todo-filters__button--active");
-      btn.setAttribute("aria-pressed", "false");
-
-      const existingIcon = btn.querySelector(".todo-filters__button__icon-wrapper");
-      if (existingIcon) existingIcon.remove();
-    })
-
-    const activeButton = document.getElementById(activeButtonId);
-    activeButton.classList.add("todo-filters__button--active");
-    activeButton.setAttribute("aria-pressed", "true");
-
-    const checkIconDiv = document.createElement("div");
-    checkIconDiv.classList.add("todo-filters__button__icon-wrapper");
-
-    const svgns = "http://www.w3.org/2000/svg";
-    const icon = document.createElementNS(svgns, "svg");
+  const renderFilterIcon = () => {
+    const icon = document.createElementNS(SVG_NS, "svg");
     icon.setAttribute("width", "13");
     icon.setAttribute("height", "10");
     icon.setAttribute("viewBox", "0 0 13 10");
     icon.classList.add("todo-filters__check-icon");
 
-    const path = document.createElementNS(svgns, "path");
-    path.setAttribute("d", "M4.275 9.01875L0 4.74375L1.06875 3.675L4.275 6.88125L11.1563 0L12.225 1.06875L4.275 9.01875Z");
+    const path = document.createElementNS(SVG_NS, "path");
+    path.setAttribute(
+      "d",
+      "M4.275 9.01875L0 4.74375L1.06875 3.675L4.275 6.88125L11.1563 0L12.225 1.06875L4.275 9.01875Z"
+    );
 
-    icon.appendChild(path);
-    checkIconDiv.appendChild(icon);
+    icon.append(path);
+    return icon;
+  };
 
-    activeButton.prepend(checkIconDiv);
-  }
+  /**
+   * Toggle active filter button styles and assistive states.
+   */
+  const setActiveFilter = (activeButtonId) => {
+    filterButtons.forEach((btn) => {
+      const isActive = btn.id === activeButtonId;
+      btn.classList.toggle("todo-filters__button--active", isActive);
+      btn.setAttribute("aria-pressed", String(isActive));
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const text = input.value.trim();
+      btn.querySelector(".todo-filters__button__icon-wrapper")?.remove();
+
+      if (isActive) {
+        const iconWrapper = document.createElement("div");
+        iconWrapper.classList.add("todo-filters__button__icon-wrapper");
+        iconWrapper.append(renderFilterIcon());
+        btn.prepend(iconWrapper);
+      }
+    });
+  };
+
+  /**
+   * Handle filter selection.
+   */
+  const handleFilterClick = (event) => {
+    const { id } = event.currentTarget;
+    const filter = FILTER_MAP[id];
+    if (!filter) return;
+
+    setActiveFilter(id);
+    renderTasks(filter);
+  };
+
+  renderTasks();
+  setActiveFilter("filter-all");
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const text = input?.value.trim();
     if (!text) return;
 
     addTask(text);
@@ -62,22 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
     input.focus();
   });
 
-  document.getElementById("filter-all").addEventListener("click", () => {
-    setActiveFilter("filter-all");
-    renderTasks("all");
-  });
+  filterButtons.forEach((button) =>
+    button.addEventListener("click", handleFilterClick)
+  );
 
-  document.getElementById("filter-active").addEventListener("click", () => {
-    setActiveFilter("filter-active");
-    renderTasks("active");
-  });
-
-  document.getElementById("filter-completed").addEventListener("click", () => {
-    setActiveFilter("filter-completed");
-    renderTasks("completed");
-  });
-
-  btnClear.addEventListener('click', () => {
+  btnClear?.addEventListener("click", () => {
     clearCompleted();
     renderTasks();
     btnClear.blur();
