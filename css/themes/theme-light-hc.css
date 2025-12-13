@@ -1,3 +1,4 @@
+/* Light high-contrast: maximizes contrast with darker outlines and lighter surfaces for accessibility. */
 :root[data-theme="light-high-contrast"] {
   --md-sys-color-primary: rgb(0 51 39);
   --md-sys-color-surface-tint: rgb(0 107 85);

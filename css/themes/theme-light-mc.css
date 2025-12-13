@@ -1,3 +1,4 @@
+/* Light medium-contrast: raises contrast over default while keeping a gentle palette. */
 :root[data-theme="light-medium-contrast"] {
   --md-sys-color-primary: rgb(0 62 49);
   --md-sys-color-surface-tint: rgb(0 107 85);

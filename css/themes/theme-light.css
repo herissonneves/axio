@@ -1,3 +1,4 @@
+/* Light theme: default Material 3 palette with balanced contrast for general use. */
 :root[data-theme="light"] {
   --md-sys-color-primary: #126B56;
   --md-sys-color-surface-tint: #126B56;

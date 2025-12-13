@@ -1,4 +1,10 @@
-/* ===== THEMES ===== */
+/* Main stylesheet orchestrator.
+ * Load order matters: themes define tokens, base sets globals/resets,
+ * layout shapes page scaffolding, components style UI pieces,
+ * utilities provide helpers/one-offs.
+ */
+
+/* Theme tokens (light/dark, high/medium contrast) */
 @import "./themes/theme-light.css";
 @import "./themes/theme-dark.css";
 @import "./themes/theme-light-mc.css";
@@ -6,14 +12,14 @@
 @import "./themes/theme-dark-mc.css";
 @import "./themes/theme-dark-hc.css";
 
-/* ===== BASE ===== */
+/* Global reset, typography, and shared tokens */
 @import "./base.css";
 
-/* ===== LAYOUT ===== */
+/* Page layout and scrollable regions */
 @import "./layout.css";
 
-/* ===== COMPONENTS ===== */
+/* Individual UI components (cards, todo items, controls) */
 @import "./components.css";
 
-/* ===== UTILITIES ===== */
+/* Small utility helpers (e.g., visually-hidden) */
 @import "./utilities.css";

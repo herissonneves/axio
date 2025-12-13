@@ -1,3 +1,4 @@
+/* Dark theme: default low-light palette with balanced contrast on dark surfaces. */
 :root[data-theme="dark"] {
   --md-sys-color-primary: rgb(119 216 186);
   --md-sys-color-surface-tint: rgb(119 216 186);

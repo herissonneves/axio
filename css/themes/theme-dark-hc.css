@@ -1,3 +1,4 @@
+/* Dark high-contrast: highest contrast variant for maximum readability on dark UI. */
 :root[data-theme="dark-high-contrast"] {
   --md-sys-color-primary: rgb(181 255 229);
   --md-sys-color-surface-tint: rgb(119 216 186);
