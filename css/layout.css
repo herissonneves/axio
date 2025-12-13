@@ -1,3 +1,5 @@
+/* Layout: page shell, scrolling list, and responsive adjustments. */
+
 /* ------------------------------ */
 /* Page Wrapper */
 /* ------------------------------ */
@@ -37,7 +39,7 @@
     list-style: none;
 
     background: var(--md-sys-color-surface);
-    width: 34.5rem;
+    width: 100%;
     padding-right: 0.25rem;
 
     scrollbar-color: var(--md-sys-color-outline-variant) var(--md-sys-color-surface);

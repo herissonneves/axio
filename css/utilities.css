@@ -1,4 +1,4 @@
-/* Utility helpers */
+/* Utility helpers: quick flex centering and forced hiding. */
 
 .u-flex-center {
     display: flex;

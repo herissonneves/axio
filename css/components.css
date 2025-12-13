@@ -1,3 +1,5 @@
+/* Component styles: page header, form controls, todo items, filters, and actions. */
+
 .todo-page__title {
     text-align: center;
     margin: 1rem 0 2.5rem 0;
@@ -122,13 +124,6 @@
 }
 
 .todo-item {
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*width: 100%;*/
-    /*min-height: 3rem;*/
-    /*padding: 0.625rem 1rem;*/
-    /*gap: 0.75rem;*/
-    /*border-radius: 0.75rem;*/
     position: relative;
     display: flex;
     padding: 0.625rem 1rem;
@@ -141,21 +136,20 @@
 .todo-item::before {
     content: "";
     position: absolute;
-    inset: 0; /* cobre 100% do li */
+    inset: 0; /* cover the entire list item */
 
     background: #1d1b20;
-    opacity: 0; /* invisível inicialmente */
+    opacity: 0; /* hidden by default */
 
-    pointer-events: none; /* não bloqueia clique no checkbox */
+    pointer-events: none; /* do not block checkbox clicks */
 
     transition: opacity .15s ease;
     border-radius: 0.75rem;
 }
 
 .todo-item:hover::before {
-    opacity: 0.08; /* overlay visível */
+    opacity: 0.08; /* overlay visible */
 }
-
 
 .todo-item__text {
     display: flex;
@@ -188,7 +182,7 @@
 
 /* Checkbox */
 
-/* Wrapper mantém espaçamento, mas não prejudica o layout */
+/* Wrapper keeps spacing without breaking layout */
 .todo-item__checkbox-wrapper {
     position: relative;
     display: flex;
@@ -198,12 +192,9 @@
     padding: 0.25rem;
 }
 
-/* A área visual do checkbox */
+/* Visual checkbox layer */
 .todo-item__checkbox-layer {
     position: relative;
-
-    /*width: 1.125rem;*/
-    /*height: 1.125rem;*/
 
     display: flex;
     align-items: center;
@@ -213,16 +204,13 @@
     z-index: 1;
 }
 
-/* Caixa do checkbox */
+/* Checkbox box */
 .todo-item__checkbox-layer::before {
     content: "";
     position: absolute;
 
     width: 1.125rem;
     height: 1.125rem;
-
-    /*width: 100%;*/
-    /*height: 100%;*/
 
     border-radius: 0.125rem;
     border: 2px solid var(--md-sys-color-on-surface-variant);
@@ -252,7 +240,7 @@
     transition: transform .15s ease;
 }
 
-/* Input invisível clicável */
+/* Invisible input spanning the visual checkbox */
 .todo-item__checkbox {
     position: absolute;
     top: 50%;
@@ -274,7 +262,7 @@
     border-color: var(--md-sys-color-primary);
 }
 
-/* Check aparece */
+/* Checkmark appears */
 .todo-item__checkbox:checked + .todo-item__checkbox-layer .todo-item__checkbox-check {
     transform: scale(1);
 }
@@ -284,7 +272,7 @@
     border-color: var(--md-sys-color-on-surface);
 }
 
-/* Focus acessível */
+/* Accessible focus outline */
 .todo-item__checkbox:focus-visible + .todo-item__checkbox-layer::before {
     outline: 3px solid var(--md-sys-color-primary);
     outline-offset: 3px;
@@ -334,7 +322,6 @@
     margin-left: -1px;
     margin-right: -1px;
 }
-
 
 .todo-filters__button-wrapper:first-child > button  {
     display: flex;
@@ -418,16 +405,6 @@
 .todo-filters__button-wrapper > button:focus-visible::before {
     background: #1d1b20;
     opacity: 0.10;
-}
-
-.todo-filters__button-wrapper:first-child > .todo-filters__button--active {
-    background: var(--md-sys-color-secondary-container);
-    color: var(--md-sys-color-on-secondary-container);
-}
-
-.todo-filters__button-wrapper:last-child > .todo-filters__button--active {
-    background: var(--md-sys-color-secondary-container);
-    color: var(--md-sys-color-on-secondary-container);
 }
 
 .todo-filters__button-wrapper > .todo-filters__button--active {
