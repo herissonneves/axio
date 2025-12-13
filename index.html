@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Meta and document setup -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="A simple and efficient todo list app to manage your daily tasks" />
   <meta name="theme-color" content="#6750A4" />
   <title>Todo List App</title>
   
+  <!-- Fonts and main stylesheet -->
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link href="https://fonts.gstatic.com" crossorigin rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -16,9 +18,10 @@
 <body>
 <main class="todo-page">
   
+  <!-- App title -->
   <h1 class="todo-page__title">My Todo List</h1>
   
-  <!--  Form Block -->
+  <!-- Task creation form -->
   <form id="todo-form" class="todo-page__form todo-form">
     
     <div class="todo-form__input-wrapper">
@@ -43,7 +46,7 @@
   
   </form>
   
-  <!--  Filter Block -->
+  <!-- Filters and clear completed controls -->
   <section class="todo-page__filters">
     
     <nav class="todo-filters" aria-label="Task filters" role="navigation">
@@ -91,11 +94,12 @@
   
   </section>
   
-  <!-- Task List -->
+  <!-- Task list; dynamically populated -->
   <ul id="todo-list" class="todo-page__list" aria-label="Task list" aria-live="polite"></ul>
 
 </main>
 
+<!-- Main script entry point -->
 <script src="./js/main.js" type="module"></script>
 </body>
 </html>
