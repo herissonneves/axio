@@ -216,25 +216,25 @@ const createOptionsMenu = (task, filter, buttonElement) => {
   // Position menu
   const rect = buttonElement.getBoundingClientRect();
   menu.style.position = "fixed";
-  
+
   // Calculate position to avoid going off-screen
   const menuHeight = 120; // Approximate height
   const menuWidth = 160; // Approximate width
   const spacing = 4;
-  
+
   let top = rect.bottom + spacing;
   let right = window.innerWidth - rect.right;
-  
+
   // Adjust if menu would go below viewport
   if (top + menuHeight > window.innerHeight) {
     top = rect.top - menuHeight - spacing;
   }
-  
+
   // Adjust if menu would go off right edge
   if (right + menuWidth > window.innerWidth) {
     right = window.innerWidth - rect.left;
   }
-  
+
   menu.style.top = `${top}px`;
   menu.style.right = `${right}px`;
 
@@ -432,7 +432,7 @@ const createOptionsButton = (task, filter) => {
   optionsBtn.addEventListener("click", (event) => {
     event.stopPropagation();
     const isOpen = openMenu && openMenu.parentElement;
-    
+
     if (isOpen) {
       closeMenu();
       optionsBtn.setAttribute("aria-expanded", "false");
