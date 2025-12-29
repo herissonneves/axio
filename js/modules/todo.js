@@ -46,3 +46,10 @@ export const toggleTask = (id) => {
 export const clearCompleted = () => {
   persist((current) => current.filter((task) => !task.completed));
 };
+
+/**
+ * Remove all tasks.
+ */
+export const clearAll = () => {
+  persist(() => []);
+};
