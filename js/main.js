@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentTheme = DEFAULT_THEME;
   let currentContrast = CONTRAST_DEFAULT;
+  let currentFilter = "all";
 
   const THEME_MAP = {
     light: {
@@ -130,11 +131,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const filter = FILTER_MAP[id];
     if (!filter) return;
 
+    currentFilter = filter;
     setActiveFilter(id);
     renderTasks(filter);
   };
 
-  renderTasks();
+  renderTasks(currentFilter);
   setActiveFilter("filter-all");
   loadThemePreferences();
 
@@ -144,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!text) return;
 
     addTask(text);
-    renderTasks();
+    renderTasks(currentFilter);
 
     input.value = "";
     input.focus();
@@ -156,7 +158,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnClear?.addEventListener("click", () => {
     clearCompleted();
-    renderTasks();
+
+    // Se o filtro atual for "completed", mudar para "all" porque a lista vai esvaziar
+    if (currentFilter === "completed") {
+      currentFilter = "all";
+      setActiveFilter("filter-all");
+      renderTasks("all");
+    } else {
+      renderTasks(currentFilter);
+    }
+
     btnClear.blur();
   });
 
