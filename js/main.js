@@ -1,4 +1,4 @@
-import { addTask, clearCompleted } from "./modules/todo.js";
+import { addTask, clearCompleted, clearAll } from "./modules/todo.js";
 import { renderTasks } from "./modules/ui.js";
 
 /**
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("todo-form");
   const input = document.getElementById("todo-input");
   const btnClear = document.getElementById("clear-completed");
+  const btnClearAll = document.getElementById("clear-all");
   const filterButtons = document.querySelectorAll(".todo-filters__button");
 
   const FILTER_MAP = {
@@ -169,6 +170,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     btnClear.blur();
+  });
+
+  btnClearAll?.addEventListener("click", () => {
+    clearAll();
+    currentFilter = "all";
+    setActiveFilter("filter-all");
+    renderTasks("all");
+    btnClearAll.blur();
   });
 
   const handleThemeToggleClick = () => {
