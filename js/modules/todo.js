@@ -48,6 +48,18 @@ export const clearCompleted = () => {
 };
 
 /**
+ * Reorder tasks by moving a task from one position to another.
+ */
+export const reorderTasks = (fromIndex, toIndex) => {
+  persist((current) => {
+    const updated = [...current];
+    const [moved] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, moved);
+    return updated;
+  });
+};
+
+/**
  * Remove all tasks.
  */
 export const clearAll = () => {
