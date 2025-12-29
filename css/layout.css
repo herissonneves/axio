@@ -63,11 +63,12 @@
 
 .todo-page__filters {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 1.5rem;
 
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 0.75rem;
 }
 
 /* Responsive */
