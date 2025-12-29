@@ -58,3 +58,10 @@ export const reorderTasks = (fromIndex, toIndex) => {
     return updated;
   });
 };
+
+/**
+ * Remove all tasks.
+ */
+export const clearAll = () => {
+  persist(() => []);
+};
