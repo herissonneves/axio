@@ -46,3 +46,15 @@ export const toggleTask = (id) => {
 export const clearCompleted = () => {
   persist((current) => current.filter((task) => !task.completed));
 };
+
+/**
+ * Reorder tasks by moving a task from one position to another.
+ */
+export const reorderTasks = (fromIndex, toIndex) => {
+  persist((current) => {
+    const updated = [...current];
+    const [moved] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, moved);
+    return updated;
+  });
+};
