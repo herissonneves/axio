@@ -1,4 +1,4 @@
-import { getTasks, removeTask, toggleTask, reorderTasks } from "./todo.js";
+import { getTasks, removeTask, toggleTask, reorderTasks, updateTask } from "./todo.js";
 
 const listElement = document.getElementById("todo-list");
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -65,6 +65,38 @@ const createDragHandleIcon = () => {
   return svg;
 };
 
+const createEditIcon = () => {
+  const svg = createSvg({
+    height: "24",
+    width: "24",
+    viewBox: "0 0 24 24",
+    class: "todo-menu__icon",
+  });
+  const path = document.createElementNS(SVG_NS, "path");
+  path.setAttribute(
+    "d",
+    "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+  );
+  svg.append(path);
+  return svg;
+};
+
+const createDeleteIcon = () => {
+  const svg = createSvg({
+    height: "24",
+    width: "24",
+    viewBox: "0 0 24 24",
+    class: "todo-menu__icon",
+  });
+  const path = document.createElementNS(SVG_NS, "path");
+  path.setAttribute(
+    "d",
+    "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+  );
+  svg.append(path);
+  return svg;
+};
+
 const createCheckbox = (task, filter) => {
   const checkboxContainer = document.createElement("div");
   checkboxContainer.classList.add("todo-item__checkbox-container");
@@ -107,15 +139,307 @@ const createTaskText = (task, filter) => {
   return text;
 };
 
+// Menu state
+let openMenu = null;
+let openMenuButton = null;
+
+/**
+ * Close any open menu.
+ */
+const closeMenu = () => {
+  if (openMenu) {
+    openMenu.remove();
+    openMenu = null;
+  }
+  if (openMenuButton) {
+    openMenuButton.setAttribute("aria-expanded", "false");
+    openMenuButton = null;
+  }
+};
+
+/**
+ * Close menu when clicking outside.
+ */
+const handleClickOutside = (event) => {
+  if (openMenu && !openMenu.contains(event.target) && !event.target.closest(".todo-item__options-btn")) {
+    closeMenu();
+    document.removeEventListener("click", handleClickOutside);
+  }
+};
+
+/**
+ * Create dropdown menu for task options.
+ */
+const createOptionsMenu = (task, filter, buttonElement) => {
+  // Close any existing menu
+  closeMenu();
+
+  const menu = document.createElement("div");
+  menu.classList.add("todo-menu");
+  menu.setAttribute("role", "menu");
+  menu.setAttribute("aria-label", "Task options menu");
+
+  // Edit option
+  const editItem = document.createElement("button");
+  editItem.classList.add("todo-menu__item");
+  editItem.setAttribute("role", "menuitem");
+  editItem.setAttribute("aria-label", "Edit task");
+  editItem.append(createEditIcon());
+  const editText = document.createElement("span");
+  editText.classList.add("todo-menu__text");
+  editText.textContent = "Edit";
+  editItem.append(editText);
+
+  editItem.addEventListener("click", () => {
+    closeMenu();
+    showEditDialog(task, filter);
+  });
+
+  // Delete option
+  const deleteItem = document.createElement("button");
+  deleteItem.classList.add("todo-menu__item");
+  deleteItem.setAttribute("role", "menuitem");
+  deleteItem.setAttribute("aria-label", "Delete task");
+  deleteItem.append(createDeleteIcon());
+  const deleteText = document.createElement("span");
+  deleteText.classList.add("todo-menu__text");
+  deleteText.textContent = "Delete";
+  deleteItem.append(deleteText);
+
+  deleteItem.addEventListener("click", () => {
+    closeMenu();
+    showDeleteDialog(task, filter);
+  });
+
+  menu.append(editItem, deleteItem);
+
+  // Position menu
+  const rect = buttonElement.getBoundingClientRect();
+  menu.style.position = "fixed";
+  
+  // Calculate position to avoid going off-screen
+  const menuHeight = 120; // Approximate height
+  const menuWidth = 160; // Approximate width
+  const spacing = 4;
+  
+  let top = rect.bottom + spacing;
+  let right = window.innerWidth - rect.right;
+  
+  // Adjust if menu would go below viewport
+  if (top + menuHeight > window.innerHeight) {
+    top = rect.top - menuHeight - spacing;
+  }
+  
+  // Adjust if menu would go off right edge
+  if (right + menuWidth > window.innerWidth) {
+    right = window.innerWidth - rect.left;
+  }
+  
+  menu.style.top = `${top}px`;
+  menu.style.right = `${right}px`;
+
+  document.body.append(menu);
+  openMenu = menu;
+  openMenuButton = buttonElement;
+
+  // Close on outside click
+  setTimeout(() => {
+    document.addEventListener("click", handleClickOutside);
+  }, 0);
+
+  return menu;
+};
+
+/**
+ * Create and show delete confirmation dialog.
+ */
+const showDeleteDialog = (task, filter) => {
+  const dialog = document.createElement("div");
+  dialog.classList.add("todo-dialog");
+  dialog.setAttribute("role", "dialog");
+  dialog.setAttribute("aria-labelledby", "delete-dialog-title");
+  dialog.setAttribute("aria-modal", "true");
+
+  const overlay = document.createElement("div");
+  overlay.classList.add("todo-dialog__overlay");
+
+  const container = document.createElement("div");
+  container.classList.add("todo-dialog__container");
+
+  const title = document.createElement("h2");
+  title.classList.add("todo-dialog__title");
+  title.id = "delete-dialog-title";
+  title.textContent = "Delete task?";
+
+  const content = document.createElement("p");
+  content.classList.add("todo-dialog__content");
+  content.textContent = `Are you sure you want to delete "${task.text}"? This action cannot be undone.`;
+
+  const actions = document.createElement("div");
+  actions.classList.add("todo-dialog__actions");
+
+  const cancelBtn = document.createElement("button");
+  cancelBtn.classList.add("todo-dialog__button", "todo-dialog__button--secondary");
+  cancelBtn.textContent = "Cancel";
+  cancelBtn.setAttribute("type", "button");
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("todo-dialog__button", "todo-dialog__button--primary");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.setAttribute("type", "button");
+
+  const closeDialog = () => {
+    dialog.remove();
+    document.body.style.overflow = "";
+  };
+
+  cancelBtn.addEventListener("click", closeDialog);
+  deleteBtn.addEventListener("click", () => {
+    removeTask(task.id);
+    renderTasks(filter);
+    closeDialog();
+  });
+
+  overlay.addEventListener("click", closeDialog);
+
+  actions.append(cancelBtn, deleteBtn);
+  container.append(title, content, actions);
+  dialog.append(overlay, container);
+
+  document.body.append(dialog);
+  document.body.style.overflow = "hidden";
+
+  // Focus first button
+  cancelBtn.focus();
+
+  // Close on Escape key
+  const handleEscape = (event) => {
+    if (event.key === "Escape") {
+      closeDialog();
+      document.removeEventListener("keydown", handleEscape);
+    }
+  };
+  document.addEventListener("keydown", handleEscape);
+};
+
+/**
+ * Create and show edit task dialog.
+ */
+const showEditDialog = (task, filter) => {
+  const dialog = document.createElement("div");
+  dialog.classList.add("todo-dialog");
+  dialog.setAttribute("role", "dialog");
+  dialog.setAttribute("aria-labelledby", "edit-dialog-title");
+  dialog.setAttribute("aria-modal", "true");
+
+  const overlay = document.createElement("div");
+  overlay.classList.add("todo-dialog__overlay");
+
+  const container = document.createElement("div");
+  container.classList.add("todo-dialog__container");
+
+  const title = document.createElement("h2");
+  title.classList.add("todo-dialog__title");
+  title.id = "edit-dialog-title";
+  title.textContent = "Edit task";
+
+  const form = document.createElement("form");
+  form.classList.add("todo-dialog__form");
+
+  const inputWrapper = document.createElement("div");
+  inputWrapper.classList.add("todo-dialog__input-wrapper");
+
+  const label = document.createElement("label");
+  label.classList.add("todo-dialog__label");
+  label.setAttribute("for", "edit-task-input");
+  label.textContent = "Task description";
+
+  const input = document.createElement("input");
+  input.id = "edit-task-input";
+  input.classList.add("todo-dialog__input");
+  input.type = "text";
+  input.value = task.text;
+  input.required = true;
+  input.setAttribute("aria-label", "Task description");
+
+  inputWrapper.append(label, input);
+
+  const actions = document.createElement("div");
+  actions.classList.add("todo-dialog__actions");
+
+  const cancelBtn = document.createElement("button");
+  cancelBtn.classList.add("todo-dialog__button", "todo-dialog__button--secondary");
+  cancelBtn.textContent = "Cancel";
+  cancelBtn.setAttribute("type", "button");
+
+  const saveBtn = document.createElement("button");
+  saveBtn.classList.add("todo-dialog__button", "todo-dialog__button--primary");
+  saveBtn.textContent = "Save";
+  saveBtn.setAttribute("type", "submit");
+
+  const closeDialog = () => {
+    dialog.remove();
+    document.body.style.overflow = "";
+  };
+
+  cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeDialog();
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const newText = input.value.trim();
+    if (newText && newText !== task.text) {
+      updateTask(task.id, newText);
+      renderTasks(filter);
+    }
+    closeDialog();
+  });
+
+  overlay.addEventListener("click", closeDialog);
+
+  actions.append(cancelBtn, saveBtn);
+  form.append(inputWrapper, actions);
+  container.append(title, form);
+  dialog.append(overlay, container);
+
+  document.body.append(dialog);
+  document.body.style.overflow = "hidden";
+
+  // Focus input and select text
+  input.focus();
+  input.select();
+
+  // Close on Escape key
+  const handleEscape = (event) => {
+    if (event.key === "Escape") {
+      closeDialog();
+      document.removeEventListener("keydown", handleEscape);
+    }
+  };
+  document.addEventListener("keydown", handleEscape);
+};
+
 const createOptionsButton = (task, filter) => {
   const optionsBtn = document.createElement("button");
   optionsBtn.classList.add("todo-item__options-btn");
   optionsBtn.setAttribute("aria-label", "Task options");
+  optionsBtn.setAttribute("aria-haspopup", "true");
+  optionsBtn.setAttribute("aria-expanded", "false");
   optionsBtn.append(createOptionsIcon());
 
-  optionsBtn.addEventListener("click", () => {
-    removeTask(task.id);
-    renderTasks(filter);
+  optionsBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const isOpen = openMenu && openMenu.parentElement;
+    
+    if (isOpen) {
+      closeMenu();
+      optionsBtn.setAttribute("aria-expanded", "false");
+    } else {
+      createOptionsMenu(task, filter, optionsBtn);
+      optionsBtn.setAttribute("aria-expanded", "true");
+    }
   });
 
   return optionsBtn;
@@ -283,6 +607,9 @@ const buildTodoItem = (task, filter) => {
  */
 export function renderTasks(filter = "all") {
   if (!listElement) return;
+
+  // Close any open menu when re-rendering
+  closeMenu();
 
   // Store current filter for drag-and-drop reordering
   currentFilter = filter;

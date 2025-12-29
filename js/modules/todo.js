@@ -41,6 +41,17 @@ export const toggleTask = (id) => {
 };
 
 /**
+ * Update task text by id.
+ */
+export const updateTask = (id, text) => {
+  persist((current) =>
+    current.map((task) =>
+      task.id === id ? { ...task, text: text.trim() } : task
+    )
+  );
+};
+
+/**
  * Remove all completed tasks.
  */
 export const clearCompleted = () => {
