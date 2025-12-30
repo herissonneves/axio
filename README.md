@@ -8,6 +8,8 @@ A modern TODO list web application built with **vanilla HTML, CSS and JavaScript
 
 **v1.1.0** — stable release. This version includes: core features (add / mark complete / remove tasks), drag-and-drop reordering, edit tasks with confirmation dialogs, theme toggle (light/dark), contrast levels, persistence (localStorage), filters (all / active / completed), clear completed/all, responsive layout, and Material Design 3 compliant UI.
 
+> 📋 For detailed changelog, see [CHANGELOG.md](CHANGELOG.md)
+
 ## Demo
 
 ![Todo List Demo - Add and Remove](demo/add-and-remove.gif)
@@ -203,7 +205,7 @@ Please make sure to follow the existing code style and add appropriate documenta
 
 ## 📝 About
 
-This project was created as a practice exercise in vanilla JavaScript, HTML, and CSS—to learn DOM manipulation, `localStorage`, dynamic rendering, state management, and Material Design 3 implementation.
+This project was created as a practice exercise in vanilla JavaScript, HTML, and CSS - to learn DOM manipulation, `localStorage`, dynamic rendering, state management, and Material Design 3 implementation.
 
 The application demonstrates:
 - Modern JavaScript (ES6 modules)
@@ -214,10 +216,14 @@ The application demonstrates:
 
 Feel free to fork, experiment and extend it as you like. Pull requests and suggestions are welcome.
 
+## 📋 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes and version history.
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Made with ❤️ using vanilla JavaScript**
+**Made with 💪 using vanilla JavaScript**
