@@ -12,12 +12,10 @@ A modern TODO list web application built with **vanilla HTML, CSS and JavaScript
 
 ## Demo
 
-![Todo List Demo - Add and Remove](demo/add-and-remove.gif)
-![Todo List Demo - Persistence](demo/persistence.gif)
-![Todo List Demo - Filter](demo/filter.gif)
-![Todo List Demo - Clear completed](demo/clear-completed.gif)
+![Todo List App Flow](demo/app-flow.gif)
 
-> **Note:** Additional demo GIFs for drag-and-drop, edit/delete dialogs, and theme switching coming soon.
+![Todo List Screenshot 1](demo/capture-1.png)
+![Todo List Screenshot 2](demo/capture-2.png)
 
 ## 🚀 Features
 
