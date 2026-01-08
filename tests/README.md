@@ -8,6 +8,7 @@ Sistema de testes unitários sem dependências externas, usando apenas JavaScrip
 - `storage.test.js` - Testes para o módulo de armazenamento
 - `todo.test.js` - Testes para o módulo de gerenciamento de tarefas
 - `i18n.test.js` - Testes para o módulo de internacionalização
+- `integration.test.js` - Testes de integração para fluxos completos
 - `tests.html` - Interface web para executar os testes
 
 ## Como Executar
@@ -26,6 +27,7 @@ import TestRunner from './tests/test-runner.js';
 import { runStorageTests } from './tests/storage.test.js';
 import { runTodoTests } from './tests/todo.test.js';
 import { runI18nTests } from './tests/i18n.test.js';
+import { runIntegrationTests } from './tests/integration.test.js';
 
 // Crie uma instância do test runner
 const runner = new TestRunner();
@@ -34,6 +36,7 @@ const runner = new TestRunner();
 runStorageTests(runner);
 runTodoTests(runner);
 runI18nTests(runner);
+runIntegrationTests(runner);
 
 // Execute os testes
 await runner.run();
@@ -85,6 +88,19 @@ runner.test("meu teste", () => {
 - ✅ Traduzir textos
 - ✅ Substituir placeholders em traduções
 - ✅ Inicializar sistema de i18n
+
+### Integration Tests
+- ✅ Fluxo completo: adicionar, completar e remover tarefa
+- ✅ Fluxo completo: múltiplas tarefas, filtrar e limpar
+- ✅ Fluxo completo: adicionar, editar e verificar
+- ✅ Reordenar tarefas e verificar persistência
+- ✅ Limpar tudo e verificar estado vazio
+- ✅ Integração entre módulos Storage e Todo
+- ✅ Integração entre módulos i18n e Todo
+- ✅ Fluxo completo de usuário (add, filter, complete, clear)
+- ✅ Operações mantêm integridade dos dados
+- ✅ Casos extremos (operações vazias)
+- ✅ Múltiplas operações rápidas mantêm consistência
 
 ## Notas
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axio - Testes Unitários</title>
+  <title>Axio - Testes Unitários e de Integração</title>
   <style>
     * {
       margin: 0;
@@ -38,8 +38,32 @@
     }
 
     .test-results h2 {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       color: #333;
+      border-bottom: 2px solid #6750A4;
+      padding-bottom: 0.5rem;
+    }
+
+    .test-category {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .test-category-title {
+      margin-bottom: 0.5rem;
+      color: #6750A4;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .test-category-summary {
+      margin-bottom: 1rem;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 500;
     }
 
     .test-result {
@@ -135,8 +159,9 @@
 
 <body>
   <div class="container">
-    <h1>🧪 Testes Unitários - Axio</h1>
-    <p>Execute os testes para verificar o funcionamento dos módulos.</p>
+    <h1>🧪 Testes - Axio</h1>
+    <p>Execute os testes unitários e de integração para verificar o funcionamento dos módulos e fluxos completos da
+      aplicação.</p>
 
     <button id="run-tests">Executar Testes</button>
 
@@ -170,6 +195,7 @@
         const { runStorageTests } = await import("./storage.test.js");
         const { runTodoTests } = await import("./todo.test.js");
         const { runI18nTests } = await import("./i18n.test.js");
+        const { runIntegrationTests } = await import("./integration.test.js");
 
         runner = new TestRunner();
         output = document.getElementById("test-output");
@@ -204,6 +230,13 @@
             } catch (error) {
               console.error("Erro ao registrar testes de i18n:", error);
               output.textContent += `Erro ao registrar testes de i18n: ${error.message}\n`;
+            }
+
+            try {
+              runIntegrationTests(runner);
+            } catch (error) {
+              console.error("Erro ao registrar testes de integração:", error);
+              output.textContent += `Erro ao registrar testes de integração: ${error.message}\n`;
             }
 
             // Run tests
