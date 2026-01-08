@@ -361,4 +361,44 @@ document.addEventListener("DOMContentLoaded", () => {
       closeLanguageMenu();
     }
   });
+
+  // Initialize keyboard shortcuts
+  initKeyboardShortcuts({
+    focusInput: () => {
+      input?.focus();
+    },
+    toggleTheme: handleThemeToggleClick,
+    setFilterAll: () => {
+      currentFilter = "all";
+      setActiveFilter("filter-all");
+      renderTasks("all");
+    },
+    setFilterActive: () => {
+      currentFilter = "active";
+      setActiveFilter("filter-active");
+      renderTasks("active");
+    },
+    setFilterCompleted: () => {
+      currentFilter = "completed";
+      setActiveFilter("filter-completed");
+      renderTasks("completed");
+    },
+    clearCompleted: () => {
+      clearCompleted();
+      if (currentFilter === "completed") {
+        currentFilter = "all";
+        setActiveFilter("filter-all");
+        renderTasks("all");
+      } else {
+        renderTasks(currentFilter);
+      }
+    },
+    clearAll: () => {
+      clearAll();
+      currentFilter = "all";
+      setActiveFilter("filter-all");
+      renderTasks("all");
+    },
+    showHelp: showKeyboardShortcutsDialog,
+  });
 });
