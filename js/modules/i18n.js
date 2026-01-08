@@ -56,6 +56,25 @@ const TRANSLATIONS = {
     // Language names
     languageEnglish: "English",
     languagePortuguese: "Português",
+
+    // Test page
+    testPageTitle: "Tests",
+    testPageDescription: "Run unit and integration tests to verify module functionality and complete application flows.",
+    runTests: "Run Tests",
+    testResults: "Test Results",
+    testCategoryUnitStorage: "Unit Tests - Storage",
+    testCategoryUnitTodo: "Unit Tests - Todo",
+    testCategoryUniti18n: "Unit Tests - i18n",
+    testCategoryIntegration: "Integration Tests",
+    testsPassed: "passed",
+    testsFailed: "failed",
+    testsTotal: "total",
+    executingTests: "Running tests...",
+    noOutputCaptured: "No output captured.",
+    errorLoadingModules: "Error loading modules",
+    errorRunningTests: "Error running tests",
+    ensureHttpServer: "Make sure you are running on an HTTP server (not file://)",
+    errorRegisteringTests: "Error registering tests",
   },
   pt: {
     // Título da página
@@ -109,6 +128,25 @@ const TRANSLATIONS = {
     // Nomes dos idiomas
     languageEnglish: "English",
     languagePortuguese: "Português",
+
+    // Página de testes
+    testPageTitle: "Testes",
+    testPageDescription: "Execute os testes unitários e de integração para verificar o funcionamento dos módulos e fluxos completos da aplicação.",
+    runTests: "Executar Testes",
+    testResults: "Resultados dos Testes",
+    testCategoryUnitStorage: "Testes Unitários - Storage",
+    testCategoryUnitTodo: "Testes Unitários - Todo",
+    testCategoryUniti18n: "Testes Unitários - i18n",
+    testCategoryIntegration: "Testes de Integração",
+    testsPassed: "passaram",
+    testsFailed: "falharam",
+    testsTotal: "total",
+    executingTests: "Executando testes...",
+    noOutputCaptured: "Nenhum output capturado.",
+    errorLoadingModules: "Erro ao carregar módulos",
+    errorRunningTests: "Erro ao executar testes",
+    ensureHttpServer: "Certifique-se de que está executando em um servidor HTTP (não file://)",
+    errorRegisteringTests: "Erro ao registrar testes",
   },
 };
 
