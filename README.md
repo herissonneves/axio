@@ -1,62 +1,62 @@
-# Todo List App
+# Aplicativo de Lista de Tarefas
 
-A modern TODO list web application built with **vanilla HTML, CSS and JavaScript** - featuring Material Design 3, drag-and-drop reordering, task editing, theme switching, and full persistence with `localStorage`.
+Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e JavaScript vanilla** - apresentando Material Design 3, reordenação por arrastar e soltar, edição de tarefas, alternância de tema e persistência completa com `localStorage`.
 
-**Live Demo:** [https://herissonneves.github.io/axio/](https://herissonneves.github.io/axio/)
+**Demonstração ao Vivo:** [https://herissonneves.github.io/axio/](https://herissonneves.github.io/axio/)
 
-## 📦 Current version
+## 📦 Versão atual
 
-**v1.1.0** — stable release. This version includes: core features (add / mark complete / remove tasks), drag-and-drop reordering, edit tasks with confirmation dialogs, theme toggle (light/dark), contrast levels, persistence (localStorage), filters (all / active / completed), clear completed/all, responsive layout, and Material Design 3 compliant UI.
+**v1.1.0** — lançamento estável. Esta versão inclui: recursos principais (adicionar / marcar como concluída / remover tarefas), reordenação por arrastar e soltar, edição de tarefas com diálogos de confirmação, alternância de tema (claro/escuro), níveis de contraste, persistência (localStorage), filtros (todas / ativas / concluídas), limpar concluídas/todas, layout responsivo e interface compatível com Material Design 3.
 
-> 📋 For detailed changelog, see [CHANGELOG.md](CHANGELOG.md)
+> 📋 Para changelog detalhado, consulte [CHANGELOG.md](CHANGELOG.md)
 
-## Demo
+## Demonstração
 
-![Todo List App Flow](demo/app-flow.gif)
+![Fluxo do Aplicativo de Lista de Tarefas](demo/app-flow.gif)
 
-![Todo List Screenshot 1](demo/capture-1.png)
-![Todo List Screenshot 2](demo/capture-2.png)
+![Captura de Tela 1 da Lista de Tarefas](demo/capture-1.png)
+![Captura de Tela 2 da Lista de Tarefas](demo/capture-2.png)
 
-## 🚀 Features
+## 🚀 Funcionalidades
 
-### Task Management
-- ✅ Add a new task
-- ✅ Mark tasks as completed (toggle)
-- ✅ Edit existing tasks via dropdown menu
-- ✅ Remove tasks with confirmation dialog
-- ✅ Drag and drop to reorder tasks
-- ✅ Tasks are persisted in browser storage (`localStorage`)
-- ✅ Filter tasks: **All / Active / Completed**
-- ✅ Clear all completed tasks
-- ✅ Clear all tasks
+### Gerenciamento de Tarefas
+- ✅ Adicionar uma nova tarefa
+- ✅ Marcar tarefas como concluídas (alternar)
+- ✅ Editar tarefas existentes via menu suspenso
+- ✅ Remover tarefas com diálogo de confirmação
+- ✅ Arrastar e soltar para reordenar tarefas
+- ✅ Tarefas são persistidas no armazenamento do navegador (`localStorage`)
+- ✅ Filtrar tarefas: **Todas / Ativas / Concluídas**
+- ✅ Limpar todas as tarefas concluídas
+- ✅ Limpar todas as tarefas
 
-### Design & Theming
-- ✅ Material Design 3 compliant UI
-- ✅ Light and dark theme toggle
-- ✅ Multiple contrast levels (Default / Medium / High)
-- ✅ Smooth animations and transitions
-- ✅ Responsive layout
-- ✅ Touch device support
+### Design e Temas
+- ✅ Interface compatível com Material Design 3
+- ✅ Alternância entre tema claro e escuro
+- ✅ Múltiplos níveis de contraste (Padrão / Médio / Alto)
+- ✅ Animações e transições suaves
+- ✅ Layout responsivo
+- ✅ Suporte a dispositivos touch
 
-### User Experience
-- ✅ Confirmation dialogs for destructive actions
-- ✅ Visual feedback for drag-and-drop operations
-- ✅ Keyboard navigation support (Escape to close dialogs)
-- ✅ Accessible with ARIA attributes
-- ✅ Reduced motion preference support
+### Experiência do Usuário
+- ✅ Diálogos de confirmação para ações destrutivas
+- ✅ Feedback visual para operações de arrastar e soltar
+- ✅ Suporte a navegação por teclado (Escape para fechar diálogos)
+- ✅ Acessível com atributos ARIA
+- ✅ Suporte a preferência de movimento reduzido
 
-## 📂 Project Structure
+## 📂 Estrutura do Projeto
 
 ```
 /
 ├── index.html
 ├── css/
-│   ├── main.css              # Main stylesheet orchestrator
-│   ├── base.css              # Base styles and resets
-│   ├── layout.css            # Layout and grid styles
-│   ├── components.css        # Component styles
-│   ├── utilities.css        # Utility classes
-│   └── themes/               # Theme definitions
+│   ├── main.css              # Orquestrador principal de estilos
+│   ├── base.css              # Estilos base e resets
+│   ├── layout.css            # Estilos de layout e grid
+│   ├── components.css        # Estilos de componentes
+│   ├── utilities.css         # Classes utilitárias
+│   └── themes/              # Definições de temas
 │       ├── theme-light.css
 │       ├── theme-light-mc.css
 │       ├── theme-light-hc.css
@@ -64,164 +64,164 @@ A modern TODO list web application built with **vanilla HTML, CSS and JavaScript
 │       ├── theme-dark-mc.css
 │       └── theme-dark-hc.css
 ├── js/
-│   ├── main.js               # App entry point
+│   ├── main.js               # Ponto de entrada da aplicação
 │   └── modules/
-│       ├── storage.js        # localStorage utilities
-│       ├── todo.js           # Task management logic
-│       └── ui.js              # UI rendering and components
-├── demo/                     # Demo GIFs
+│       ├── storage.js        # Utilitários de localStorage
+│       ├── todo.js           # Lógica de gerenciamento de tarefas
+│       └── ui.js             # Renderização e componentes de UI
+├── demo/                     # GIFs de demonstração
 └── README.md
 ```
 
-## 💻 Getting Started - How to Run Locally
+## 💻 Primeiros Passos - Como Executar Localmente
 
-1. Clone the repository
+1. Clone o repositório
 
     ```bash
     git clone https://github.com/herissonneves/axio.git
     cd axio
     ```
 
-2. Open `index.html` in your browser (double-click or use VSCode Live Server / any static server)
+2. Abra `index.html` no seu navegador (duplo clique ou use VSCode Live Server / qualquer servidor estático)
 
-3. Start adding tasks - the app works in the browser without any backend or build tools
+3. Comece a adicionar tarefas - o aplicativo funciona no navegador sem qualquer backend ou ferramentas de build
 
-## 🧠 How to Use
+## 🧠 Como Usar
 
-### Basic Operations
-- Use the input field at the top to type a new task and hit "**Add Task**" to create it.
-- Click on a task's text or checkbox to mark it as completed (or toggle back to active).
-- Use the **three-dots menu** (⋮) next to a task to access options:
-  - **Edit**: Opens a dialog to edit the task text
-  - **Delete**: Opens a confirmation dialog before removing the task
-- Use the filter buttons (All / Active / Completed) to view only tasks of the selected status.
-- Use "**Clear Completed**" to remove all completed tasks at once.
-- Use "**Clear All**" to remove all tasks.
+### Operações Básicas
+- Use o campo de entrada no topo para digitar uma nova tarefa e pressione "**Adicionar Tarefa**" para criá-la.
+- Clique no texto ou na caixa de seleção de uma tarefa para marcá-la como concluída (ou alternar de volta para ativa).
+- Use o **menu de três pontos** (⋮) ao lado de uma tarefa para acessar opções:
+  - **Editar**: Abre um diálogo para editar o texto da tarefa
+  - **Excluir**: Abre um diálogo de confirmação antes de remover a tarefa
+- Use os botões de filtro (Todas / Ativas / Concluídas) para visualizar apenas tarefas do status selecionado.
+- Use "**Limpar Concluídas**" para remover todas as tarefas concluídas de uma vez.
+- Use "**Limpar Todas**" para remover todas as tarefas.
 
-### Drag and Drop
-- Click and hold the **drag handle** (six dots icon) on the left of any task
-- Drag the task to a new position in the list
-- Release to drop the task in the new position
-- The new order is automatically saved
+### Arrastar e Soltar
+- Clique e segure o **botão de arrastar** (ícone de seis pontos) à esquerda de qualquer tarefa
+- Arraste a tarefa para uma nova posição na lista
+- Solte para posicionar a tarefa na nova posição
+- A nova ordem é salva automaticamente
 
-### Theme and Contrast
-- Click the **sun/moon icon** to toggle between light and dark themes
-- Use the **contrast selector** buttons to choose contrast level:
-  - **Default**: Standard contrast
-  - **Medium**: Medium contrast
-  - **High**: High contrast
-- Your theme and contrast preferences are saved automatically
+### Tema e Contraste
+- Clique no **ícone de sol/lua** para alternar entre temas claro e escuro
+- Use os botões do **seletor de contraste** para escolher o nível de contraste:
+  - **Padrão**: Contraste padrão
+  - **Médio**: Contraste médio
+  - **Alto**: Contraste alto
+- Suas preferências de tema e contraste são salvas automaticamente
 
-### Keyboard Shortcuts
-- **Escape**: Close any open dialog
-- **Enter**: Submit forms (add task, edit task)
+### Atalhos de Teclado
+- **Escape**: Fechar qualquer diálogo aberto
+- **Enter**: Enviar formulários (adicionar tarefa, editar tarefa)
 
-## 🎨 Design System
+## 🎨 Sistema de Design
 
-This application follows **Material Design 3** guidelines:
+Esta aplicação segue as diretrizes do **Material Design 3**:
 
-- **Color System**: Uses Material Design 3 color tokens
-- **Typography**: Roboto font family with Material Design type scale
-- **Components**: Material Design 3 compliant components (buttons, dialogs, menus)
-- **Elevation**: Proper shadow system for elevated surfaces
-- **State Layers**: Interactive elements use state layers for feedback
-- **Animations**: Smooth transitions following Material Design motion principles
+- **Sistema de Cores**: Usa tokens de cores do Material Design 3
+- **Tipografia**: Família de fontes Roboto com escala de tipos do Material Design
+- **Componentes**: Componentes compatíveis com Material Design 3 (botões, diálogos, menus)
+- **Elevação**: Sistema de sombras adequado para superfícies elevadas
+- **Camadas de Estado**: Elementos interativos usam camadas de estado para feedback
+- **Animações**: Transições suaves seguindo os princípios de movimento do Material Design
 
-## ♿ Accessibility
+## ♿ Acessibilidade
 
-- **ARIA Attributes**: All interactive elements have proper ARIA labels and roles
-- **Keyboard Navigation**: Full keyboard support for all features
-- **Focus Management**: Proper focus handling in dialogs and menus
-- **Reduced Motion**: Respects `prefers-reduced-motion` media query
-- **Screen Readers**: Semantic HTML and ARIA attributes for screen reader support
-- **High Contrast**: Support for high contrast themes
+- **Atributos ARIA**: Todos os elementos interativos têm rótulos e funções ARIA adequados
+- **Navegação por Teclado**: Suporte completo ao teclado para todas as funcionalidades
+- **Gerenciamento de Foco**: Tratamento adequado de foco em diálogos e menus
+- **Movimento Reduzido**: Respeita a consulta de mídia `prefers-reduced-motion`
+- **Leitores de Tela**: HTML semântico e atributos ARIA para suporte a leitores de tela
+- **Alto Contraste**: Suporte para temas de alto contraste
 
-## ⚙️ Implementation Details
+## ⚙️ Detalhes de Implementação
 
-### Technical Stack
-- **Vanilla JavaScript** (ES6 modules) - No build tools, no dependencies
-- **Modern CSS** with custom properties (CSS variables)
-- **HTML5** semantic markup
-- **localStorage** for data persistence
+### Stack Técnico
+- **JavaScript Vanilla** (módulos ES6) - Sem ferramentas de build, sem dependências
+- **CSS Moderno** com propriedades personalizadas (variáveis CSS)
+- **HTML5** marcação semântica
+- **localStorage** para persistência de dados
 
-### Data Structure
-- Data is stored in `localStorage` as JSON-serialized array of objects.
-- Each task object contains:
+### Estrutura de Dados
+- Os dados são armazenados no `localStorage` como um array de objetos serializado em JSON.
+- Cada objeto de tarefa contém:
     ```js
     {
-        id: string,        // unique UUID (or timestamp fallback)
-        text: string,      // task description
-        completed: boolean // completion status
+        id: string,        // UUID único (ou fallback de timestamp)
+        text: string,      // descrição da tarefa
+        completed: boolean // status de conclusão
     }
     ```
 
-### Architecture
-- **Modular Structure**: Code is organized into modules (storage, todo, ui)
-- **Separation of Concerns**: UI, logic, and data storage are separated
-- **Event-Driven**: Uses DOM events for user interactions
-- **State Management**: Centralized task state with localStorage persistence
+### Arquitetura
+- **Estrutura Modular**: Código organizado em módulos (storage, todo, ui)
+- **Separação de Responsabilidades**: UI, lógica e armazenamento de dados são separados
+- **Orientado a Eventos**: Usa eventos DOM para interações do usuário
+- **Gerenciamento de Estado**: Estado centralizado de tarefas com persistência em localStorage
 
-### Features Implementation
-- **Drag and Drop**: Uses HTML5 Drag and Drop API with custom visual feedback
-- **Dialogs**: Custom dialog components with overlay and backdrop blur
-- **Menu**: Dropdown menu component with proper positioning
-- **Theme System**: CSS custom properties with data attributes for theme switching
-- **Persistence**: Automatic save on any task modification
+### Implementação de Funcionalidades
+- **Arrastar e Soltar**: Usa API HTML5 Drag and Drop com feedback visual personalizado
+- **Diálogos**: Componentes de diálogo personalizados com sobreposição e desfoque de fundo
+- **Menu**: Componente de menu suspenso com posicionamento adequado
+- **Sistema de Temas**: Propriedades CSS personalizadas com atributos de dados para alternância de temas
+- **Persistência**: Salvamento automático em qualquer modificação de tarefa
 
-## 🌐 Browser Support
+## 🌐 Suporte a Navegadores
 
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge (latest versions)
-- **ES6 Modules**: Requires browser support for ES6 modules
-- **localStorage**: Requires browser support for localStorage API
-- **Drag and Drop API**: Requires browser support for HTML5 Drag and Drop
+- **Navegadores Modernos**: Chrome, Firefox, Safari, Edge (versões mais recentes)
+- **Módulos ES6**: Requer suporte do navegador para módulos ES6
+- **localStorage**: Requer suporte do navegador para API localStorage
+- **API Drag and Drop**: Requer suporte do navegador para HTML5 Drag and Drop
 
-## 🧪 Future Improvements
+## 🧪 Melhorias Futuras
 
-- [ ] Add unit tests
-- [ ] Add integration tests
-- [ ] Add keyboard shortcuts documentation
-- [ ] Add more demo GIFs
-- [ ] Implement task categories/tags
-- [ ] Add task due dates
-- [ ] Add task priorities
-- [ ] Optionally: persist tasks per user (backend and database)
-- [ ] Mobile-friendly enhancements (e.g., swipe gestures)
-- [ ] Export/import tasks (JSON)
-- [ ] Task search functionality
+- [ ] Adicionar testes unitários
+- [ ] Adicionar testes de integração
+- [ ] Adicionar documentação de atalhos de teclado
+- [ ] Adicionar mais GIFs de demonstração
+- [ ] Implementar categorias/tags de tarefas
+- [ ] Adicionar datas de vencimento de tarefas
+- [ ] Adicionar prioridades de tarefas
+- [ ] Opcionalmente: persistir tarefas por usuário (backend e banco de dados)
+- [ ] Melhorias para dispositivos móveis (ex.: gestos de deslizar)
+- [ ] Exportar/importar tarefas (JSON)
+- [ ] Funcionalidade de busca de tarefas
 
-## 🤝 Contributing
+## 🤝 Contribuindo
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contribuições são bem-vindas! Sinta-se à vontade para enviar um Pull Request.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Faça um fork do repositório
+2. Crie sua branch de funcionalidade (`git checkout -b feature/AmazingFeature`)
+3. Faça commit de suas alterações (`git commit -m 'Adiciona alguma AmazingFeature'`)
+4. Envie para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-Please make sure to follow the existing code style and add appropriate documentation.
+Certifique-se de seguir o estilo de código existente e adicionar documentação apropriada.
 
-## 📝 About
+## 📝 Sobre
 
-This project was created as a practice exercise in vanilla JavaScript, HTML, and CSS - to learn DOM manipulation, `localStorage`, dynamic rendering, state management, and Material Design 3 implementation.
+Este projeto foi criado como um exercício prático em JavaScript, HTML e CSS vanilla - para aprender manipulação de DOM, `localStorage`, renderização dinâmica, gerenciamento de estado e implementação do Material Design 3.
 
-The application demonstrates:
-- Modern JavaScript (ES6 modules)
-- CSS custom properties and theming
-- Component-based architecture
-- Accessibility best practices
-- Material Design 3 guidelines
+A aplicação demonstra:
+- JavaScript moderno (módulos ES6)
+- Propriedades CSS personalizadas e temas
+- Arquitetura baseada em componentes
+- Melhores práticas de acessibilidade
+- Diretrizes do Material Design 3
 
-Feel free to fork, experiment and extend it as you like. Pull requests and suggestions are welcome.
+Sinta-se à vontade para fazer fork, experimentar e estender como desejar. Pull requests e sugestões são bem-vindos.
 
 ## 📋 Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes and version history.
+Consulte [CHANGELOG.md](CHANGELOG.md) para uma lista detalhada de alterações e histórico de versões.
 
-## 📄 License
+## 📄 Licença
 
-This project is open source and available under the [MIT License](LICENSE).
+Este projeto é open source e está disponível sob a [Licença MIT](LICENSE).
 
 ---
 
-**Made with 💪 using vanilla JavaScript**
+**Feito com 💪 usando JavaScript vanilla**

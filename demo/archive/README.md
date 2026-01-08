@@ -1,22 +1,22 @@
-# Archive - Demo GIFs
+# Arquivo - GIFs de Demonstração
 
-This folder contains archived demo GIFs from previous versions of the application.
+Esta pasta contém GIFs de demonstração arquivados de versões anteriores da aplicação.
 
-## Archived Files
+## Arquivos Arquivados
 
-These GIFs were used in earlier versions of the README and have been replaced with newer demos:
+Estes GIFs foram usados em versões anteriores do README e foram substituídos por demonstrações mais recentes:
 
-- `add-and-remove.gif` - Demo of adding and removing tasks (v1.0.0)
-- `persistence.gif` - Demo of localStorage persistence (v1.0.0)
-- `filter.gif` - Demo of task filtering (v1.0.0)
-- `clear-completed.gif` - Demo of clearing completed tasks (v1.0.0)
+- `add-and-remove.gif` - Demonstração de adicionar e remover tarefas (v1.0.0)
+- `persistence.gif` - Demonstração de persistência do localStorage (v1.0.0)
+- `filter.gif` - Demonstração de filtragem de tarefas (v1.0.0)
+- `clear-completed.gif` - Demonstração de limpar tarefas concluídas (v1.0.0)
 
-## Current Demo Files
+## Arquivos de Demonstração Atuais
 
-The current demo files are located in the parent `demo/` directory:
-- `app-flow.gif` - Complete application flow demonstration
-- `capture-1.png` - Application screenshot 1
-- `capture-2.png` - Application screenshot 2
+Os arquivos de demonstração atuais estão localizados no diretório pai `demo/`:
+- `app-flow.gif` - Demonstração completa do fluxo da aplicação
+- `capture-1.png` - Captura de tela 1 da aplicação
+- `capture-2.png` - Captura de tela 2 da aplicação
 
-These archived files are kept for historical reference and may be useful for documentation or future reference.
+Estes arquivos arquivados são mantidos para referência histórica e podem ser úteis para documentação ou referência futura.
 
