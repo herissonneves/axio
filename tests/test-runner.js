@@ -135,10 +135,13 @@ class TestRunner {
 
   /**
    * Get results as HTML
+   * @param {Function} t - Translation function
    */
-  getResultsHTML() {
+  getResultsHTML(t = null) {
+    const translate = (key, fallback) => t ? t(key) : fallback;
+
     let html = "<div class='test-results'>";
-    html += "<h2>Resultados dos Testes</h2>";
+    html += `<h2>${translate("testResults", "Test Results")}</h2>`;
 
     // Group results by category
     const categories = {};
@@ -161,9 +164,22 @@ class TestRunner {
       const categoryPassed = categoryData.passed;
       const categoryFailed = categoryData.failed;
 
+      // Map category names to translation keys
+      const categoryMap = {
+        "Testes Unitários - Storage": translate("testCategoryUnitStorage", "Unit Tests - Storage"),
+        "Testes Unitários - Todo": translate("testCategoryUnitTodo", "Unit Tests - Todo"),
+        "Testes Unitários - i18n": translate("testCategoryUniti18n", "Unit Tests - i18n"),
+        "Testes de Integração": translate("testCategoryIntegration", "Integration Tests"),
+      };
+
+      const displayName = categoryMap[categoryName] || categoryName;
+
       html += `<div class='test-category'>`;
-      html += `<h3 class='test-category-title'>${categoryName}</h3>`;
-      html += `<div class='test-category-summary'>${categoryPassed} passaram, ${categoryFailed} falharam, ${categoryTotal} total</div>`;
+      html += `<h3 class='test-category-title'>${displayName}</h3>`;
+      const passedText = translate("testsPassed", "passed");
+      const failedText = translate("testsFailed", "failed");
+      const totalText = translate("testsTotal", "total");
+      html += `<div class='test-category-summary'>${categoryPassed} ${passedText}, ${categoryFailed} ${failedText}, ${categoryTotal} ${totalText}</div>`;
 
       for (const result of categoryData.results) {
         const status = result.passed ? "passed" : "failed";
@@ -181,7 +197,10 @@ class TestRunner {
     }
 
     html += "<div class='test-summary'>";
-    html += `<strong>Total: ${this.passed} passaram, ${this.failed} falharam, ${this.tests.length} total</strong>`;
+    const passedText = translate("testsPassed", "passed");
+    const failedText = translate("testsFailed", "failed");
+    const totalText = translate("testsTotal", "total");
+    html += `<strong>Total: ${this.passed} ${passedText}, ${this.failed} ${failedText}, ${this.tests.length} ${totalText}</strong>`;
     html += "</div>";
     html += "</div>";
 
