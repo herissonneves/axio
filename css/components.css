@@ -1046,6 +1046,51 @@
     gap: 1.5rem;
 }
 
+/* Shortcuts dialog */
+.shortcuts-dialog {
+    max-width: 32rem;
+}
+
+.shortcuts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.shortcuts-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background: var(--md-sys-color-surface-variant);
+    transition: background-color 0.15s ease;
+}
+
+.shortcuts-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background: var(--md-sys-color-surface);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    color: var(--md-sys-color-on-surface);
+    font: 400 0.75rem/1rem 'Roboto', monospace;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.shortcuts-description {
+    color: var(--md-sys-color-on-surface);
+    font: var(--md-text-body-medium);
+    letter-spacing: var(--md-text-body-medium-letter-spacing);
+    margin-left: 1rem;
+    flex: 1;
+}
+
 .todo-dialog__input-wrapper {
     display: flex;
     flex-direction: column;
