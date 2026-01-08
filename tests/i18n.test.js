@@ -14,14 +14,6 @@ import {
 export function runI18nTests(runner) {
   runner.category("Testes Unitários - i18n");
 
-  // Mock document for tests
-  const originalDocument = global.document;
-  const mockDocument = {
-    documentElement: {
-      lang: "pt",
-    },
-  };
-
   runner.test("getAvailableLanguages should return all language codes", () => {
     const languages = getAvailableLanguages();
     runner.assertTrue(languages.includes("en"));
