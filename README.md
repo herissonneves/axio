@@ -113,8 +113,30 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 - Suas preferências de tema e contraste são salvas automaticamente
 
 ### Atalhos de Teclado
-- **Escape**: Fechar qualquer diálogo aberto
-- **Enter**: Enviar formulários (adicionar tarefa, editar tarefa)
+
+A aplicação suporta vários atalhos de teclado para facilitar o uso:
+
+#### Navegação e Foco
+- **Ctrl+K** ou **/** - Focar no campo de entrada de tarefa
+- **Ctrl+?** ou **F1** - Mostrar diálogo de ajuda com todos os atalhos
+
+#### Filtros
+- **1** - Mostrar todas as tarefas
+- **2** - Mostrar apenas tarefas ativas
+- **3** - Mostrar apenas tarefas concluídas
+
+#### Ações Rápidas
+- **Ctrl+T** - Alternar entre tema claro e escuro
+- **Ctrl+Delete** - Limpar todas as tarefas concluídas
+- **Ctrl+Shift+Delete** - Limpar todas as tarefas
+
+#### Diálogos
+- **Escape** - Fechar qualquer diálogo aberto
+- **Enter** - Enviar formulários (adicionar tarefa, editar tarefa)
+
+> 💡 **Dica**: Pressione **Ctrl+?** ou **F1** a qualquer momento para ver todos os atalhos disponíveis!
+
+**Nota**: No macOS, use **Cmd** em vez de **Ctrl**.
 
 ## 🎨 Sistema de Design
 
