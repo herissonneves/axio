@@ -1,10 +1,14 @@
 import { addTask, clearCompleted, clearAll } from "./modules/todo.js";
 import { renderTasks } from "./modules/ui.js";
+import { initI18n, setLanguage, t, getLanguage, getAvailableLanguages } from "./modules/i18n.js";
 
 /**
  * App entry: wires form submission, filters, and clear controls.
  */
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize i18n
+  initI18n();
+
   const DEFAULT_THEME = "light";
   const CONTRAST_DEFAULT = "default";
   const THEME_STORAGE_KEY = "todo-theme";
@@ -32,6 +36,77 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentTheme = DEFAULT_THEME;
   let currentContrast = CONTRAST_DEFAULT;
   let currentFilter = "all";
+
+  // Update all static texts
+  const updateTexts = () => {
+    const pageTitle = document.getElementById("page-title");
+    const todoFormLabel = document.getElementById("todo-form-label");
+    const todoInput = document.getElementById("todo-input");
+    const addTaskButton = document.getElementById("add-task-button");
+    const filterAll = document.getElementById("filter-all");
+    const filterActive = document.getElementById("filter-active");
+    const filterCompleted = document.getElementById("filter-completed");
+    const clearCompletedBtn = document.getElementById("clear-completed");
+    const clearAllBtn = document.getElementById("clear-all");
+    const languageSelector = document.getElementById("language-selector");
+    const languageSelectorText = document.getElementById("language-selector-text");
+    const themeControls = document.querySelector(".theme-controls");
+    const todoFilters = document.querySelector(".todo-filters");
+
+    if (pageTitle) pageTitle.textContent = t("pageTitle");
+    if (todoFormLabel) todoFormLabel.textContent = t("taskDescription");
+    if (todoInput) todoInput.placeholder = t("addTaskPlaceholder");
+    if (addTaskButton) addTaskButton.textContent = t("addTaskButton");
+    if (filterAll) filterAll.textContent = t("filterAll");
+    if (filterActive) filterActive.textContent = t("filterActive");
+    if (filterCompleted) filterCompleted.textContent = t("filterCompleted");
+    if (clearCompletedBtn) {
+      clearCompletedBtn.textContent = t("clearCompleted");
+      clearCompletedBtn.setAttribute("aria-label", t("ariaClearCompleted"));
+    }
+    if (clearAllBtn) {
+      clearAllBtn.textContent = t("clearAll");
+      clearAllBtn.setAttribute("aria-label", t("ariaClearAll"));
+    }
+    if (languageSelector) {
+      languageSelector.setAttribute("aria-label", t("ariaLanguageSelector"));
+      const currentLang = getLanguage();
+      if (languageSelectorText) {
+        languageSelectorText.textContent = currentLang.toUpperCase();
+      }
+    }
+    if (themeControls) {
+      themeControls.setAttribute("aria-label", t("ariaThemeSettings"));
+    }
+    if (todoFilters) {
+      todoFilters.setAttribute("aria-label", t("ariaTaskFilters"));
+    }
+
+    // Update contrast buttons aria-labels
+    const contrastButtons = document.querySelectorAll(".contrast-selector__btn");
+    contrastButtons.forEach((btn) => {
+      const contrast = btn.dataset.contrast;
+      if (contrast === "default") {
+        btn.setAttribute("aria-label", t("ariaDefaultContrast"));
+      } else if (contrast === "medium") {
+        btn.setAttribute("aria-label", t("ariaMediumContrast"));
+      } else if (contrast === "high") {
+        btn.setAttribute("aria-label", t("ariaHighContrast"));
+      }
+    });
+
+    // Update theme toggle aria-label
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) {
+      themeToggle.setAttribute("aria-label", t("ariaThemeToggle"));
+    }
+
+    // Re-render tasks to update dynamic content
+    renderTasks(currentFilter);
+  };
+
+  // Initial text update
+  updateTexts();
 
   const THEME_MAP = {
     light: {
@@ -204,4 +279,86 @@ document.addEventListener("DOMContentLoaded", () => {
   contrastButtons.forEach((btn) =>
     btn.addEventListener("click", handleContrastClick)
   );
+
+  // Language selector
+  const languageSelector = document.getElementById("language-selector");
+  let languageMenu = null;
+
+  const closeLanguageMenu = () => {
+    if (languageMenu) {
+      languageMenu.remove();
+      languageMenu = null;
+    }
+    if (languageSelector) {
+      languageSelector.setAttribute("aria-expanded", "false");
+    }
+  };
+
+  const createLanguageMenu = () => {
+    closeLanguageMenu();
+
+    const menu = document.createElement("div");
+    menu.classList.add("language-menu");
+    menu.setAttribute("role", "menu");
+    menu.setAttribute("aria-label", t("ariaLanguageSelector"));
+
+    const languages = [
+      { code: "pt", name: t("languagePortuguese") },
+      { code: "en", name: t("languageEnglish") },
+    ];
+
+    languages.forEach((lang) => {
+      const item = document.createElement("button");
+      item.classList.add("language-menu__item");
+      if (getLanguage() === lang.code) {
+        item.classList.add("language-menu__item--active");
+      }
+      item.setAttribute("role", "menuitem");
+      item.textContent = lang.name;
+
+      item.addEventListener("click", () => {
+        setLanguage(lang.code);
+        updateTexts();
+        closeLanguageMenu();
+      });
+
+      menu.append(item);
+    });
+
+    const rect = languageSelector.getBoundingClientRect();
+    menu.style.position = "fixed";
+    menu.style.top = `${rect.bottom + 4}px`;
+    menu.style.right = `${window.innerWidth - rect.right}px`;
+
+    document.body.append(menu);
+    languageMenu = menu;
+    languageSelector.setAttribute("aria-expanded", "true");
+
+    // Close on outside click
+    setTimeout(() => {
+      const handleClickOutside = (event) => {
+        if (!menu.contains(event.target) && event.target !== languageSelector) {
+          closeLanguageMenu();
+          document.removeEventListener("click", handleClickOutside);
+        }
+      };
+      document.addEventListener("click", handleClickOutside);
+    }, 0);
+  };
+
+  languageSelector?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    if (languageMenu) {
+      closeLanguageMenu();
+    } else {
+      createLanguageMenu();
+    }
+  });
+
+  // Close language menu on Escape
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && languageMenu) {
+      closeLanguageMenu();
+    }
+  });
 });

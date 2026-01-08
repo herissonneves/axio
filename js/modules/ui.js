@@ -1,4 +1,5 @@
 import { getTasks, removeTask, toggleTask, reorderTasks, updateTask } from "./todo.js";
+import { t } from "./i18n.js";
 
 const listElement = document.getElementById("todo-list");
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -114,7 +115,7 @@ const createCheckbox = (task, filter) => {
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.classList.add("todo-item__checkbox");
-  checkbox.setAttribute("aria-label", `Mark "${task.text}" as completed`);
+  checkbox.setAttribute("aria-label", t("ariaMarkCompleted", { text: task.text }));
   checkbox.checked = task.completed;
   checkbox.addEventListener("change", () => {
     toggleTask(task.id);
@@ -177,17 +178,17 @@ const createOptionsMenu = (task, filter, buttonElement) => {
   const menu = document.createElement("div");
   menu.classList.add("todo-menu");
   menu.setAttribute("role", "menu");
-  menu.setAttribute("aria-label", "Task options menu");
+  menu.setAttribute("aria-label", t("ariaTaskOptionsMenu"));
 
   // Edit option
   const editItem = document.createElement("button");
   editItem.classList.add("todo-menu__item");
   editItem.setAttribute("role", "menuitem");
-  editItem.setAttribute("aria-label", "Edit task");
+  editItem.setAttribute("aria-label", t("ariaEditTask"));
   editItem.append(createEditIcon());
   const editText = document.createElement("span");
   editText.classList.add("todo-menu__text");
-  editText.textContent = "Edit";
+  editText.textContent = t("edit");
   editItem.append(editText);
 
   editItem.addEventListener("click", () => {
@@ -199,11 +200,11 @@ const createOptionsMenu = (task, filter, buttonElement) => {
   const deleteItem = document.createElement("button");
   deleteItem.classList.add("todo-menu__item");
   deleteItem.setAttribute("role", "menuitem");
-  deleteItem.setAttribute("aria-label", "Delete task");
+  deleteItem.setAttribute("aria-label", t("ariaDeleteTask"));
   deleteItem.append(createDeleteIcon());
   const deleteText = document.createElement("span");
   deleteText.classList.add("todo-menu__text");
-  deleteText.textContent = "Delete";
+  deleteText.textContent = t("delete");
   deleteItem.append(deleteText);
 
   deleteItem.addEventListener("click", () => {
@@ -269,23 +270,23 @@ const showDeleteDialog = (task, filter) => {
   const title = document.createElement("h2");
   title.classList.add("todo-dialog__title");
   title.id = "delete-dialog-title";
-  title.textContent = "Delete task?";
+  title.textContent = t("deleteTask");
 
   const content = document.createElement("p");
   content.classList.add("todo-dialog__content");
-  content.textContent = `Are you sure you want to delete "${task.text}"? This action cannot be undone.`;
+  content.textContent = t("deleteTaskConfirm", { text: task.text });
 
   const actions = document.createElement("div");
   actions.classList.add("todo-dialog__actions");
 
   const cancelBtn = document.createElement("button");
   cancelBtn.classList.add("todo-dialog__button", "todo-dialog__button--secondary");
-  cancelBtn.textContent = "Cancel";
+  cancelBtn.textContent = t("cancel");
   cancelBtn.setAttribute("type", "button");
 
   const deleteBtn = document.createElement("button");
   deleteBtn.classList.add("todo-dialog__button", "todo-dialog__button--primary");
-  deleteBtn.textContent = "Delete";
+  deleteBtn.textContent = t("deleteButton");
   deleteBtn.setAttribute("type", "button");
 
   const closeDialog = () => {
@@ -341,7 +342,7 @@ const showEditDialog = (task, filter) => {
   const title = document.createElement("h2");
   title.classList.add("todo-dialog__title");
   title.id = "edit-dialog-title";
-  title.textContent = "Edit task";
+  title.textContent = t("editTask");
 
   const form = document.createElement("form");
   form.classList.add("todo-dialog__form");
@@ -352,7 +353,7 @@ const showEditDialog = (task, filter) => {
   const label = document.createElement("label");
   label.classList.add("todo-dialog__label");
   label.setAttribute("for", "edit-task-input");
-  label.textContent = "Task description";
+  label.textContent = t("taskDescription");
 
   const input = document.createElement("input");
   input.id = "edit-task-input";
@@ -360,7 +361,7 @@ const showEditDialog = (task, filter) => {
   input.type = "text";
   input.value = task.text;
   input.required = true;
-  input.setAttribute("aria-label", "Task description");
+  input.setAttribute("aria-label", t("taskDescription"));
 
   inputWrapper.append(label, input);
 
@@ -369,12 +370,12 @@ const showEditDialog = (task, filter) => {
 
   const cancelBtn = document.createElement("button");
   cancelBtn.classList.add("todo-dialog__button", "todo-dialog__button--secondary");
-  cancelBtn.textContent = "Cancel";
+  cancelBtn.textContent = t("cancel");
   cancelBtn.setAttribute("type", "button");
 
   const saveBtn = document.createElement("button");
   saveBtn.classList.add("todo-dialog__button", "todo-dialog__button--primary");
-  saveBtn.textContent = "Save";
+  saveBtn.textContent = t("save");
   saveBtn.setAttribute("type", "submit");
 
   const closeDialog = () => {
@@ -424,7 +425,7 @@ const showEditDialog = (task, filter) => {
 const createOptionsButton = (task, filter) => {
   const optionsBtn = document.createElement("button");
   optionsBtn.classList.add("todo-item__options-btn");
-  optionsBtn.setAttribute("aria-label", "Task options");
+  optionsBtn.setAttribute("aria-label", t("ariaTaskOptions"));
   optionsBtn.setAttribute("aria-haspopup", "true");
   optionsBtn.setAttribute("aria-expanded", "false");
   optionsBtn.append(createOptionsIcon());
@@ -448,7 +449,7 @@ const createOptionsButton = (task, filter) => {
 const createDragHandle = () => {
   const handle = document.createElement("div");
   handle.classList.add("todo-item__drag-handle");
-  handle.setAttribute("aria-label", "Drag to reorder");
+  handle.setAttribute("aria-label", t("ariaDragReorder"));
   handle.append(createDragHandleIcon());
   return handle;
 };
