@@ -5,6 +5,7 @@
 import { loadTasks, saveTasks } from "../js/modules/storage.js";
 
 export function runStorageTests(runner) {
+  runner.category("Testes Unitários - Storage");
   runner.test("loadTasks should return empty array when localStorage is empty", () => {
     localStorage.clear();
     const tasks = loadTasks();

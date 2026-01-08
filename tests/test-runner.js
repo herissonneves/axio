@@ -8,13 +8,21 @@ class TestRunner {
     this.results = [];
     this.passed = 0;
     this.failed = 0;
+    this.currentCategory = null;
+  }
+
+  /**
+   * Set the current test category
+   */
+  category(name) {
+    this.currentCategory = name;
   }
 
   /**
    * Register a test
    */
   test(name, fn) {
-    this.tests.push({ name, fn });
+    this.tests.push({ name, fn, category: this.currentCategory || "Uncategorized" });
   }
 
   /**
@@ -91,7 +99,7 @@ class TestRunner {
   async run() {
     console.log("Running tests...\n");
 
-    for (const { name, fn } of this.tests) {
+    for (const { name, fn, category } of this.tests) {
       try {
         const result = fn();
         // Handle both sync and async functions
@@ -99,12 +107,12 @@ class TestRunner {
           await result;
         }
         this.passed++;
-        this.results.push({ name, passed: true, error: null });
+        this.results.push({ name, passed: true, error: null, category: category || "Uncategorized" });
         console.log(`✓ ${name}`);
       } catch (error) {
         this.failed++;
         const errorMessage = error?.message || String(error);
-        this.results.push({ name, passed: false, error: errorMessage });
+        this.results.push({ name, passed: false, error: errorMessage, category: category || "Uncategorized" });
         console.error(`✗ ${name}`);
         console.error(`  ${errorMessage}`);
         if (error?.stack) {
@@ -130,22 +138,50 @@ class TestRunner {
    */
   getResultsHTML() {
     let html = "<div class='test-results'>";
-    html += "<h2>Test Results</h2>";
+    html += "<h2>Resultados dos Testes</h2>";
 
+    // Group results by category
+    const categories = {};
     for (const result of this.results) {
-      const status = result.passed ? "passed" : "failed";
-      const icon = result.passed ? "✓" : "✗";
-      html += `<div class='test-result test-${status}'>`;
-      html += `<span class='test-icon'>${icon}</span>`;
-      html += `<span class='test-name'>${result.name}</span>`;
-      if (result.error) {
-        html += `<div class='test-error'>${result.error}</div>`;
+      const category = result.category || "Uncategorized";
+      if (!categories[category]) {
+        categories[category] = { results: [], passed: 0, failed: 0 };
       }
+      categories[category].results.push(result);
+      if (result.passed) {
+        categories[category].passed++;
+      } else {
+        categories[category].failed++;
+      }
+    }
+
+    // Display results by category
+    for (const [categoryName, categoryData] of Object.entries(categories)) {
+      const categoryTotal = categoryData.results.length;
+      const categoryPassed = categoryData.passed;
+      const categoryFailed = categoryData.failed;
+
+      html += `<div class='test-category'>`;
+      html += `<h3 class='test-category-title'>${categoryName}</h3>`;
+      html += `<div class='test-category-summary'>${categoryPassed} passaram, ${categoryFailed} falharam, ${categoryTotal} total</div>`;
+
+      for (const result of categoryData.results) {
+        const status = result.passed ? "passed" : "failed";
+        const icon = result.passed ? "✓" : "✗";
+        html += `<div class='test-result test-${status}'>`;
+        html += `<span class='test-icon'>${icon}</span>`;
+        html += `<span class='test-name'>${result.name}</span>`;
+        if (result.error) {
+          html += `<div class='test-error'>${result.error}</div>`;
+        }
+        html += "</div>";
+      }
+
       html += "</div>";
     }
 
     html += "<div class='test-summary'>";
-    html += `<strong>Tests: ${this.passed} passed, ${this.failed} failed, ${this.tests.length} total</strong>`;
+    html += `<strong>Total: ${this.passed} passaram, ${this.failed} falharam, ${this.tests.length} total</strong>`;
     html += "</div>";
     html += "</div>";
 

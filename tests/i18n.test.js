@@ -12,6 +12,8 @@ import {
 } from "../js/modules/i18n.js";
 
 export function runI18nTests(runner) {
+  runner.category("Testes Unitários - i18n");
+
   // Mock document for tests
   const originalDocument = global.document;
   const mockDocument = {

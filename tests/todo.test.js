@@ -15,6 +15,8 @@ import {
 import { saveTasks } from "../js/modules/storage.js";
 
 export function runTodoTests(runner) {
+  runner.category("Testes Unitários - Todo");
+
   // Helper to clear all tasks
   const clearAllTasks = () => {
     const allTasks = getTasks();
