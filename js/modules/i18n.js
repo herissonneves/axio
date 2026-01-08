@@ -75,6 +75,26 @@ const TRANSLATIONS = {
     errorRunningTests: "Error running tests",
     ensureHttpServer: "Make sure you are running on an HTTP server (not file://)",
     errorRegisteringTests: "Error registering tests",
+
+    // Keyboard shortcuts
+    keyboardShortcutsTitle: "Keyboard Shortcuts",
+    shortcutKeyFocusInput: "Ctrl+K or /",
+    shortcutFocusInput: "Focus task input",
+    shortcutKeyToggleTheme: "Ctrl+T",
+    shortcutToggleTheme: "Toggle theme (light/dark)",
+    shortcutKeyFilterAll: "1",
+    shortcutFilterAll: "Show all tasks",
+    shortcutKeyFilterActive: "2",
+    shortcutFilterActive: "Show active tasks",
+    shortcutKeyFilterCompleted: "3",
+    shortcutFilterCompleted: "Show completed tasks",
+    shortcutKeyClearCompleted: "Ctrl+Delete",
+    shortcutClearCompleted: "Clear completed tasks",
+    shortcutKeyClearAll: "Ctrl+Shift+Delete",
+    shortcutClearAll: "Clear all tasks",
+    shortcutKeyShowHelp: "Ctrl+? or F1",
+    shortcutShowHelp: "Show this help dialog",
+    close: "Close",
   },
   pt: {
     // Título da página
@@ -147,6 +167,26 @@ const TRANSLATIONS = {
     errorRunningTests: "Erro ao executar testes",
     ensureHttpServer: "Certifique-se de que está executando em um servidor HTTP (não file://)",
     errorRegisteringTests: "Erro ao registrar testes",
+
+    // Atalhos de teclado
+    keyboardShortcutsTitle: "Atalhos de Teclado",
+    shortcutKeyFocusInput: "Ctrl+K ou /",
+    shortcutFocusInput: "Focar no campo de tarefa",
+    shortcutKeyToggleTheme: "Ctrl+T",
+    shortcutToggleTheme: "Alternar tema (claro/escuro)",
+    shortcutKeyFilterAll: "1",
+    shortcutFilterAll: "Mostrar todas as tarefas",
+    shortcutKeyFilterActive: "2",
+    shortcutFilterActive: "Mostrar tarefas ativas",
+    shortcutKeyFilterCompleted: "3",
+    shortcutFilterCompleted: "Mostrar tarefas concluídas",
+    shortcutKeyClearCompleted: "Ctrl+Delete",
+    shortcutClearCompleted: "Limpar tarefas concluídas",
+    shortcutKeyClearAll: "Ctrl+Shift+Delete",
+    shortcutClearAll: "Limpar todas as tarefas",
+    shortcutKeyShowHelp: "Ctrl+? ou F1",
+    shortcutShowHelp: "Mostrar esta ajuda de atalhos",
+    close: "Fechar",
   },
 };
 
