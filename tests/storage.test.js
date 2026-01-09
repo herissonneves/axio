@@ -1,11 +1,20 @@
 /**
- * Tests for storage module
+ * Testes para o Módulo de Armazenamento (Storage)
+ * 
+ * Testa as funcionalidades de persistência de dados:
+ * - Carregar tarefas do localStorage
+ * - Salvar tarefas no localStorage
+ * - Tratamento de erros e dados inválidos
+ * - Retorno de valores padrão quando não há dados
  */
 
 import { loadTasks, saveTasks } from "../js/modules/storage.js";
 
+/**
+ * Registra todos os testes do módulo de armazenamento
+ * @param {TestRunner} runner - Instância do executor de testes
+ */
 export function runStorageTests(runner) {
-  // Category will be set dynamically via i18n
   runner.category("Testes Unitários - Storage");
   runner.test("loadTasks should return empty array when localStorage is empty", () => {
     localStorage.clear();

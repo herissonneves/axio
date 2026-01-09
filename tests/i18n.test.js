@@ -1,5 +1,13 @@
 /**
- * Tests for i18n module
+ * Testes para o Módulo de Internacionalização (i18n)
+ * 
+ * Testa as funcionalidades de tradução e troca de idiomas:
+ * - Obter idiomas disponíveis
+ * - Definir e obter idioma atual
+ * - Carregar idioma do localStorage
+ * - Traduzir textos com função t()
+ * - Substituir placeholders em traduções
+ * - Inicializar sistema de i18n
  */
 
 import {
@@ -11,6 +19,10 @@ import {
   initI18n
 } from "../js/modules/i18n.js";
 
+/**
+ * Registra todos os testes do módulo de internacionalização
+ * @param {TestRunner} runner - Instância do executor de testes
+ */
 export function runI18nTests(runner) {
   runner.category("Testes Unitários - i18n");
 

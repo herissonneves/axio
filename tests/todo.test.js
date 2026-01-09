@@ -1,5 +1,15 @@
 /**
- * Tests for todo module
+ * Testes para o Módulo de Gerenciamento de Tarefas (Todo)
+ * 
+ * Testa todas as operações CRUD de tarefas:
+ * - Obter lista de tarefas
+ * - Adicionar novas tarefas
+ * - Remover tarefas
+ * - Alternar estado de conclusão
+ * - Atualizar texto de tarefas
+ * - Limpar tarefas concluídas
+ * - Limpar todas as tarefas
+ * - Reordenar tarefas
  */
 
 import {
@@ -14,10 +24,14 @@ import {
 } from "../js/modules/todo.js";
 import { saveTasks } from "../js/modules/storage.js";
 
+/**
+ * Registra todos os testes do módulo de tarefas
+ * @param {TestRunner} runner - Instância do executor de testes
+ */
 export function runTodoTests(runner) {
   runner.category("Testes Unitários - Todo");
 
-  // Helper to clear all tasks
+  // Função auxiliar para limpar todas as tarefas
   const clearAllTasks = () => {
     const allTasks = getTasks();
     allTasks.forEach(task => removeTask(task.id));

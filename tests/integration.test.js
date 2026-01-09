@@ -1,5 +1,15 @@
 /**
- * Integration tests for the complete application flow
+ * Testes de Integração para Fluxos Completos da Aplicação
+ * 
+ * Testa a integração entre módulos e fluxos de usuário completos:
+ * - Fluxo completo de adicionar, completar e remover tarefas
+ * - Múltiplas tarefas com filtros e limpeza
+ * - Edição de tarefas
+ * - Reordenação e persistência
+ * - Integração entre Storage e Todo
+ * - Integração entre i18n e Todo
+ * - Casos extremos e operações rápidas
+ * - Integridade dos dados
  */
 
 import {
@@ -15,10 +25,14 @@ import {
 import { saveTasks, loadTasks } from "../js/modules/storage.js";
 import { setLanguage, getLanguage, t, initI18n } from "../js/modules/i18n.js";
 
+/**
+ * Registra todos os testes de integração da aplicação
+ * @param {TestRunner} runner - Instância do executor de testes
+ */
 export function runIntegrationTests(runner) {
   runner.category("Testes de Integração");
 
-  // Helper to clear all tasks
+  // Função auxiliar para limpar todas as tarefas
   const clearAllTasks = () => {
     const allTasks = getTasks();
     allTasks.forEach(task => removeTask(task.id));
