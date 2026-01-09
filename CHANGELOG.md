@@ -1,109 +1,115 @@
-# Changelog
+# Histórico de Alterações
 
-All notable changes to this project will be documented in this file.
+Todas as mudanças notáveis deste projeto serão documentadas neste arquivo.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
+e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/spec/v2.0.0.html).
 
 ## [1.1.0] - 2024-12-29
 
-### Added
-- **Drag and Drop Reordering** (#22)
-  - Drag tasks to reorder them in the list
-  - Works seamlessly with all filters (All, Active, Completed)
-  - Order persisted in localStorage
-  - Material Design 3 visual feedback with animations
-  - Touch device support
-  - Reduced motion preference support
+### Funcionalidades Adicionadas
 
-- **Edit Existing Tasks** (#20)
-  - Dropdown menu with Edit and Delete options (three-dots menu)
-  - Edit task dialog with form validation
-  - Delete confirmation dialog to prevent accidental deletions
-  - Material Design 3 compliant dialogs
-  - Keyboard navigation support (Escape to close dialogs)
-  - Proper ARIA attributes for accessibility
+- **Reordenação por Arrastar e Soltar** (#22)
+  - Arraste tarefas para reordená-las na lista
+  - Funciona perfeitamente com todos os filtros (Todas, Ativas, Concluídas)
+  - Ordem persistida no localStorage
+  - Feedback visual com animações seguindo Material Design 3
+  - Suporte a dispositivos touch
+  - Suporte à preferência de movimento reduzido
 
-- **Theme System**
-  - Light and dark theme toggle
-  - Multiple contrast levels (Default, Medium, High)
-  - Theme and contrast preferences persisted in localStorage
-  - Smooth theme transitions
+- **Edição de Tarefas Existentes** (#20)
+  - Menu suspenso com opções Editar e Excluir (menu de três pontos)
+  - Diálogo de edição de tarefa com validação de formulário
+  - Diálogo de confirmação de exclusão para prevenir remoções acidentais
+  - Diálogos compatíveis com Material Design 3
+  - Suporte a navegação por teclado (Escape para fechar diálogos)
+  - Atributos ARIA adequados para acessibilidade
 
-- **Clear All Tasks**
-  - Button to remove all tasks at once
-  - Confirmation before clearing (via delete confirmation dialog)
+- **Sistema de Temas**
+  - Alternância entre tema claro e escuro
+  - Múltiplos níveis de contraste (Padrão, Médio, Alto)
+  - Preferências de tema e contraste persistidas no localStorage
+  - Transições suaves entre temas
 
-### Changed
-- **Task ID Generation**: Changed from timestamp-based to UUID-based IDs (with timestamp fallback)
-- **Delete Behavior**: Now requires confirmation via dialog before removing tasks
-- **UI Components**: All components now follow Material Design 3 guidelines
-- **Project Structure**: Reorganized CSS files into modular structure (base, layout, components, themes, utilities)
+- **Limpar Todas as Tarefas**
+  - Botão para remover todas as tarefas de uma vez
+  - Confirmação antes de limpar (via diálogo de confirmação de exclusão)
 
-### Improved
-- **Accessibility**: Enhanced ARIA attributes throughout the application
-- **User Experience**: Better visual feedback for all interactions
-- **Code Organization**: Improved module structure and separation of concerns
-- **Responsive Design**: Better support for touch devices
+### Alterado
 
-### Technical
-- Added `updateTask()` function to task management module
-- Added `reorderTasks()` function for drag-and-drop functionality
-- Implemented custom dialog components
-- Implemented dropdown menu component
-- Enhanced drag-and-drop event handling
+- **Geração de ID de Tarefa**: Mudança de IDs baseados em timestamp para IDs baseados em UUID (com fallback para timestamp)
+- **Comportamento de Exclusão**: Agora requer confirmação via diálogo antes de remover tarefas
+- **Componentes de UI**: Todos os componentes agora seguem as diretrizes do Material Design 3
+- **Estrutura do Projeto**: CSS reorganizado em estrutura modular (base, layout, components, themes, utilities)
 
-## [1.0.0] - Initial Release
+### Melhorias
 
-### Added
-- **Core Task Management**
-  - Add new tasks
-  - Mark tasks as completed/incomplete (toggle)
-  - Remove tasks
-  - Tasks persisted in browser storage (localStorage)
+- **Acessibilidade**: Atributos ARIA aprimorados em toda a aplicação
+- **Experiência do Usuário**: Melhor feedback visual para todas as interações
+- **Organização do Código**: Estrutura de módulos e separação de responsabilidades melhoradas
+- **Design Responsivo**: Melhor suporte para dispositivos touch
 
-- **Filtering**
-  - Filter tasks by status: All, Active, Completed
-  - Visual indicator for active filter
+### Detalhes Técnicos
 
-- **Clear Completed**
-  - Button to remove all completed tasks at once
+- Adicionada função `updateTask()` ao módulo de gerenciamento de tarefas
+- Adicionada função `reorderTasks()` para funcionalidade de arrastar e soltar
+- Implementados componentes de diálogo personalizados
+- Implementado componente de menu suspenso
+- Melhorado tratamento de eventos de arrastar e soltar
 
-- **Responsive Layout**
-  - Clean, minimal UI
-  - Responsive design for different screen sizes
+## [1.0.0] - Lançamento Inicial
 
-### Technical
-- Vanilla JavaScript (ES6 modules)
-- Modern CSS with custom properties
-- localStorage for data persistence
-- Modular code structure (storage, todo, ui modules)
+### Funcionalidades Iniciais
 
----
+- **Gerenciamento de Tarefas Principal**
+  - Adicionar novas tarefas
+  - Marcar tarefas como concluídas/incompletas (alternar)
+  - Remover tarefas
+  - Tarefas persistidas no armazenamento do navegador (localStorage)
 
-## [Unreleased]
+- **Filtragem**
+  - Filtrar tarefas por status: Todas, Ativas, Concluídas
+  - Indicador visual para filtro ativo
 
-### Planned
-- Unit and integration tests
-- Additional demo GIFs
-- Task categories/tags
-- Task due dates
-- Task priorities
-- Export/import tasks (JSON)
-- Task search functionality
-- Mobile swipe gestures
+- **Limpar Concluídas**
+  - Botão para remover todas as tarefas concluídas de uma vez
+
+- **Layout Responsivo**
+  - Interface limpa e minimalista
+  - Design responsivo para diferentes tamanhos de tela
+
+### Stack Técnico
+
+- JavaScript Vanilla (módulos ES6)
+- CSS moderno com propriedades personalizadas
+- localStorage para persistência de dados
+- Estrutura de código modular (módulos storage, todo, ui)
 
 ---
 
-## Release Notes Format
+## [Não Lançado]
 
-- **Added** for new features
-- **Changed** for changes in existing functionality
-- **Deprecated** for soon-to-be removed features
-- **Removed** for now removed features
-- **Fixed** for any bug fixes
-- **Security** for vulnerability fixes
+### Planejado
+
+- Testes unitários e de integração
+- GIFs de demonstração adicionais
+- Categorias/tags de tarefas
+- Datas de vencimento de tarefas
+- Prioridades de tarefas
+- Exportar/importar tarefas (JSON)
+- Funcionalidade de busca de tarefas
+- Gestos de deslizar em dispositivos móveis
+
+---
+
+## Formato das Notas de Lançamento
+
+- **Adicionado** para novas funcionalidades
+- **Alterado** para mudanças em funcionalidades existentes
+- **Descontinuado** para funcionalidades que serão removidas em breve
+- **Removido** para funcionalidades agora removidas
+- **Corrigido** para correções de bugs
+- **Segurança** para correções de vulnerabilidades
 
 [1.1.0]: https://github.com/herissonneves/axio/releases/tag/v1.1.0
 [1.0.0]: https://github.com/herissonneves/axio/releases/tag/v1.0.0
-
