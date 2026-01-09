@@ -1,19 +1,26 @@
 /**
- * Keyboard shortcuts module
- * Handles global keyboard shortcuts for the application
+ * Módulo de Atalhos de Teclado
+ * 
+ * Gerencia os atalhos de teclado globais da aplicação:
+ * - Suporte para teclas modificadoras (Ctrl/Cmd)
+ * - Atalhos para navegação e ações rápidas
+ * - Diálogo de ajuda com lista de atalhos
+ * - Compatibilidade entre Windows/Linux e Mac
  */
 
 import { t } from "./i18n.js";
 
 /**
- * Check if a modifier key is pressed (Ctrl on Windows/Linux, Cmd on Mac)
+ * Verifica se uma tecla modificadora está pressionada (Ctrl no Windows/Linux, Cmd no Mac)
+ * @param {KeyboardEvent} event - Evento de teclado
+ * @returns {boolean} true se uma tecla modificadora está pressionada
  */
 const isModifierPressed = (event) => {
   return event.ctrlKey || event.metaKey;
 };
 
 /**
- * Show keyboard shortcuts help dialog
+ * Exibe o diálogo de ajuda com todos os atalhos de teclado disponíveis
  */
 export const showKeyboardShortcutsDialog = () => {
   const dialog = document.createElement("div");
@@ -88,7 +95,7 @@ export const showKeyboardShortcutsDialog = () => {
 
   closeBtn.focus();
 
-  // Close on Escape key
+  // Fechar ao pressionar Escape
   const handleEscape = (event) => {
     if (event.key === "Escape") {
       closeDialog();
@@ -99,7 +106,17 @@ export const showKeyboardShortcutsDialog = () => {
 };
 
 /**
- * Initialize keyboard shortcuts
+ * Inicializa os atalhos de teclado da aplicação
+ * 
+ * @param {Object} handlers - Objeto com funções handler para cada atalho
+ * @param {Function} handlers.focusInput - Focar no campo de entrada
+ * @param {Function} handlers.toggleTheme - Alternar tema
+ * @param {Function} handlers.setFilterAll - Mostrar todas as tarefas
+ * @param {Function} handlers.setFilterActive - Mostrar tarefas ativas
+ * @param {Function} handlers.setFilterCompleted - Mostrar tarefas concluídas
+ * @param {Function} handlers.clearCompleted - Limpar tarefas concluídas
+ * @param {Function} handlers.clearAll - Limpar todas as tarefas
+ * @param {Function} handlers.showHelp - Mostrar diálogo de ajuda
  */
 export const initKeyboardShortcuts = (handlers) => {
   const {
@@ -114,18 +131,18 @@ export const initKeyboardShortcuts = (handlers) => {
   } = handlers;
 
   document.addEventListener("keydown", (event) => {
-    // Don't trigger shortcuts when typing in inputs or textareas
+    // Não ativar atalhos quando estiver digitando em inputs ou textareas
     const target = event.target;
     if (
       target.tagName === "INPUT" ||
       target.tagName === "TEXTAREA" ||
       target.isContentEditable
     ) {
-      // Allow Escape to close dialogs even when in inputs
+      // Permitir Escape para fechar diálogos mesmo quando em inputs
       if (event.key === "Escape") {
-        return; // Let dialogs handle their own Escape
+        return; // Deixar os diálogos tratarem seu próprio Escape
       }
-      // Allow shortcuts with modifiers even in inputs
+      // Permitir atalhos com modificadores mesmo em inputs
       if (!isModifierPressed(event) && event.key !== "/") {
         return;
       }
@@ -134,21 +151,21 @@ export const initKeyboardShortcuts = (handlers) => {
     const modifier = isModifierPressed(event);
     const key = event.key.toLowerCase();
 
-    // Ctrl/Cmd + K or / to focus input
+    // Ctrl/Cmd + K ou / para focar no input
     if ((modifier && key === "k") || (!modifier && key === "/")) {
       event.preventDefault();
       if (focusInput) focusInput();
       return;
     }
 
-    // Ctrl/Cmd + T to toggle theme
+    // Ctrl/Cmd + T para alternar tema
     if (modifier && key === "t") {
       event.preventDefault();
       if (toggleTheme) toggleTheme();
       return;
     }
 
-    // Number keys for filters (only when not in input)
+    // Teclas numéricas para filtros (apenas quando não estiver em input)
     if (!modifier && !event.shiftKey) {
       if (key === "1" && setFilterAll) {
         event.preventDefault();
@@ -167,21 +184,21 @@ export const initKeyboardShortcuts = (handlers) => {
       }
     }
 
-    // Ctrl/Cmd + Delete to clear completed
+    // Ctrl/Cmd + Delete para limpar concluídas
     if (modifier && key === "delete" && !event.shiftKey) {
       event.preventDefault();
       if (clearCompleted) clearCompleted();
       return;
     }
 
-    // Ctrl/Cmd + Shift + Delete to clear all
+    // Ctrl/Cmd + Shift + Delete para limpar todas
     if (modifier && event.shiftKey && key === "delete") {
       event.preventDefault();
       if (clearAll) clearAll();
       return;
     }
 
-    // Ctrl/Cmd + ? or F1 to show help
+    // Ctrl/Cmd + ? ou F1 para mostrar ajuda
     if ((modifier && key === "?") || event.key === "F1") {
       event.preventDefault();
       if (showHelp) showHelp();

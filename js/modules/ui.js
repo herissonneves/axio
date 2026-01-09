@@ -1,3 +1,15 @@
+/**
+ * Módulo de Interface do Usuário (UI)
+ * 
+ * Gerencia toda a renderização e interação da interface:
+ * - Renderização da lista de tarefas
+ * - Criação de elementos visuais (checkboxes, ícones, botões)
+ * - Diálogos de edição e exclusão de tarefas
+ * - Menu de opções de tarefas (editar/excluir)
+ * - Funcionalidade de arrastar e soltar (drag-and-drop)
+ * - Filtragem de tarefas (todas/ativas/concluídas)
+ */
+
 import { getTasks, removeTask, toggleTask, reorderTasks, updateTask } from "./todo.js";
 import { t } from "./i18n.js";
 
@@ -10,17 +22,26 @@ const FILTERS = {
   completed: (task) => task.completed,
 };
 
-// Drag-and-drop state
+// Estado do arrastar e soltar (drag-and-drop)
 let draggedItem = null;
 let draggedIndex = -1;
 let currentFilter = "all";
 
+/**
+ * Cria um elemento SVG com atributos especificados
+ * @param {Object} attrs - Atributos a serem aplicados ao SVG
+ * @returns {SVGElement} Elemento SVG criado
+ */
 const createSvg = (attrs) => {
   const svg = document.createElementNS(SVG_NS, "svg");
   Object.entries(attrs).forEach(([key, value]) => svg.setAttribute(key, value));
   return svg;
 };
 
+/**
+ * Cria o ícone de check para a checkbox de tarefa
+ * @returns {SVGElement} Ícone de check SVG
+ */
 const createCheckIcon = () => {
   const icon = createSvg({
     width: "12",
@@ -35,6 +56,10 @@ const createCheckIcon = () => {
   return icon;
 };
 
+/**
+ * Cria o ícone de três pontos para o menu de opções
+ * @returns {SVGElement} Ícone de opções SVG
+ */
 const createOptionsIcon = () => {
   const svg = createSvg({
     height: "16",
@@ -50,6 +75,10 @@ const createOptionsIcon = () => {
   return svg;
 };
 
+/**
+ * Cria o ícone de arrastar (seis pontos)
+ * @returns {SVGElement} Ícone de arrastar SVG
+ */
 const createDragHandleIcon = () => {
   const svg = createSvg({
     height: "24",
@@ -66,6 +95,10 @@ const createDragHandleIcon = () => {
   return svg;
 };
 
+/**
+ * Cria o ícone de editar
+ * @returns {SVGElement} Ícone de editar SVG
+ */
 const createEditIcon = () => {
   const svg = createSvg({
     height: "24",
@@ -82,6 +115,10 @@ const createEditIcon = () => {
   return svg;
 };
 
+/**
+ * Cria o ícone de excluir
+ * @returns {SVGElement} Ícone de excluir SVG
+ */
 const createDeleteIcon = () => {
   const svg = createSvg({
     height: "24",
@@ -98,6 +135,12 @@ const createDeleteIcon = () => {
   return svg;
 };
 
+/**
+ * Cria o componente de checkbox para uma tarefa
+ * @param {Object} task - Objeto da tarefa
+ * @param {string} filter - Filtro atual aplicado
+ * @returns {HTMLElement} Elemento do container da checkbox
+ */
 const createCheckbox = (task, filter) => {
   const checkboxContainer = document.createElement("div");
   checkboxContainer.classList.add("todo-item__checkbox-container");
@@ -129,6 +172,12 @@ const createCheckbox = (task, filter) => {
   return checkboxContainer;
 };
 
+/**
+ * Cria o elemento de texto da tarefa
+ * @param {Object} task - Objeto da tarefa
+ * @param {string} filter - Filtro atual aplicado
+ * @returns {HTMLElement} Elemento span com o texto da tarefa
+ */
 const createTaskText = (task, filter) => {
   const text = document.createElement("span");
   text.classList.add("todo-item__text");
@@ -140,12 +189,12 @@ const createTaskText = (task, filter) => {
   return text;
 };
 
-// Menu state
+// Estado do menu
 let openMenu = null;
 let openMenuButton = null;
 
 /**
- * Close any open menu.
+ * Fecha qualquer menu aberto
  */
 const closeMenu = () => {
   if (openMenu) {
@@ -159,7 +208,8 @@ const closeMenu = () => {
 };
 
 /**
- * Close menu when clicking outside.
+ * Fecha o menu ao clicar fora dele
+ * @param {Event} event - Evento de clique
  */
 const handleClickOutside = (event) => {
   if (openMenu && !openMenu.contains(event.target) && !event.target.closest(".todo-item__options-btn")) {
@@ -169,10 +219,14 @@ const handleClickOutside = (event) => {
 };
 
 /**
- * Create dropdown menu for task options.
+ * Cria o menu suspenso com opções da tarefa (editar/excluir)
+ * @param {Object} task - Objeto da tarefa
+ * @param {string} filter - Filtro atual aplicado
+ * @param {HTMLElement} buttonElement - Elemento do botão que abriu o menu
+ * @returns {HTMLElement} Elemento do menu criado
  */
 const createOptionsMenu = (task, filter, buttonElement) => {
-  // Close any existing menu
+  // Fechar qualquer menu existente
   closeMenu();
 
   const menu = document.createElement("div");
@@ -180,7 +234,7 @@ const createOptionsMenu = (task, filter, buttonElement) => {
   menu.setAttribute("role", "menu");
   menu.setAttribute("aria-label", t("ariaTaskOptionsMenu"));
 
-  // Edit option
+  // Opção de editar
   const editItem = document.createElement("button");
   editItem.classList.add("todo-menu__item");
   editItem.setAttribute("role", "menuitem");
@@ -196,7 +250,7 @@ const createOptionsMenu = (task, filter, buttonElement) => {
     showEditDialog(task, filter);
   });
 
-  // Delete option
+  // Opção de excluir
   const deleteItem = document.createElement("button");
   deleteItem.classList.add("todo-menu__item");
   deleteItem.setAttribute("role", "menuitem");
@@ -214,11 +268,11 @@ const createOptionsMenu = (task, filter, buttonElement) => {
 
   menu.append(editItem, deleteItem);
 
-  // Position menu
+  // Posicionar menu
   const rect = buttonElement.getBoundingClientRect();
   menu.style.position = "fixed";
 
-  // Calculate position to avoid going off-screen
+  // Calcular posição para evitar sair da tela
   const menuHeight = 120; // Approximate height
   const menuWidth = 160; // Approximate width
   const spacing = 4;
@@ -226,12 +280,12 @@ const createOptionsMenu = (task, filter, buttonElement) => {
   let top = rect.bottom + spacing;
   let right = window.innerWidth - rect.right;
 
-  // Adjust if menu would go below viewport
+  // Ajustar se o menu ficaria abaixo do viewport
   if (top + menuHeight > window.innerHeight) {
     top = rect.top - menuHeight - spacing;
   }
 
-  // Adjust if menu would go off right edge
+  // Ajustar se o menu ficaria fora da borda direita
   if (right + menuWidth > window.innerWidth) {
     right = window.innerWidth - rect.left;
   }
@@ -243,7 +297,7 @@ const createOptionsMenu = (task, filter, buttonElement) => {
   openMenu = menu;
   openMenuButton = buttonElement;
 
-  // Close on outside click
+  // Fechar ao clicar fora
   setTimeout(() => {
     document.addEventListener("click", handleClickOutside);
   }, 0);
@@ -252,7 +306,9 @@ const createOptionsMenu = (task, filter, buttonElement) => {
 };
 
 /**
- * Create and show delete confirmation dialog.
+ * Cria e exibe o diálogo de confirmação de exclusão
+ * @param {Object} task - Tarefa a ser excluída
+ * @param {string} filter - Filtro atual aplicado
  */
 const showDeleteDialog = (task, filter) => {
   const dialog = document.createElement("div");
@@ -310,10 +366,10 @@ const showDeleteDialog = (task, filter) => {
   document.body.append(dialog);
   document.body.style.overflow = "hidden";
 
-  // Focus first button
+  // Focar no primeiro botão
   cancelBtn.focus();
 
-  // Close on Escape key
+  // Fechar ao pressionar Escape
   const handleEscape = (event) => {
     if (event.key === "Escape") {
       closeDialog();
@@ -324,7 +380,9 @@ const showDeleteDialog = (task, filter) => {
 };
 
 /**
- * Create and show edit task dialog.
+ * Cria e exibe o diálogo de edição de tarefa
+ * @param {Object} task - Tarefa a ser editada
+ * @param {string} filter - Filtro atual aplicado
  */
 const showEditDialog = (task, filter) => {
   const dialog = document.createElement("div");
@@ -408,11 +466,11 @@ const showEditDialog = (task, filter) => {
   document.body.append(dialog);
   document.body.style.overflow = "hidden";
 
-  // Focus input and select text
+  // Focar no input e selecionar texto
   input.focus();
   input.select();
 
-  // Close on Escape key
+  // Fechar ao pressionar Escape
   const handleEscape = (event) => {
     if (event.key === "Escape") {
       closeDialog();
@@ -422,6 +480,12 @@ const showEditDialog = (task, filter) => {
   document.addEventListener("keydown", handleEscape);
 };
 
+/**
+ * Cria o botão de opções (três pontos) para uma tarefa
+ * @param {Object} task - Objeto da tarefa
+ * @param {string} filter - Filtro atual aplicado
+ * @returns {HTMLElement} Elemento do botão de opções
+ */
 const createOptionsButton = (task, filter) => {
   const optionsBtn = document.createElement("button");
   optionsBtn.classList.add("todo-item__options-btn");
@@ -446,6 +510,10 @@ const createOptionsButton = (task, filter) => {
   return optionsBtn;
 };
 
+/**
+ * Cria o elemento de arrasto (drag handle) para uma tarefa
+ * @returns {HTMLElement} Elemento do drag handle
+ */
 const createDragHandle = () => {
   const handle = document.createElement("div");
   handle.classList.add("todo-item__drag-handle");
@@ -455,7 +523,9 @@ const createDragHandle = () => {
 };
 
 /**
- * Get the index of a task element in the visible list.
+ * Obtém o índice de um elemento de tarefa na lista visível
+ * @param {HTMLElement} element - Elemento da tarefa
+ * @returns {number} Índice do elemento
  */
 const getTaskIndex = (element) => {
   const items = Array.from(listElement.querySelectorAll(".todo-item__container"));
@@ -463,7 +533,10 @@ const getTaskIndex = (element) => {
 };
 
 /**
- * Map visible index to the original tasks array index.
+ * Mapeia o índice visível para o índice original no array de tarefas
+ * @param {number} visibleIndex - Índice na lista filtrada
+ * @param {string} filter - Filtro aplicado
+ * @returns {number} Índice no array original de tarefas
  */
 const getOriginalIndex = (visibleIndex, filter) => {
   const tasks = getTasks();
@@ -477,7 +550,8 @@ const getOriginalIndex = (visibleIndex, filter) => {
 };
 
 /**
- * Handle drag start event.
+ * Manipula o evento de início de arrasto
+ * @param {DragEvent} event - Evento de drag start
  */
 const handleDragStart = (event) => {
   const li = event.target.closest(".todo-item__container");
@@ -488,18 +562,19 @@ const handleDragStart = (event) => {
 
   li.classList.add("todo-item--dragging");
 
-  // Set drag data and effect
+  // Definir dados e efeito do arrasto
   event.dataTransfer.effectAllowed = "move";
   event.dataTransfer.setData("text/plain", li.dataset.id);
 
-  // Create a custom drag image for better visual feedback
+  // Criar uma imagem de arrasto personalizada para melhor feedback visual
   requestAnimationFrame(() => {
     li.classList.add("todo-item--drag-ghost");
   });
 };
 
 /**
- * Handle drag end event.
+ * Manipula o evento de fim de arrasto
+ * @param {DragEvent} event - Evento de drag end
  */
 const handleDragEnd = (event) => {
   const li = event.target.closest(".todo-item__container");
@@ -507,7 +582,7 @@ const handleDragEnd = (event) => {
     li.classList.remove("todo-item--dragging", "todo-item--drag-ghost");
   }
 
-  // Clean up all drag-over states
+  // Limpar todos os estados de drag-over
   listElement.querySelectorAll(".todo-item--drag-over").forEach((el) => {
     el.classList.remove("todo-item--drag-over");
   });
@@ -517,7 +592,8 @@ const handleDragEnd = (event) => {
 };
 
 /**
- * Handle drag over event.
+ * Manipula o evento de arrastar sobre um elemento
+ * @param {DragEvent} event - Evento de drag over
  */
 const handleDragOver = (event) => {
   event.preventDefault();
@@ -526,7 +602,7 @@ const handleDragOver = (event) => {
   const li = event.target.closest(".todo-item__container");
   if (!li || li === draggedItem) return;
 
-  // Clear previous drag-over states
+  // Limpar estados anteriores de drag-over
   listElement.querySelectorAll(".todo-item--drag-over").forEach((el) => {
     if (el !== li) el.classList.remove("todo-item--drag-over");
   });
@@ -535,13 +611,14 @@ const handleDragOver = (event) => {
 };
 
 /**
- * Handle drag leave event.
+ * Manipula o evento de sair do elemento durante o arrasto
+ * @param {DragEvent} event - Evento de drag leave
  */
 const handleDragLeave = (event) => {
   const li = event.target.closest(".todo-item__container");
   if (!li) return;
 
-  // Only remove if we're leaving the element entirely
+  // Remover apenas se estamos saindo completamente do elemento
   const relatedTarget = event.relatedTarget?.closest?.(".todo-item__container");
   if (relatedTarget !== li) {
     li.classList.remove("todo-item--drag-over");
@@ -549,7 +626,8 @@ const handleDragLeave = (event) => {
 };
 
 /**
- * Handle drop event.
+ * Manipula o evento de soltar o elemento arrastado
+ * @param {DragEvent} event - Evento de drop
  */
 const handleDrop = (event) => {
   event.preventDefault();
@@ -560,7 +638,7 @@ const handleDrop = (event) => {
   const targetIndex = getTaskIndex(li);
   if (draggedIndex === -1 || targetIndex === -1 || draggedIndex === targetIndex) return;
 
-  // Map visible indices to original indices
+  // Mapear índices visíveis para índices originais
   const fromOriginal = getOriginalIndex(draggedIndex, currentFilter);
   const toOriginal = getOriginalIndex(targetIndex, currentFilter);
 
@@ -572,6 +650,12 @@ const handleDrop = (event) => {
   li.classList.remove("todo-item--drag-over");
 };
 
+/**
+ * Constrói um item de tarefa completo com todos os elementos
+ * @param {Object} task - Objeto da tarefa
+ * @param {string} filter - Filtro atual aplicado
+ * @returns {HTMLElement} Elemento li da tarefa
+ */
 const buildTodoItem = (task, filter) => {
   const li = document.createElement("li");
   li.classList.add("todo-item__container");
@@ -592,7 +676,7 @@ const buildTodoItem = (task, filter) => {
     createOptionsButton(task, filter)
   );
 
-  // Add drag event listeners
+  // Adicionar event listeners de arrasto
   li.addEventListener("dragstart", handleDragStart);
   li.addEventListener("dragend", handleDragEnd);
   li.addEventListener("dragover", handleDragOver);
@@ -604,15 +688,22 @@ const buildTodoItem = (task, filter) => {
 };
 
 /**
- * Render tasks into the listElement using the provided filter.
+ * Renderiza as tarefas no elemento da lista usando o filtro fornecido
+ * 
+ * Esta é a função principal de renderização que:
+ * - Filtra as tarefas de acordo com o filtro especificado
+ * - Cria os elementos DOM para cada tarefa
+ * - Atualiza a lista na interface
+ * 
+ * @param {string} filter - Filtro a ser aplicado: "all", "active" ou "completed"
  */
 export function renderTasks(filter = "all") {
   if (!listElement) return;
 
-  // Close any open menu when re-rendering
+  // Fechar qualquer menu aberto ao re-renderizar
   closeMenu();
 
-  // Store current filter for drag-and-drop reordering
+  // Armazenar filtro atual para reordenação por arrastar e soltar
   currentFilter = filter;
 
   const predicate = FILTERS[filter] ?? FILTERS.all;

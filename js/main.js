@@ -1,12 +1,26 @@
+/**
+ * Módulo Principal da Aplicação
+ * 
+ * Ponto de entrada da aplicação que gerencia:
+ * - Inicialização do sistema de internacionalização (i18n)
+ * - Gerenciamento de temas (claro/escuro) e níveis de contraste
+ * - Submissão de formulário para adicionar tarefas
+ * - Filtros de visualização de tarefas (todas/ativas/concluídas)
+ * - Botões de limpeza (limpar concluídas/limpar todas)
+ * - Seletor de idioma
+ * - Atalhos de teclado
+ */
+
 import { addTask, clearCompleted, clearAll } from "./modules/todo.js";
 import { renderTasks } from "./modules/ui.js";
 import { initI18n, setLanguage, t, getLanguage, getAvailableLanguages } from "./modules/i18n.js";
+import { initKeyboardShortcuts, showKeyboardShortcutsDialog } from "./modules/keyboard.js";
 
 /**
- * App entry: wires form submission, filters, and clear controls.
+ * Inicialização da aplicação ao carregar o DOM
  */
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize i18n
+  // Inicializar sistema de internacionalização
   initI18n();
 
   const DEFAULT_THEME = "light";
@@ -37,7 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentContrast = CONTRAST_DEFAULT;
   let currentFilter = "all";
 
-  // Update all static texts
+  /**
+   * Atualiza todos os textos estáticos da interface com as traduções do idioma atual
+   */
   const updateTexts = () => {
     const pageTitle = document.getElementById("page-title");
     const todoFormLabel = document.getElementById("todo-form-label");
@@ -101,11 +117,11 @@ document.addEventListener("DOMContentLoaded", () => {
       themeToggle.setAttribute("aria-label", t("ariaThemeToggle"));
     }
 
-    // Re-render tasks to update dynamic content
+    // Re-renderizar tarefas para atualizar conteúdo dinâmico
     renderTasks(currentFilter);
   };
 
-  // Initial text update
+  // Atualização inicial dos textos
   updateTexts();
 
   const THEME_MAP = {
@@ -121,12 +137,21 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
+  /**
+   * Aplica o tema e contraste selecionados ao documento
+   * @param {string} theme - Tema (light ou dark)
+   * @param {string} contrast - Nível de contraste (default, medium ou high)
+   */
   const applyTheme = (theme, contrast) => {
     const resolvedTheme =
       THEME_MAP[theme]?.[contrast] ?? THEME_MAP[DEFAULT_THEME][CONTRAST_DEFAULT];
     document.documentElement.dataset.theme = resolvedTheme;
   };
 
+  /**
+   * Atualiza o estado visual do botão de alternância de tema
+   * @param {string} theme - Tema atual (light ou dark)
+   */
   const updateThemeToggle = (theme) => {
     if (!themeToggle) return;
 
@@ -136,6 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
     themeToggle.setAttribute("aria-pressed", String(isDark));
   };
 
+  /**
+   * Atualiza o estado visual dos botões de seleção de contraste
+   * @param {string} contrast - Nível de contraste atual
+   */
   const updateContrastButtons = (contrast) => {
     contrastButtons.forEach((btn) => {
       const value = btn.dataset.contrast;
@@ -145,6 +174,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  /**
+   * Carrega as preferências de tema e contraste do localStorage
+   */
   const loadThemePreferences = () => {
     const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
     const storedContrast = localStorage.getItem(CONTRAST_STORAGE_KEY);
@@ -162,6 +194,10 @@ document.addEventListener("DOMContentLoaded", () => {
     applyTheme(initialTheme, initialContrast);
   };
 
+  /**
+   * Cria o ícone de check para indicar o filtro ativo
+   * @returns {SVGElement} Elemento SVG do ícone de check
+   */
   const renderFilterIcon = () => {
     const icon = document.createElementNS(SVG_NS, "svg");
     icon.setAttribute("width", "13");
@@ -180,7 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /**
-   * Toggle active filter button styles and assistive states.
+   * Alterna os estilos do botão de filtro ativo e estados de acessibilidade
+   * @param {string} activeButtonId - ID do botão de filtro ativo
    */
   const setActiveFilter = (activeButtonId) => {
     filterButtons.forEach((btn) => {
@@ -200,7 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /**
-   * Handle filter selection.
+   * Manipula o clique em um botão de filtro
+   * @param {Event} event - Evento de clique
    */
   const handleFilterClick = (event) => {
     const { id } = event.currentTarget;
@@ -235,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnClear?.addEventListener("click", () => {
     clearCompleted();
 
-    // Se o filtro atual for "completed", mudar para "all" porque a lista vai esvaziar
+    // Se o filtro atual for "completed", mudar para "all" porque a lista ficará vazia
     if (currentFilter === "completed") {
       currentFilter = "all";
       setActiveFilter("filter-all");
@@ -255,6 +293,9 @@ document.addEventListener("DOMContentLoaded", () => {
     btnClearAll.blur();
   });
 
+  /**
+   * Manipula o clique no botão de alternância de tema
+   */
   const handleThemeToggleClick = () => {
     const nextTheme = currentTheme === "dark" ? "light" : "dark";
     currentTheme = nextTheme;
@@ -264,6 +305,10 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
   };
 
+  /**
+   * Manipula o clique em um botão de seleção de contraste
+   * @param {Event} event - Evento de clique
+   */
   const handleContrastClick = (event) => {
     const button = event.currentTarget;
     const value = button.dataset.contrast;
@@ -280,10 +325,13 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", handleContrastClick)
   );
 
-  // Language selector
+  // Seletor de idioma
   const languageSelector = document.getElementById("language-selector");
   let languageMenu = null;
 
+  /**
+   * Fecha o menu de seleção de idioma
+   */
   const closeLanguageMenu = () => {
     if (languageMenu) {
       languageMenu.remove();
@@ -294,6 +342,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  /**
+   * Cria e exibe o menu de seleção de idioma
+   */
   const createLanguageMenu = () => {
     closeLanguageMenu();
 
@@ -334,7 +385,7 @@ document.addEventListener("DOMContentLoaded", () => {
     languageMenu = menu;
     languageSelector.setAttribute("aria-expanded", "true");
 
-    // Close on outside click
+    // Fechar ao clicar fora do menu
     setTimeout(() => {
       const handleClickOutside = (event) => {
         if (!menu.contains(event.target) && event.target !== languageSelector) {
@@ -355,14 +406,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Close language menu on Escape
+  // Fechar menu de idioma ao pressionar Escape
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && languageMenu) {
       closeLanguageMenu();
     }
   });
 
-  // Initialize keyboard shortcuts
+  // Inicializar atalhos de teclado
   initKeyboardShortcuts({
     focusInput: () => {
       input?.focus();

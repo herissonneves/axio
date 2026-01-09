@@ -1,6 +1,12 @@
 /**
- * Internationalization module
- * Manages translations and language switching
+ * Módulo de Internacionalização (i18n)
+ * 
+ * Gerencia traduções e troca de idiomas na aplicação:
+ * - Suporte para múltiplos idiomas (pt, en)
+ * - Traduções para toda a interface
+ * - Persistência da preferência de idioma no localStorage
+ * - Detecção automática do idioma do navegador
+ * - Suporte a placeholders dinâmicos nas traduções
  */
 
 const TRANSLATIONS = {
@@ -196,12 +202,15 @@ const DEFAULT_LANGUAGE = "pt";
 let currentLanguage = DEFAULT_LANGUAGE;
 
 /**
- * Get current language
+ * Obtém o idioma atual
+ * @returns {string} Código do idioma atual (ex: 'pt', 'en')
  */
 export const getLanguage = () => currentLanguage;
 
 /**
- * Set language and save to localStorage
+ * Define o idioma e salva no localStorage
+ * @param {string} lang - Código do idioma (ex: 'pt', 'en')
+ * @returns {boolean} true se o idioma foi definido com sucesso, false caso contrário
  */
 export const setLanguage = (lang) => {
   if (TRANSLATIONS[lang]) {
@@ -214,14 +223,16 @@ export const setLanguage = (lang) => {
 };
 
 /**
- * Load language from localStorage or use default
+ * Carrega o idioma do localStorage ou usa o padrão
+ * Detecta automaticamente o idioma do navegador se não houver preferência salva
+ * @returns {string} Código do idioma carregado
  */
 export const loadLanguage = () => {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored && TRANSLATIONS[stored]) {
     currentLanguage = stored;
   } else {
-    // Try to detect browser language
+    // Tentar detectar o idioma do navegador
     const browserLang = navigator.language || navigator.userLanguage;
     if (browserLang.startsWith("pt")) {
       currentLanguage = "pt";
@@ -234,13 +245,21 @@ export const loadLanguage = () => {
 };
 
 /**
- * Get translation for a key
- * Supports placeholders like {text}
+ * Obtém a tradução para uma chave específica
+ * Suporta placeholders dinâmicos como {text}
+ * 
+ * @param {string} key - Chave da tradução
+ * @param {Object} params - Objeto com parâmetros para substituir nos placeholders
+ * @returns {string} Texto traduzido
+ * 
+ * @example
+ * t("deleteTaskConfirm", { text: "Comprar leite" })
+ * // Retorna: "Tem certeza de que deseja excluir "Comprar leite"?..."
  */
 export const t = (key, params = {}) => {
   const translation = TRANSLATIONS[currentLanguage]?.[key] || TRANSLATIONS[DEFAULT_LANGUAGE]?.[key] || key;
 
-  // Replace placeholders
+  // Substituir placeholders
   if (params && Object.keys(params).length > 0) {
     return translation.replace(/\{(\w+)\}/g, (match, paramKey) => {
       return params[paramKey] !== undefined ? params[paramKey] : match;
@@ -251,12 +270,14 @@ export const t = (key, params = {}) => {
 };
 
 /**
- * Get all available languages
+ * Obtém todos os idiomas disponíveis
+ * @returns {Array<string>} Array com os códigos dos idiomas disponíveis
  */
 export const getAvailableLanguages = () => Object.keys(TRANSLATIONS);
 
 /**
- * Initialize i18n system
+ * Inicializa o sistema de internacionalização
+ * Carrega o idioma salvo ou detecta automaticamente
  */
 export const initI18n = () => {
   loadLanguage();
