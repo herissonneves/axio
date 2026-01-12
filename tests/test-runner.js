@@ -203,6 +203,7 @@ class TestRunner {
         "Testes Unitários - Storage": translate("testCategoryUnitStorage", "Testes Unitários - Storage"),
         "Testes Unitários - Todo": translate("testCategoryUnitTodo", "Testes Unitários - Todo"),
         "Testes Unitários - i18n": translate("testCategoryUniti18n", "Testes Unitários - i18n"),
+        "Testes Unitários - Keyboard": translate("testCategoryUnitKeyboard", "Testes Unitários - Keyboard"),
         "Testes de Integração": translate("testCategoryIntegration", "Testes de Integração"),
       };
 

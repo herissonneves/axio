@@ -520,6 +520,7 @@
         const { runStorageTests } = await import("./storage.test.js");
         const { runTodoTests } = await import("./todo.test.js");
         const { runI18nTests } = await import("./i18n.test.js");
+        const { runKeyboardTests } = await import("./keyboard.test.js");
         const { runIntegrationTests } = await import("./integration.test.js");
 
         runner = new TestRunner();
@@ -553,6 +554,13 @@
             } catch (error) {
               console.error("Erro ao registrar testes de i18n:", error);
               output.textContent += `${t("errorRegisteringTests", "Error registering tests")} (i18n): ${error.message}\n`;
+            }
+
+            try {
+              runKeyboardTests(runner);
+            } catch (error) {
+              console.error("Erro ao registrar testes de keyboard:", error);
+              output.textContent += `${t("errorRegisteringTests", "Error registering tests")} (Keyboard): ${error.message}\n`;
             }
 
             try {
