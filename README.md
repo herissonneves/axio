@@ -126,7 +126,9 @@ A aplicação suporta vários atalhos de teclado para facilitar o uso:
 - **3** - Mostrar apenas tarefas concluídas
 
 #### Ações Rápidas
-- **Ctrl+T** - Alternar entre tema claro e escuro
+- **Ctrl+G** - Alternar entre tema claro e escuro
+- **Ctrl+J** - Alternar nível de contraste (padrão → médio → alto → padrão)
+- **Ctrl+L** - Alternar idioma (português ↔ inglês)
 - **Ctrl+Delete** - Limpar todas as tarefas concluídas
 - **Ctrl+Shift+Delete** - Limpar todas as tarefas
 
