@@ -111,6 +111,8 @@ export const showKeyboardShortcutsDialog = () => {
  * @param {Object} handlers - Objeto com funções handler para cada atalho
  * @param {Function} handlers.focusInput - Focar no campo de entrada
  * @param {Function} handlers.toggleTheme - Alternar tema
+ * @param {Function} handlers.toggleContrast - Alternar nível de contraste
+ * @param {Function} handlers.toggleLanguage - Alternar idioma
  * @param {Function} handlers.setFilterAll - Mostrar todas as tarefas
  * @param {Function} handlers.setFilterActive - Mostrar tarefas ativas
  * @param {Function} handlers.setFilterCompleted - Mostrar tarefas concluídas
@@ -122,6 +124,8 @@ export const initKeyboardShortcuts = (handlers) => {
   const {
     focusInput,
     toggleTheme,
+    toggleContrast,
+    toggleLanguage,
     setFilterAll,
     setFilterActive,
     setFilterCompleted,
@@ -158,10 +162,24 @@ export const initKeyboardShortcuts = (handlers) => {
       return;
     }
 
-    // Ctrl/Cmd + T para alternar tema
-    if (modifier && key === "t") {
+    // Ctrl/Cmd + G para alternar tema
+    if (modifier && key === "g") {
       event.preventDefault();
       if (toggleTheme) toggleTheme();
+      return;
+    }
+
+    // Ctrl/Cmd + J para alternar contraste
+    if (modifier && key === "j") {
+      event.preventDefault();
+      if (toggleContrast) toggleContrast();
+      return;
+    }
+
+    // Ctrl/Cmd + L para alternar idioma
+    if (modifier && key === "l") {
+      event.preventDefault();
+      if (toggleLanguage) toggleLanguage();
       return;
     }
 
