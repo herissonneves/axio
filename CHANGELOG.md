@@ -5,6 +5,55 @@ Todas as mudanças notáveis deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-01-12
+
+### Funcionalidades Adicionadas
+
+- **Sistema de Atalhos de Teclado**
+  - Atalhos globais para navegação e ações rápidas
+  - Diálogo de ajuda com lista completa de atalhos (Ctrl+? ou F1)
+  - Suporte para modificadores Ctrl (Windows/Linux) e Cmd (Mac)
+  - Atalhos não interferem quando digitando em campos de entrada
+  - Atalhos disponíveis:
+    - **Ctrl+K** ou **/** - Focar no campo de entrada de tarefa
+    - **Ctrl+G** - Alternar entre tema claro e escuro
+    - **Ctrl+J** - Alternar nível de contraste (padrão → médio → alto → padrão)
+    - **Ctrl+L** - Alternar idioma (português ↔ inglês)
+    - **1, 2, 3** - Filtrar tarefas (Todas, Ativas, Concluídas)
+    - **Ctrl+Delete** - Limpar tarefas concluídas
+    - **Ctrl+Shift+Delete** - Limpar todas as tarefas
+    - **Ctrl+?** ou **F1** - Mostrar diálogo de ajuda
+
+- **Sistema de Testes**
+  - Framework de testes unitários sem dependências externas
+  - Testes para módulos: Storage, Todo, i18n, Keyboard
+  - Testes de integração para fluxos completos da aplicação
+  - Página de testes com interface visual e suporte a temas/i18n
+  - Agrupamento de testes por categoria
+  - Relatórios detalhados de resultados
+
+- **Internacionalização (i18n)**
+  - Suporte completo para português e inglês
+  - Seletor de idioma no canto superior direito
+  - Detecção automática do idioma do navegador
+  - Preferência de idioma persistida no localStorage
+  - Tradução de todos os textos da interface, incluindo diálogos e mensagens
+
+### Melhorias
+
+- **Acessibilidade**: Atalhos de teclado melhoram significativamente a navegação para usuários que preferem teclado
+- **Experiência do Usuário**: Alternância rápida de tema, contraste e idioma via teclado
+- **Qualidade de Código**: Cobertura de testes garante maior confiabilidade
+- **Documentação**: README atualizado com seção completa de atalhos de teclado
+
+### Detalhes Técnicos
+
+- Criado módulo `keyboard.js` para gerenciamento de atalhos
+- Implementado sistema de testes customizado (`test-runner.js`)
+- Adicionado módulo `i18n.js` para internacionalização
+- Testes unitários para todos os módulos principais
+- Testes de integração para validação de fluxos completos
+
 ## [1.1.0] - 2024-12-29
 
 ### Funcionalidades Adicionadas
@@ -111,5 +160,6 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - **Corrigido** para correções de bugs
 - **Segurança** para correções de vulnerabilidades
 
+[1.2.0]: https://github.com/herissonneves/axio/releases/tag/v1.2.0
 [1.1.0]: https://github.com/herissonneves/axio/releases/tag/v1.1.0
 [1.0.0]: https://github.com/herissonneves/axio/releases/tag/v1.0.0
