@@ -413,12 +413,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  /**
+   * Alterna entre os níveis de contraste (default -> medium -> high -> default)
+   */
+  const toggleContrast = () => {
+    const contrastOrder = [CONTRAST_DEFAULT, "medium", "high"];
+    const currentIndex = contrastOrder.indexOf(currentContrast);
+    const nextIndex = (currentIndex + 1) % contrastOrder.length;
+    const nextContrast = contrastOrder[nextIndex];
+
+    currentContrast = nextContrast;
+    updateContrastButtons(nextContrast);
+    applyTheme(currentTheme, nextContrast);
+    localStorage.setItem(CONTRAST_STORAGE_KEY, nextContrast);
+  };
+
+  /**
+   * Alterna entre os idiomas disponíveis (pt <-> en)
+   */
+  const toggleLanguage = () => {
+    const currentLang = getLanguage();
+    const nextLang = currentLang === "pt" ? "en" : "pt";
+    setLanguage(nextLang);
+    updateTexts();
+  };
+
   // Inicializar atalhos de teclado
   initKeyboardShortcuts({
     focusInput: () => {
       input?.focus();
     },
     toggleTheme: handleThemeToggleClick,
+    toggleContrast: toggleContrast,
+    toggleLanguage: toggleLanguage,
     setFilterAll: () => {
       currentFilter = "all";
       setActiveFilter("filter-all");
