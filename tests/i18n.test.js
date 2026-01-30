@@ -276,7 +276,7 @@ export function runI18nTests(runner) {
     if (typeof document !== "undefined") {
       setLanguage("pt");
       const translations = getAllTranslations();
-      runner.assertNotNull(translations);
+      runner.assertNotEquals(translations, null);
       runner.assertEquals(translations.pageTitle, "Axio");
       runner.assertEquals(translations.addTaskButton, "Adicionar Tarefa");
     }
@@ -285,7 +285,7 @@ export function runI18nTests(runner) {
   runner.test("getAllTranslations retorna traduções de idioma específico", () => {
     if (typeof document !== "undefined") {
       const translations = getAllTranslations("en");
-      runner.assertNotNull(translations);
+      runner.assertNotEquals(translations, null);
       runner.assertEquals(translations.pageTitle, "Axio");
       runner.assertEquals(translations.addTaskButton, "Add Task");
     }
@@ -294,7 +294,7 @@ export function runI18nTests(runner) {
   runner.test("getAllTranslations retorna null para idioma inválido", () => {
     if (typeof document !== "undefined") {
       const translations = getAllTranslations("fr");
-      runner.assertNull(translations);
+      runner.assertEquals(translations, null);
     }
   });
 
