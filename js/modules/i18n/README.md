@@ -289,7 +289,9 @@ npm test  # ou abra tests.html no navegador
 - ✅ **Integração** (3 testes)
   - Fluxos completos end-to-end
 
-**Total: 35+ testes unitários**
+### Total de Testes
+
+35+ testes unitários implementados
 
 ## 📦 Adicionar Novo Idioma
 
