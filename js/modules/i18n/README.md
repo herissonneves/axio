@@ -367,12 +367,12 @@ const text = t("newFeature"); // 'Nova Funcionalidade' ou 'New Feature'
 
 ### Métricas
 
-| Métrica | Valor |
-| ------- | ----- |
-| Tempo de inicialização | < 5ms |
-| Tempo de tradução (t) | < 0.1ms |
-| Tamanho total (minificado) | ~8KB |
-| Dependências externas | 0 |
+| Métrica                    | Valor   |
+| -------------------------- | ------- |
+| Tempo de inicialização     | < 5ms   |
+| Tempo de tradução (t)      | < 0.1ms |
+| Tamanho total (minificado) | ~8KB    |
+| Dependências externas      | 0       |
 
 ## 🎯 Boas Práticas
 
