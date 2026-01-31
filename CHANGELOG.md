@@ -155,6 +155,61 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ---
 
+### Refatoração e Otimização do main.js
+
+#### Estrutura Modular em 5 Arquivos Especializados
+
+- **Nova Arquitetura app/**
+  - `app/index.js` - Exportações centralizadas (65 linhas)
+  - `app/app-config.js` - Constantes e configurações (70 linhas)
+  - `app/app-theme.js` - Gerenciamento de tema e contraste (160 linhas)
+  - `app/app-filters.js` - Gerenciamento de filtros de tarefas (100 linhas)
+  - `app/app-i18n.js` - Gerenciamento de idioma e traduções (175 linhas)
+
+- **main.js Refatorado**
+  - Reduzido de 483 para 216 linhas (-55%)
+  - Atua como orquestrador de módulos
+  - Seções bem organizadas com comentários descritivos
+  - Imports otimizados e organizados
+  - Código limpo e legível
+
+- **Limpeza de Código**
+  - Removido `getAvailableLanguages` não utilizado
+  - Removido `normalizeKey()` não utilizado de keyboard-utils
+  - Eliminado código morto identificado por análise estática
+  - Zero funcionalidades não utilizadas
+
+#### Benefícios da Refatoração do main.js
+
+- **Redução de Complexidade**: -55% de linhas no arquivo principal
+- **Separação de Responsabilidades**: Cada módulo tem uma função clara
+- **Manutenibilidade**: Fácil localizar e modificar funcionalidades
+- **Testabilidade**: Módulos podem ser testados isoladamente
+- **Legibilidade**: Código organizado com seções claras
+- **Reutilização**: Funções extraídas podem ser reutilizadas
+
+#### Organização do main.js
+
+- **Seção 1**: Imports - Todas as dependências organizadas
+- **Seção 2**: Elementos DOM - Cache de elementos da página
+- **Seção 3**: Inicialização - Setup inicial da aplicação
+- **Seção 4**: Formulário - Manipulador de submissão de tarefas
+- **Seção 5**: Botões de Limpeza - Clear completed e clear all
+- **Seção 6**: Filtros - Gerenciamento de filtros de tarefas
+- **Seção 7**: Tema e Contraste - Configurações visuais
+- **Seção 8**: Idioma - Seletor e menu de idioma
+- **Seção 9**: Atalhos de Teclado - Configuração de shortcuts
+
+#### Técnica da Refatoração
+
+- Aplicados padrões: Module Pattern, Separation of Concerns
+- Estado gerenciado por módulos especializados
+- Funções delegadas mantendo retrocompatibilidade
+- Zero breaking changes
+- 100% retrocompatível
+
+---
+
 ## [1.2.0] - 2026-01-12
 
 ### Funcionalidades Adicionadas

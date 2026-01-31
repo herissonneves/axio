@@ -6,7 +6,7 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 
 ## 📦 Versão atual
 
-**v1.1.0** — lançamento estável. Esta versão inclui: recursos principais (adicionar / marcar como concluída / remover tarefas), reordenação por arrastar e soltar, edição de tarefas com diálogos de confirmação, alternância de tema (claro/escuro), níveis de contraste, persistência (localStorage), filtros (todas / ativas / concluídas), limpar concluídas/todas, layout responsivo e interface compatível com Material Design 3.
+**v1.3.0** (Em Desenvolvimento) — Refatoração completa da arquitetura. Esta versão inclui: todos os recursos da v1.2.0 + modularização extrema dos módulos `keyboard.js`, `i18n.js` e `main.js`, testes unitários completos, documentação detalhada, e estrutura de código otimizada para alta manutenibilidade e testabilidade.
 
 > 📋 Para changelog detalhado, consulte [CHANGELOG.md](CHANGELOG.md)
 
@@ -20,6 +20,7 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 ## 🚀 Funcionalidades
 
 ### Gerenciamento de Tarefas
+
 - ✅ Adicionar uma nova tarefa
 - ✅ Marcar tarefas como concluídas (alternar)
 - ✅ Editar tarefas existentes via menu suspenso
@@ -31,6 +32,7 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 - ✅ Limpar todas as tarefas
 
 ### Design e Temas
+
 - ✅ Interface compatível com Material Design 3
 - ✅ Alternância entre tema claro e escuro
 - ✅ Múltiplos níveis de contraste (Padrão / Médio / Alto)
@@ -39,6 +41,7 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 - ✅ Suporte a dispositivos touch
 
 ### Experiência do Usuário
+
 - ✅ Diálogos de confirmação para ações destrutivas
 - ✅ Feedback visual para operações de arrastar e soltar
 - ✅ Suporte a navegação por teclado (Escape para fechar diálogos)
@@ -47,7 +50,7 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 
 ## 📂 Estrutura do Projeto
 
-```
+```plaintext
 /
 ├── index.html
 ├── css/
@@ -56,7 +59,7 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 │   ├── layout.css            # Estilos de layout e grid
 │   ├── components.css        # Estilos de componentes
 │   ├── utilities.css         # Classes utilitárias
-│   └── themes/              # Definições de temas
+│   └── themes/               # Definições de temas
 │       ├── theme-light.css
 │       ├── theme-light-mc.css
 │       ├── theme-light-hc.css
@@ -64,12 +67,47 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 │       ├── theme-dark-mc.css
 │       └── theme-dark-hc.css
 ├── js/
-│   ├── main.js               # Ponto de entrada da aplicação
+│   ├── main.js               # Orquestrador principal da aplicação
 │   └── modules/
 │       ├── storage.js        # Utilitários de localStorage
 │       ├── todo.js           # Lógica de gerenciamento de tarefas
-│       └── ui.js             # Renderização e componentes de UI
-├── demo/                     # GIFs de demonstração
+│       ├── ui.js             # Renderização e componentes de UI
+│       ├── i18n.js           # Sistema de internacionalização (wrapper)
+│       ├── keyboard.js       # Sistema de atalhos de teclado (wrapper)
+│       ├── app/              # Módulos da aplicação principal
+│       │   ├── index.js      # Exports centralizados
+│       │   ├── app-config.js # Configurações da aplicação
+│       │   ├── app-theme.js  # Gerenciamento de tema/contraste
+│       │   ├── app-filters.js # Gerenciamento de filtros
+│       │   └── app-i18n.js   # Gerenciamento de idioma/traduções
+│       ├── i18n/             # Módulos de internacionalização
+│       │   ├── index.js
+│       │   ├── i18n-config.js
+│       │   ├── i18n-core.js
+│       │   ├── i18n-detector.js
+│       │   ├── i18n-storage.js
+│       │   ├── i18n-translations.js
+│       │   ├── i18n-utils.js
+│       │   └── README.md
+│       └── keyboard/         # Módulos de atalhos de teclado
+│           ├── index.js
+│           ├── keyboard-config.js
+│           ├── keyboard-dialog.js
+│           ├── keyboard-dom.js
+│           ├── keyboard-shortcuts.js
+│           ├── keyboard-utils.js
+│           └── README.md
+├── tests/                    # Testes unitários e de integração
+│   ├── tests.html
+│   ├── test-runner.js
+│   ├── storage.test.js
+│   ├── todo.test.js
+│   ├── i18n.test.js
+│   ├── keyboard.test.js
+│   └── integration.test.js
+├── demo/                     # GIFs e capturas de demonstração
+├── CHANGELOG.md
+├── CONTRIBUTING.md
 └── README.md
 ```
 
@@ -77,10 +115,10 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 
 1. Clone o repositório
 
-    ```bash
-    git clone https://github.com/herissonneves/axio.git
-    cd axio
-    ```
+   ```bash
+   git clone https://github.com/herissonneves/axio.git
+   cd axio
+   ```
 
 2. Abra `index.html` no seu navegador (duplo clique ou use VSCode Live Server / qualquer servidor estático)
 
@@ -89,6 +127,7 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 ## 🧠 Como Usar
 
 ### Operações Básicas
+
 - Use o campo de entrada no topo para digitar uma nova tarefa e pressione "**Adicionar Tarefa**" para criá-la.
 - Clique no texto ou na caixa de seleção de uma tarefa para marcá-la como concluída (ou alternar de volta para ativa).
 - Use o **menu de três pontos** (⋮) ao lado de uma tarefa para acessar opções:
@@ -99,12 +138,14 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 - Use "**Limpar Todas**" para remover todas as tarefas.
 
 ### Arrastar e Soltar
+
 - Clique e segure o **botão de arrastar** (ícone de seis pontos) à esquerda de qualquer tarefa
 - Arraste a tarefa para uma nova posição na lista
 - Solte para posicionar a tarefa na nova posição
 - A nova ordem é salva automaticamente
 
 ### Tema e Contraste
+
 - Clique no **ícone de sol/lua** para alternar entre temas claro e escuro
 - Use os botões do **seletor de contraste** para escolher o nível de contraste:
   - **Padrão**: Contraste padrão
@@ -117,15 +158,18 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 A aplicação suporta vários atalhos de teclado para facilitar o uso:
 
 #### Navegação e Foco
+
 - **Ctrl+K** ou **/** - Focar no campo de entrada de tarefa
 - **Ctrl+?** ou **F1** - Mostrar diálogo de ajuda com todos os atalhos
 
 #### Filtros
+
 - **1** - Mostrar todas as tarefas
 - **2** - Mostrar apenas tarefas ativas
 - **3** - Mostrar apenas tarefas concluídas
 
 #### Ações Rápidas
+
 - **Ctrl+G** - Alternar entre tema claro e escuro
 - **Ctrl+J** - Alternar nível de contraste (padrão → médio → alto → padrão)
 - **Ctrl+L** - Alternar idioma (português ↔ inglês)
@@ -133,6 +177,7 @@ A aplicação suporta vários atalhos de teclado para facilitar o uso:
 - **Ctrl+Shift+Delete** - Limpar todas as tarefas
 
 #### Diálogos
+
 - **Escape** - Fechar qualquer diálogo aberto
 - **Enter** - Enviar formulários (adicionar tarefa, editar tarefa)
 
@@ -163,29 +208,39 @@ Esta aplicação segue as diretrizes do **Material Design 3**:
 ## ⚙️ Detalhes de Implementação
 
 ### Stack Técnico
+
 - **JavaScript Vanilla** (módulos ES6) - Sem ferramentas de build, sem dependências
 - **CSS Moderno** com propriedades personalizadas (variáveis CSS)
 - **HTML5** marcação semântica
 - **localStorage** para persistência de dados
 
 ### Estrutura de Dados
+
 - Os dados são armazenados no `localStorage` como um array de objetos serializado em JSON.
 - Cada objeto de tarefa contém:
-    ```js
-    {
-        id: string,        // UUID único (ou fallback de timestamp)
-        text: string,      // descrição da tarefa
-        completed: boolean // status de conclusão
-    }
-    ```
+
+  ```js
+  {
+      id: string,        // UUID único (ou fallback de timestamp)
+      text: string,      // descrição da tarefa
+      completed: boolean // status de conclusão
+  }
+  ```
 
 ### Arquitetura
-- **Estrutura Modular**: Código organizado em módulos (storage, todo, ui)
-- **Separação de Responsabilidades**: UI, lógica e armazenamento de dados são separados
+
+- **Estrutura Extremamente Modular**: Código organizado em módulos especializados
+  - `app/`: Módulos da aplicação principal (config, theme, filters, i18n)
+  - `i18n/`: Sistema de internacionalização (7 módulos especializados)
+  - `keyboard/`: Sistema de atalhos de teclado (6 módulos especializados)
+- **Separação de Responsabilidades**: UI, lógica, armazenamento e configuração separados
 - **Orientado a Eventos**: Usa eventos DOM para interações do usuário
-- **Gerenciamento de Estado**: Estado centralizado de tarefas com persistência em localStorage
+- **Gerenciamento de Estado**: Estado centralizado com persistência em localStorage
+- **Alta Testabilidade**: ~60 testes unitários e de integração
+- **Padrões de Design**: Module Pattern, Factory Pattern, Strategy Pattern, Pure Functions
 
 ### Implementação de Funcionalidades
+
 - **Arrastar e Soltar**: Usa API HTML5 Drag and Drop com feedback visual personalizado
 - **Diálogos**: Componentes de diálogo personalizados com sobreposição e desfoque de fundo
 - **Menu**: Componente de menu suspenso com posicionamento adequado
@@ -201,9 +256,9 @@ Esta aplicação segue as diretrizes do **Material Design 3**:
 
 ## 🧪 Melhorias Futuras
 
-- [ ] Adicionar testes unitários
-- [ ] Adicionar testes de integração
-- [ ] Adicionar documentação de atalhos de teclado
+- [x] Adicionar testes unitários ✅ (v1.3.0 - ~60 testes implementados)
+- [x] Adicionar testes de integração ✅ (v1.3.0)
+- [x] Adicionar documentação de atalhos de teclado ✅ (v1.2.0)
 - [ ] Adicionar mais GIFs de demonstração
 - [ ] Implementar categorias/tags de tarefas
 - [ ] Adicionar datas de vencimento de tarefas
@@ -230,11 +285,16 @@ Certifique-se de seguir o estilo de código existente e adicionar documentação
 Este projeto foi criado como um exercício prático em JavaScript, HTML e CSS vanilla - para aprender manipulação de DOM, `localStorage`, renderização dinâmica, gerenciamento de estado e implementação do Material Design 3.
 
 A aplicação demonstra:
+
 - JavaScript moderno (módulos ES6)
+- Arquitetura modular extrema (25+ módulos especializados)
 - Propriedades CSS personalizadas e temas
 - Arquitetura baseada em componentes
 - Melhores práticas de acessibilidade
 - Diretrizes do Material Design 3
+- Testes unitários e de integração
+- Padrões de design (Module, Factory, Strategy)
+- Princípios SOLID aplicados
 
 Sinta-se à vontade para fazer fork, experimentar e estender como desejar. Pull requests e sugestões são bem-vindos.
 
