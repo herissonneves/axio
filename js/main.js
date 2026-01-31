@@ -1,20 +1,42 @@
 /**
  * Módulo Principal da Aplicação
- * 
- * Ponto de entrada da aplicação que gerencia:
+ *
+ * Ponto de entrada da aplicação que orquestra:
  * - Inicialização do sistema de internacionalização (i18n)
- * - Gerenciamento de temas (claro/escuro) e níveis de contraste
- * - Submissão de formulário para adicionar tarefas
- * - Filtros de visualização de tarefas (todas/ativas/concluídas)
- * - Botões de limpeza (limpar concluídas/limpar todas)
+ * - Gerenciamento de temas e contraste
+ * - Gerenciamento de filtros de tarefas
+ * - Submissão de formulário e manipulação de tarefas
  * - Seletor de idioma
  * - Atalhos de teclado
  */
 
 import { addTask, clearCompleted, clearAll } from "./modules/todo.js";
 import { renderTasks } from "./modules/ui.js";
-import { initI18n, setLanguage, t, getLanguage, getAvailableLanguages } from "./modules/i18n.js";
-import { initKeyboardShortcuts, showKeyboardShortcutsDialog } from "./modules/keyboard.js";
+import { initI18n } from "./modules/i18n.js";
+import {
+  initKeyboardShortcuts,
+  showKeyboardShortcutsDialog,
+} from "./modules/keyboard.js";
+import {
+  loadThemePreferences,
+  toggleTheme,
+  toggleContrast,
+  setContrast,
+  getCurrentContrast,
+  getCurrentTheme,
+} from "./modules/app/index.js";
+import {
+  getCurrentFilter,
+  setActiveFilter,
+  handleFilterClick,
+  applyFilter,
+} from "./modules/app/index.js";
+import {
+  updateTexts,
+  toggleLanguage,
+  closeLanguageMenu,
+  createLanguageMenu,
+} from "./modules/app/index.js";
 
 /**
  * Inicialização da aplicação ao carregar o DOM
@@ -23,261 +45,68 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicializar sistema de internacionalização
   initI18n();
 
-  const DEFAULT_THEME = "light";
-  const CONTRAST_DEFAULT = "default";
-  const THEME_STORAGE_KEY = "todo-theme";
-  const CONTRAST_STORAGE_KEY = "todo-contrast";
-
-  const VALID_CONTRASTS = [CONTRAST_DEFAULT, "medium", "high"];
+  // ============================================================================
+  // ELEMENTOS DO DOM
+  // ============================================================================
 
   const themeToggle = document.getElementById("theme-toggle");
   const contrastButtons = document.querySelectorAll(".contrast-selector__btn");
-
   const form = document.getElementById("todo-form");
   const input = document.getElementById("todo-input");
   const btnClear = document.getElementById("clear-completed");
   const btnClearAll = document.getElementById("clear-all");
   const filterButtons = document.querySelectorAll(".todo-filters__button");
+  const languageSelector = document.getElementById("language-selector");
 
-  const FILTER_MAP = {
-    "filter-all": "all",
-    "filter-active": "active",
-    "filter-completed": "completed",
-  };
+  let languageMenu = null;
 
-  const SVG_NS = "http://www.w3.org/2000/svg";
+  // ============================================================================
+  // INICIALIZAÇÃO
+  // ============================================================================
 
-  let currentTheme = DEFAULT_THEME;
-  let currentContrast = CONTRAST_DEFAULT;
-  let currentFilter = "all";
+  // Carregar preferências de tema e contraste
+  loadThemePreferences(themeToggle, contrastButtons);
 
-  /**
-   * Atualiza todos os textos estáticos da interface com as traduções do idioma atual
-   */
-  const updateTexts = () => {
-    const pageTitle = document.getElementById("page-title");
-    const todoFormLabel = document.getElementById("todo-form-label");
-    const todoInput = document.getElementById("todo-input");
-    const addTaskButton = document.getElementById("add-task-button");
-    const filterAll = document.getElementById("filter-all");
-    const filterActive = document.getElementById("filter-active");
-    const filterCompleted = document.getElementById("filter-completed");
-    const clearCompletedBtn = document.getElementById("clear-completed");
-    const clearAllBtn = document.getElementById("clear-all");
-    const languageSelector = document.getElementById("language-selector");
-    const languageSelectorText = document.getElementById("language-selector-text");
-    const themeControls = document.querySelector(".theme-controls");
-    const todoFilters = document.querySelector(".todo-filters");
+  // Atualizar textos com idioma atual
+  updateTexts(getCurrentFilter());
 
-    if (pageTitle) pageTitle.textContent = t("pageTitle");
-    if (todoFormLabel) todoFormLabel.textContent = t("taskDescription");
-    if (todoInput) todoInput.placeholder = t("addTaskPlaceholder");
-    if (addTaskButton) addTaskButton.textContent = t("addTaskButton");
-    if (filterAll) filterAll.textContent = t("filterAll");
-    if (filterActive) filterActive.textContent = t("filterActive");
-    if (filterCompleted) filterCompleted.textContent = t("filterCompleted");
-    if (clearCompletedBtn) {
-      clearCompletedBtn.textContent = t("clearCompleted");
-      clearCompletedBtn.setAttribute("aria-label", t("ariaClearCompleted"));
-    }
-    if (clearAllBtn) {
-      clearAllBtn.textContent = t("clearAll");
-      clearAllBtn.setAttribute("aria-label", t("ariaClearAll"));
-    }
-    if (languageSelector) {
-      languageSelector.setAttribute("aria-label", t("ariaLanguageSelector"));
-      const currentLang = getLanguage();
-      if (languageSelectorText) {
-        languageSelectorText.textContent = currentLang.toUpperCase();
-      }
-    }
-    if (themeControls) {
-      themeControls.setAttribute("aria-label", t("ariaThemeSettings"));
-    }
-    if (todoFilters) {
-      todoFilters.setAttribute("aria-label", t("ariaTaskFilters"));
-    }
+  // Renderizar tarefas e definir filtro inicial
+  renderTasks(getCurrentFilter());
+  setActiveFilter(filterButtons, "filter-all");
 
-    // Update contrast buttons aria-labels
-    const contrastButtons = document.querySelectorAll(".contrast-selector__btn");
-    contrastButtons.forEach((btn) => {
-      const contrast = btn.dataset.contrast;
-      if (contrast === "default") {
-        btn.setAttribute("aria-label", t("ariaDefaultContrast"));
-      } else if (contrast === "medium") {
-        btn.setAttribute("aria-label", t("ariaMediumContrast"));
-      } else if (contrast === "high") {
-        btn.setAttribute("aria-label", t("ariaHighContrast"));
-      }
-    });
-
-    // Update theme toggle aria-label
-    const themeToggle = document.getElementById("theme-toggle");
-    if (themeToggle) {
-      themeToggle.setAttribute("aria-label", t("ariaThemeToggle"));
-    }
-
-    // Re-renderizar tarefas para atualizar conteúdo dinâmico
-    renderTasks(currentFilter);
-  };
-
-  // Atualização inicial dos textos
-  updateTexts();
-
-  const THEME_MAP = {
-    light: {
-      [CONTRAST_DEFAULT]: "light",
-      medium: "light-medium-contrast",
-      high: "light-high-contrast",
-    },
-    dark: {
-      [CONTRAST_DEFAULT]: "dark",
-      medium: "dark-medium-contrast",
-      high: "dark-high-contrast",
-    },
-  };
+  // ============================================================================
+  // MANIPULADORES DE FORMULÁRIO
+  // ============================================================================
 
   /**
-   * Aplica o tema e contraste selecionados ao documento
-   * @param {string} theme - Tema (light ou dark)
-   * @param {string} contrast - Nível de contraste (default, medium ou high)
+   * Manipula a submissão do formulário de adicionar tarefa
    */
-  const applyTheme = (theme, contrast) => {
-    const resolvedTheme =
-      THEME_MAP[theme]?.[contrast] ?? THEME_MAP[DEFAULT_THEME][CONTRAST_DEFAULT];
-    document.documentElement.dataset.theme = resolvedTheme;
-  };
-
-  /**
-   * Atualiza o estado visual do botão de alternância de tema
-   * @param {string} theme - Tema atual (light ou dark)
-   */
-  const updateThemeToggle = (theme) => {
-    if (!themeToggle) return;
-
-    const isDark = theme === "dark";
-    themeToggle.classList.toggle("theme-toggle--dark", isDark);
-    themeToggle.classList.toggle("theme-toggle--light", !isDark);
-    themeToggle.setAttribute("aria-pressed", String(isDark));
-  };
-
-  /**
-   * Atualiza o estado visual dos botões de seleção de contraste
-   * @param {string} contrast - Nível de contraste atual
-   */
-  const updateContrastButtons = (contrast) => {
-    contrastButtons.forEach((btn) => {
-      const value = btn.dataset.contrast;
-      const isActive = value === contrast;
-      btn.classList.toggle("contrast-selector__btn--active", isActive);
-      btn.setAttribute("aria-pressed", String(isActive));
-    });
-  };
-
-  /**
-   * Carrega as preferências de tema e contraste do localStorage
-   */
-  const loadThemePreferences = () => {
-    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    const storedContrast = localStorage.getItem(CONTRAST_STORAGE_KEY);
-
-    const initialTheme = storedTheme === "dark" ? "dark" : DEFAULT_THEME;
-    const initialContrast = VALID_CONTRASTS.includes(storedContrast)
-      ? storedContrast
-      : CONTRAST_DEFAULT;
-
-    currentTheme = initialTheme;
-    currentContrast = initialContrast;
-
-    updateThemeToggle(initialTheme);
-    updateContrastButtons(initialContrast);
-    applyTheme(initialTheme, initialContrast);
-  };
-
-  /**
-   * Cria o ícone de check para indicar o filtro ativo
-   * @returns {SVGElement} Elemento SVG do ícone de check
-   */
-  const renderFilterIcon = () => {
-    const icon = document.createElementNS(SVG_NS, "svg");
-    icon.setAttribute("width", "13");
-    icon.setAttribute("height", "10");
-    icon.setAttribute("viewBox", "0 0 13 10");
-    icon.classList.add("todo-filters__check-icon");
-
-    const path = document.createElementNS(SVG_NS, "path");
-    path.setAttribute(
-      "d",
-      "M4.275 9.01875L0 4.74375L1.06875 3.675L4.275 6.88125L11.1563 0L12.225 1.06875L4.275 9.01875Z"
-    );
-
-    icon.append(path);
-    return icon;
-  };
-
-  /**
-   * Alterna os estilos do botão de filtro ativo e estados de acessibilidade
-   * @param {string} activeButtonId - ID do botão de filtro ativo
-   */
-  const setActiveFilter = (activeButtonId) => {
-    filterButtons.forEach((btn) => {
-      const isActive = btn.id === activeButtonId;
-      btn.classList.toggle("todo-filters__button--active", isActive);
-      btn.setAttribute("aria-pressed", String(isActive));
-
-      btn.querySelector(".todo-filters__button-icon-wrapper")?.remove();
-
-      if (isActive) {
-        const iconWrapper = document.createElement("div");
-        iconWrapper.classList.add("todo-filters__button-icon-wrapper");
-        iconWrapper.append(renderFilterIcon());
-        btn.prepend(iconWrapper);
-      }
-    });
-  };
-
-  /**
-   * Manipula o clique em um botão de filtro
-   * @param {Event} event - Evento de clique
-   */
-  const handleFilterClick = (event) => {
-    const { id } = event.currentTarget;
-    const filter = FILTER_MAP[id];
-    if (!filter) return;
-
-    currentFilter = filter;
-    setActiveFilter(id);
-    renderTasks(filter);
-  };
-
-  renderTasks(currentFilter);
-  setActiveFilter("filter-all");
-  loadThemePreferences();
-
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
     const text = input?.value.trim();
     if (!text) return;
 
     addTask(text);
-    renderTasks(currentFilter);
+    renderTasks(getCurrentFilter());
 
     input.value = "";
     input.focus();
   });
 
-  filterButtons.forEach((button) =>
-    button.addEventListener("click", handleFilterClick)
-  );
+  // ============================================================================
+  // MANIPULADORES DE BOTÕES DE LIMPEZA
+  // ============================================================================
 
+  /**
+   * Manipula o clique no botão de limpar tarefas concluídas
+   */
   btnClear?.addEventListener("click", () => {
     clearCompleted();
 
-    // Se o filtro atual for "completed", mudar para "all" porque a lista ficará vazia
+    // Se o filtro atual for "completed", mudar para "all"
+    const currentFilter = getCurrentFilter();
     if (currentFilter === "completed") {
-      currentFilter = "all";
-      setActiveFilter("filter-all");
-      renderTasks("all");
+      applyFilter(filterButtons, "all", "filter-all");
     } else {
       renderTasks(currentFilter);
     }
@@ -285,197 +114,113 @@ document.addEventListener("DOMContentLoaded", () => {
     btnClear.blur();
   });
 
+  /**
+   * Manipula o clique no botão de limpar todas as tarefas
+   */
   btnClearAll?.addEventListener("click", () => {
     clearAll();
-    currentFilter = "all";
-    setActiveFilter("filter-all");
-    renderTasks("all");
+    applyFilter(filterButtons, "all", "filter-all");
     btnClearAll.blur();
   });
+
+  // ============================================================================
+  // MANIPULADORES DE FILTROS
+  // ============================================================================
+
+  /**
+   * Adiciona event listeners aos botões de filtro
+   */
+  filterButtons.forEach((button) =>
+    button.addEventListener("click", (event) =>
+      handleFilterClick(filterButtons, event),
+    ),
+  );
+
+  // ============================================================================
+  // MANIPULADORES DE TEMA E CONTRASTE
+  // ============================================================================
 
   /**
    * Manipula o clique no botão de alternância de tema
    */
-  const handleThemeToggleClick = () => {
-    const nextTheme = currentTheme === "dark" ? "light" : "dark";
-    currentTheme = nextTheme;
-
-    updateThemeToggle(nextTheme);
-    applyTheme(nextTheme, currentContrast);
-    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-  };
+  themeToggle?.addEventListener("click", () => toggleTheme(themeToggle));
 
   /**
    * Manipula o clique em um botão de seleção de contraste
-   * @param {Event} event - Evento de clique
    */
-  const handleContrastClick = (event) => {
-    const button = event.currentTarget;
-    const value = button.dataset.contrast;
-    if (!VALID_CONTRASTS.includes(value)) return;
-
-    currentContrast = value;
-    updateContrastButtons(value);
-    applyTheme(currentTheme, currentContrast);
-    localStorage.setItem(CONTRAST_STORAGE_KEY, value);
-  };
-
-  themeToggle?.addEventListener("click", handleThemeToggleClick);
   contrastButtons.forEach((btn) =>
-    btn.addEventListener("click", handleContrastClick)
+    btn.addEventListener("click", (event) => {
+      const value = event.currentTarget.dataset.contrast;
+      setContrast(contrastButtons, value);
+    }),
   );
 
-  // Seletor de idioma
-  const languageSelector = document.getElementById("language-selector");
-  let languageMenu = null;
+  // ============================================================================
+  // MANIPULADORES DE SELETOR DE IDIOMA
+  // ============================================================================
 
   /**
-   * Fecha o menu de seleção de idioma
+   * Manipula o clique no seletor de idioma
    */
-  const closeLanguageMenu = () => {
-    if (languageMenu) {
-      languageMenu.remove();
-      languageMenu = null;
-    }
-    if (languageSelector) {
-      languageSelector.setAttribute("aria-expanded", "false");
-    }
-  };
-
-  /**
-   * Cria e exibe o menu de seleção de idioma
-   */
-  const createLanguageMenu = () => {
-    closeLanguageMenu();
-
-    const menu = document.createElement("div");
-    menu.classList.add("language-menu");
-    menu.setAttribute("role", "menu");
-    menu.setAttribute("aria-label", t("ariaLanguageSelector"));
-
-    const languages = [
-      { code: "pt", name: t("languagePortuguese") },
-      { code: "en", name: t("languageEnglish") },
-    ];
-
-    languages.forEach((lang) => {
-      const item = document.createElement("button");
-      item.classList.add("language-menu__item");
-      if (getLanguage() === lang.code) {
-        item.classList.add("language-menu__item--active");
-      }
-      item.setAttribute("role", "menuitem");
-      item.textContent = lang.name;
-
-      item.addEventListener("click", () => {
-        setLanguage(lang.code);
-        updateTexts();
-        closeLanguageMenu();
-      });
-
-      menu.append(item);
-    });
-
-    const rect = languageSelector.getBoundingClientRect();
-    menu.style.position = "fixed";
-    menu.style.top = `${rect.bottom + 4}px`;
-    menu.style.right = `${window.innerWidth - rect.right}px`;
-
-    document.body.append(menu);
-    languageMenu = menu;
-    languageSelector.setAttribute("aria-expanded", "true");
-
-    // Fechar ao clicar fora do menu
-    setTimeout(() => {
-      const handleClickOutside = (event) => {
-        if (!menu.contains(event.target) && event.target !== languageSelector) {
-          closeLanguageMenu();
-          document.removeEventListener("click", handleClickOutside);
-        }
-      };
-      document.addEventListener("click", handleClickOutside);
-    }, 0);
-  };
-
   languageSelector?.addEventListener("click", (event) => {
     event.stopPropagation();
     if (languageMenu) {
-      closeLanguageMenu();
+      languageMenu = closeLanguageMenu(languageMenu, languageSelector);
     } else {
-      createLanguageMenu();
+      languageMenu = createLanguageMenu(
+        languageSelector,
+        getCurrentFilter(),
+        () => {
+          languageMenu = closeLanguageMenu(languageMenu, languageSelector);
+        },
+      );
     }
   });
 
-  // Fechar menu de idioma ao pressionar Escape
+  /**
+   * Fechar menu de idioma ao pressionar Escape
+   */
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && languageMenu) {
-      closeLanguageMenu();
+      languageMenu = closeLanguageMenu(languageMenu, languageSelector);
     }
   });
 
-  /**
-   * Alterna entre os níveis de contraste (default -> medium -> high -> default)
-   */
-  const toggleContrast = () => {
-    const contrastOrder = [CONTRAST_DEFAULT, "medium", "high"];
-    const currentIndex = contrastOrder.indexOf(currentContrast);
-    const nextIndex = (currentIndex + 1) % contrastOrder.length;
-    const nextContrast = contrastOrder[nextIndex];
-
-    currentContrast = nextContrast;
-    updateContrastButtons(nextContrast);
-    applyTheme(currentTheme, nextContrast);
-    localStorage.setItem(CONTRAST_STORAGE_KEY, nextContrast);
-  };
+  // ============================================================================
+  // ATALHOS DE TECLADO
+  // ============================================================================
 
   /**
-   * Alterna entre os idiomas disponíveis (pt <-> en)
+   * Inicializa o sistema de atalhos de teclado
    */
-  const toggleLanguage = () => {
-    const currentLang = getLanguage();
-    const nextLang = currentLang === "pt" ? "en" : "pt";
-    setLanguage(nextLang);
-    updateTexts();
-  };
-
-  // Inicializar atalhos de teclado
   initKeyboardShortcuts({
     focusInput: () => {
       input?.focus();
     },
-    toggleTheme: handleThemeToggleClick,
-    toggleContrast: toggleContrast,
-    toggleLanguage: toggleLanguage,
+    toggleTheme: () => toggleTheme(themeToggle),
+    toggleContrast: () => toggleContrast(contrastButtons),
+    toggleLanguage: () => toggleLanguage(getCurrentFilter()),
     setFilterAll: () => {
-      currentFilter = "all";
-      setActiveFilter("filter-all");
-      renderTasks("all");
+      applyFilter(filterButtons, "all", "filter-all");
     },
     setFilterActive: () => {
-      currentFilter = "active";
-      setActiveFilter("filter-active");
-      renderTasks("active");
+      applyFilter(filterButtons, "active", "filter-active");
     },
     setFilterCompleted: () => {
-      currentFilter = "completed";
-      setActiveFilter("filter-completed");
-      renderTasks("completed");
+      applyFilter(filterButtons, "completed", "filter-completed");
     },
     clearCompleted: () => {
       clearCompleted();
+      const currentFilter = getCurrentFilter();
       if (currentFilter === "completed") {
-        currentFilter = "all";
-        setActiveFilter("filter-all");
-        renderTasks("all");
+        applyFilter(filterButtons, "all", "filter-all");
       } else {
         renderTasks(currentFilter);
       }
     },
     clearAll: () => {
       clearAll();
-      currentFilter = "all";
-      setActiveFilter("filter-all");
-      renderTasks("all");
+      applyFilter(filterButtons, "all", "filter-all");
     },
     showHelp: showKeyboardShortcutsDialog,
   });

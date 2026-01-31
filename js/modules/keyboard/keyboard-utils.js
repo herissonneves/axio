@@ -69,16 +69,3 @@ export const matchesShortcut = (event, shortcut) => {
   
   return eventKey === shortcutKey || key === shortcutKey;
 };
-
-/**
- * Normaliza uma tecla para comparação
- * @param {string} key - Tecla a ser normalizada
- * @returns {string} Tecla normalizada
- */
-export const normalizeKey = (key) => {
-  // Teclas especiais mantêm o case original
-  if (key.startsWith("F") || key === "Escape" || key === "Delete") {
-    return key;
-  }
-  return key.toLowerCase();
-};
