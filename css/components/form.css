@@ -1,0 +1,99 @@
+/* Task form input and button styles */
+
+.todo-page__form {
+    margin-bottom: 1.25rem;
+}
+
+.todo-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.todo-form__input-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    padding: 0.625rem 0;
+
+    border-radius: 0.25rem;
+    border: 1px solid var(--md-sys-color-outline);
+}
+
+.todo-form__input-wrapper:hover {
+    border-color: var(--md-sys-color-on-surface);
+}
+
+.todo-form__input-wrapper:focus-within {
+    border: 3px solid var(--md-sys-color-primary);
+}
+
+.todo-form__input {
+    width: 100%;
+    min-width: 0;
+    height: 3rem;
+    padding: 0 1rem;
+    border: none;
+    background: none;
+    font: var(--md-text-body-large);
+    letter-spacing: var(--md-text-body-large-letter-spacing);
+    color: var(--md-sys-color-on-surface);
+    box-sizing: border-box;
+}
+
+.todo-form__input::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.todo-form__input:focus {
+    outline: none;
+}
+
+.todo-form__button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10.5rem;
+}
+
+.todo-form__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+
+    border: none;
+    border-radius: 1rem;
+
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+
+    font: var(--md-text-title-medium);
+    letter-spacing: var(--md-text-title-medium-letter-spacing);
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-form__button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity .2s ease;
+    pointer-events: none;
+}
+
+.todo-form__button:hover::before {
+    opacity: 0.08;
+}
+
+.todo-form__button:focus-within::before {
+    opacity: 0.10;
+    border: 3px solid var(--md-sys-color-secondary);
+    border-radius: 1.125rem;
+}

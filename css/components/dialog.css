@@ -1,0 +1,213 @@
+/* Modal dialogs (edit, delete, shortcuts) */
+
+.todo-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: dialog-fade-in 0.15s ease;
+}
+
+@keyframes dialog-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.todo-dialog__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(4px);
+}
+
+.todo-dialog__container {
+    position: relative;
+    width: 90%;
+    max-width: 28rem;
+    padding: 1.5rem;
+    border-radius: 1.75rem;
+    background: var(--md-sys-color-surface-container);
+    box-shadow:
+        0 8px 12px 6px rgba(0, 0, 0, 0.15),
+        0 4px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    animation: dialog-scale-in 0.15s ease;
+}
+
+@keyframes dialog-scale-in {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.todo-dialog__title {
+    margin: 0 0 1rem 0;
+    color: var(--md-sys-color-on-surface);
+    font: var(--md-text-headline-small);
+    letter-spacing: var(--md-text-headline-small-letter-spacing);
+}
+
+.todo-dialog__content {
+    margin: 0 0 1.5rem 0;
+    color: var(--md-sys-color-on-surface-variant);
+    font: var(--md-text-body-medium);
+    letter-spacing: var(--md-text-body-medium-letter-spacing);
+}
+
+.todo-dialog__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Shortcuts dialog */
+.shortcuts-dialog {
+    max-width: 32rem;
+}
+
+.shortcuts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.shortcuts-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background: var(--md-sys-color-surface-variant);
+    transition: background-color 0.15s ease;
+}
+
+.shortcuts-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background: var(--md-sys-color-surface);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    color: var(--md-sys-color-on-surface);
+    font: 400 0.75rem/1rem 'Roboto', monospace;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.shortcuts-description {
+    color: var(--md-sys-color-on-surface);
+    font: var(--md-text-body-medium);
+    letter-spacing: var(--md-text-body-medium-letter-spacing);
+    margin-left: 1rem;
+    flex: 1;
+}
+
+.todo-dialog__input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--md-sys-color-outline);
+    transition: border-color 0.15s ease;
+}
+
+.todo-dialog__input-wrapper:focus-within {
+    border: 3px solid var(--md-sys-color-primary);
+}
+
+.todo-dialog__label {
+    padding: 0.5rem 1rem 0 1rem;
+    color: var(--md-sys-color-on-surface);
+    font: var(--md-text-body-small);
+    letter-spacing: var(--md-text-body-small-letter-spacing);
+}
+
+.todo-dialog__input {
+    padding: 0.75rem 1rem;
+    border: none;
+    background: none;
+    font: var(--md-text-body-large);
+    letter-spacing: var(--md-text-body-large-letter-spacing);
+    color: var(--md-sys-color-on-surface);
+    outline: none;
+}
+
+.todo-dialog__input::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.todo-dialog__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.todo-dialog__button {
+    padding: 0.625rem 1.5rem;
+    border: none;
+    border-radius: 1.25rem;
+    font: var(--md-text-label-large);
+    letter-spacing: var(--md-text-label-large-letter-spacing);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.15s ease;
+}
+
+.todo-dialog__button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+}
+
+.todo-dialog__button:hover::before {
+    opacity: 0.08;
+}
+
+.todo-dialog__button:focus-visible::before {
+    opacity: 0.12;
+    outline: 3px solid var(--md-sys-color-secondary);
+    outline-offset: 2px;
+}
+
+.todo-dialog__button--secondary {
+    background: none;
+    color: var(--md-sys-color-primary);
+}
+
+.todo-dialog__button--primary {
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .todo-dialog {
+        animation: none;
+    }
+
+    .todo-dialog__container {
+        animation: none;
+    }
+}
