@@ -4,8 +4,8 @@
  * Gerencia a mudança de idioma e atualização de textos da interface.
  */
 
-import { getLanguage, setLanguage, t } from "../i18n.js";
-import { renderTasks } from "../ui.js";
+import { getLanguage, setLanguage, t } from "../i18n/index.js";
+import { renderTasks } from "../ui/index.js";
 
 /**
  * Atualiza todos os textos estáticos da interface com as traduções do idioma atual
