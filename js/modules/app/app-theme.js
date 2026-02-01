@@ -110,9 +110,13 @@ export const toggleTheme = (themeToggle) => {
   const nextTheme = currentTheme === "dark" ? "light" : "dark";
   currentTheme = nextTheme;
 
+  console.log(`[Theme] Mudando de ${currentTheme === "dark" ? "light" : "dark"} para ${nextTheme}`);
+  
   updateThemeToggle(themeToggle, nextTheme);
   applyTheme(nextTheme, currentContrast);
   localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+
+  console.log(`[Theme] data-theme="${document.documentElement.dataset.theme}"`);
 
   return nextTheme;
 };
@@ -126,10 +130,14 @@ export const toggleTheme = (themeToggle) => {
 export const setContrast = (contrastButtons, contrast) => {
   if (!VALID_CONTRASTS.includes(contrast)) return false;
 
+  console.log(`[Contrast] Mudando para: ${contrast}`);
+
   currentContrast = contrast;
   updateContrastButtons(contrastButtons, contrast);
   applyTheme(currentTheme, contrast);
   localStorage.setItem(CONTRAST_STORAGE_KEY, contrast);
+
+  console.log(`[Contrast] data-theme="${document.documentElement.dataset.theme}"`);
 
   return true;
 };
