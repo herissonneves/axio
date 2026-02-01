@@ -21,9 +21,9 @@ import {
   clearCompleted,
   clearAll,
   reorderTasks
-} from "../js/modules/todo.js";
-import { saveTasks, loadTasks } from "../js/modules/storage.js";
-import { setLanguage, getLanguage, t, initI18n } from "../js/modules/i18n/index.js";
+} from "../../js/modules/todo.js";
+import { saveTasks, loadTasks } from "../../js/modules/storage.js";
+import { setLanguage, getLanguage, t, initI18n } from "../../js/modules/i18n/index.js";
 
 /**
  * Registra todos os testes de integração da aplicação

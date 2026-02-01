@@ -517,13 +517,13 @@
         const TestRunnerModule = await import("./test-runner.js");
         const TestRunner = TestRunnerModule.default || TestRunnerModule.TestRunner;
 
-        const { runStorageTests } = await import("./storage.test.js");
-        const { runTodoTests } = await import("./todo.test.js");
-        const { runI18nTests } = await import("./i18n.test.js");
-        const { runKeyboardTests } = await import("./keyboard.test.js");
-        const { runAppTests } = await import("./app.test.js");
-        const { runUITests } = await import("./ui.test.js");
-        const { runIntegrationTests } = await import("./integration.test.js");
+        const { runStorageTests } = await import("./unit/storage.test.js");
+        const { runTodoTests } = await import("./unit/todo.test.js");
+        const { runI18nTests } = await import("./unit/i18n.test.js");
+        const { runKeyboardTests } = await import("./unit/keyboard.test.js");
+        const { runAppTests } = await import("./unit/app.test.js");
+        const { runUITests } = await import("./unit/ui.test.js");
+        const { runIntegrationTests } = await import("./integration/integration.test.js");
 
         runner = new TestRunner();
         output = document.getElementById("test-output");

@@ -38,7 +38,7 @@ import {
   saveLanguagePreference,
   loadLanguagePreference,
   clearLanguagePreference,
-} from "../js/modules/i18n/index.js";
+} from "../../js/modules/i18n/index.js";
 
 /**
  * Registra todos os testes do módulo de internacionalização

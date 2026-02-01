@@ -14,12 +14,12 @@ import {
   createDragHandleIcon,
   createEditIcon,
   createDeleteIcon,
-} from "../js/modules/ui/ui-icons.js";
+} from "../../js/modules/ui/ui-icons.js";
 
 import {
   getTaskIndex,
   getOriginalIndex,
-} from "../js/modules/ui/ui-drag.js";
+} from "../../js/modules/ui/ui-drag.js";
 
 /**
  * Registra todos os testes do módulo UI

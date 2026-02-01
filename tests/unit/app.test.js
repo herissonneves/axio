@@ -15,7 +15,7 @@ import {
   VALID_CONTRASTS,
   FILTER_MAP,
   THEME_MAP,
-} from "../js/modules/app/app-config.js";
+} from "../../js/modules/app/app-config.js";
 
 import {
   getCurrentTheme,
@@ -25,12 +25,12 @@ import {
   toggleTheme,
   setContrast,
   toggleContrast,
-} from "../js/modules/app/app-theme.js";
+} from "../../js/modules/app/app-theme.js";
 
 import {
   getCurrentFilter,
   setCurrentFilter,
-} from "../js/modules/app/app-filters.js";
+} from "../../js/modules/app/app-filters.js";
 
 /**
  * Registra todos os testes do módulo app
