@@ -71,6 +71,9 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 │   └── modules/
 │       ├── storage.js        # Utilitários de localStorage
 │       ├── todo.js           # Lógica de gerenciamento de tarefas
+│       ├── ui.js             # Renderização e componentes de UI
+│       ├── i18n.js           # Sistema de internacionalização (wrapper)
+│       ├── keyboard.js       # Sistema de atalhos de teclado (wrapper)
 │       ├── app/              # Módulos da aplicação principal
 │       │   ├── index.js      # Exports centralizados
 │       │   ├── app-config.js # Configurações da aplicação
@@ -86,22 +89,13 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 │       │   ├── i18n-translations.js
 │       │   ├── i18n-utils.js
 │       │   └── README.md
-│       ├── keyboard/         # Módulos de atalhos de teclado
-│       │   ├── index.js
-│       │   ├── keyboard-config.js
-│       │   ├── keyboard-dialog.js
-│       │   ├── keyboard-dom.js
-│       │   ├── keyboard-shortcuts.js
-│       │   ├── keyboard-utils.js
-│       │   └── README.md
-│       └── ui/               # Módulos de interface do usuário
+│       └── keyboard/         # Módulos de atalhos de teclado
 │           ├── index.js
-│           ├── ui-icons.js
-│           ├── ui-elements.js
-│           ├── ui-menu.js
-│           ├── ui-dialogs.js
-│           ├── ui-drag.js
-│           ├── ui-render.js
+│           ├── keyboard-config.js
+│           ├── keyboard-dialog.js
+│           ├── keyboard-dom.js
+│           ├── keyboard-shortcuts.js
+│           ├── keyboard-utils.js
 │           └── README.md
 ├── tests/                    # Testes unitários e de integração
 │   ├── tests.html
@@ -110,8 +104,6 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 │   ├── todo.test.js
 │   ├── i18n.test.js
 │   ├── keyboard.test.js
-│   ├── app.test.js
-│   ├── ui.test.js
 │   └── integration.test.js
 ├── demo/                     # GIFs e capturas de demonstração
 ├── CHANGELOG.md
@@ -237,18 +229,15 @@ Esta aplicação segue as diretrizes do **Material Design 3**:
 
 ### Arquitetura
 
-- **Estrutura Extremamente Modular**: Código organizado em 4 módulos principais modulares
-  - `app/`: Módulos da aplicação (config, theme, filters, i18n) - 5 arquivos
-  - `i18n/`: Sistema de internacionalização - 7 módulos especializados
-  - `keyboard/`: Sistema de atalhos de teclado - 6 módulos especializados  
-  - `ui/`: Interface do usuário - 7 módulos especializados
-- **Separação de Responsabilidades**: UI, lógica, armazenamento e configuração isolados
+- **Estrutura Extremamente Modular**: Código organizado em módulos especializados
+  - `app/`: Módulos da aplicação principal (config, theme, filters, i18n)
+  - `i18n/`: Sistema de internacionalização (7 módulos especializados)
+  - `keyboard/`: Sistema de atalhos de teclado (6 módulos especializados)
+- **Separação de Responsabilidades**: UI, lógica, armazenamento e configuração separados
 - **Orientado a Eventos**: Usa eventos DOM para interações do usuário
 - **Gerenciamento de Estado**: Estado centralizado com persistência em localStorage
-- **Alta Testabilidade**: 128+ testes unitários e de integração (cobertura ~85%)
-- **Imports Diretos**: Sem wrappers desnecessários, imports claros de módulos especializados
-- **Padrões de Design**: Module Pattern, Factory Pattern, Observer Pattern, Dependency Injection, Pure Functions
-- **Princípios SOLID**: Aplicados em toda a arquitetura
+- **Alta Testabilidade**: ~60 testes unitários e de integração
+- **Padrões de Design**: Module Pattern, Factory Pattern, Strategy Pattern, Pure Functions
 
 ### Implementação de Funcionalidades
 
@@ -267,10 +256,9 @@ Esta aplicação segue as diretrizes do **Material Design 3**:
 
 ## 🧪 Melhorias Futuras
 
-- [x] Adicionar testes unitários ✅ (v1.3.0 - 128+ testes implementados)
+- [x] Adicionar testes unitários ✅ (v1.3.0 - ~60 testes implementados)
 - [x] Adicionar testes de integração ✅ (v1.3.0)
 - [x] Adicionar documentação de atalhos de teclado ✅ (v1.2.0)
-- [x] Modularizar todos os módulos principais ✅ (v1.3.0 - ui, main, app)
 - [ ] Adicionar mais GIFs de demonstração
 - [ ] Implementar categorias/tags de tarefas
 - [ ] Adicionar datas de vencimento de tarefas
@@ -316,5 +304,6 @@ Consulte [CHANGELOG.md](CHANGELOG.md) para uma lista detalhada de alterações e
 
 ## 📄 Licença
 
-Este projeto é open source e está disponível sob a [Licença MIT](LICENSE).
+Este projeto é open source e está disponível sob a [Licença MIT](LICENSE).---
 
+Feito com 💪 usando JavaScript vanilla
