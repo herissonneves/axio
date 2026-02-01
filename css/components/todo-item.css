@@ -1,0 +1,191 @@
+/* Todo item, checkbox, and options button styles */
+
+.todo-item__container {
+    display: flex;
+    min-height: 3rem;
+    width: 100%;
+    flex-direction: column;
+    flex: 0 0 auto;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    border-radius: 0.25rem;
+}
+
+.todo-item {
+    position: relative;
+    display: flex;
+    padding: 0.625rem 1rem;
+    align-items: center;
+    gap: 0.75rem;
+    align-self: stretch;
+    border-radius: 0.75rem;
+}
+
+.todo-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* cover the entire list item */
+
+    background: #1d1b20;
+    opacity: 0;
+    /* hidden by default */
+
+    pointer-events: none;
+    /* do not block checkbox clicks */
+
+    transition: opacity .15s ease;
+    border-radius: 0.75rem;
+}
+
+.todo-item:hover::before {
+    opacity: 0.08;
+    /* overlay visible */
+}
+
+.todo-item__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    min-height: 2rem;
+    flex: 1 0 0;
+    color: var(--md-sys-color-on-surface);
+    font: var(--md-text-body-large);
+    letter-spacing: var(--md-text-body-large-letter-spacing);
+}
+
+.todo-item__checkbox-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.todo-item__checkbox-inner-container {
+    display: flex;
+    padding: 0.6875rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6.25rem;
+}
+
+/* Checkbox */
+
+/* Wrapper keeps spacing without breaking layout */
+.todo-item__checkbox-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+}
+
+/* Visual checkbox layer */
+.todo-item__checkbox-layer {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6875rem;
+    border-radius: 6.25rem;
+    z-index: 1;
+}
+
+/* Checkbox box */
+.todo-item__checkbox-layer::before {
+    content: "";
+    position: absolute;
+
+    width: 1.125rem;
+    height: 1.125rem;
+
+    border-radius: 0.125rem;
+    border: 2px solid var(--md-sys-color-on-surface-variant);
+
+    background: transparent;
+
+    transition: background .15s ease, border-color .15s ease;
+}
+
+/* SVG checkmark */
+.todo-item__checkbox-icon {
+    width: 0.75rem;
+    height: 0.5875rem;
+
+    display: block;
+    position: relative;
+
+    pointer-events: none;
+    z-index: 2;
+}
+
+.todo-item__checkbox-check {
+    fill: var(--md-sys-color-on-primary);
+
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform .15s ease;
+}
+
+/* Invisible input spanning the visual checkbox */
+.todo-item__checkbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* Match the padded visual layer size so the hitbox aligns */
+    width: 2.5rem;
+    height: 2.5rem;
+
+    cursor: pointer;
+    opacity: 0;
+    z-index: 3;
+}
+
+/* Checked state */
+.todo-item__checkbox:checked+.todo-item__checkbox-layer::before {
+    background: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+}
+
+/* Checkmark appears */
+.todo-item__checkbox:checked+.todo-item__checkbox-layer .todo-item__checkbox-check {
+    transform: scale(1);
+}
+
+/* Hover */
+.todo-item__checkbox:hover+.todo-item__checkbox-layer::before {
+    border-color: var(--md-sys-color-on-surface);
+}
+
+/* Accessible focus outline */
+.todo-item__checkbox:focus-visible+.todo-item__checkbox-layer::before {
+    outline: 3px solid var(--md-sys-color-primary);
+    outline-offset: 3px;
+}
+
+/* Item options */
+
+.todo-item__options-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.todo-item__options-btn svg {
+    fill: var(--md-sys-color-on-surface-variant);
+}

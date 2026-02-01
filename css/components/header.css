@@ -1,0 +1,17 @@
+/* Page header styles */
+
+.todo-page__header {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.todo-page__title {
+    text-align: center;
+    margin: 1rem 0 2.5rem 0;
+
+    color: var(--md-sys-color-on-surface);
+    font: var(--md-text-headline-large);
+    letter-spacing: var(--md-text-headline-large-letter-spacing);
+}
