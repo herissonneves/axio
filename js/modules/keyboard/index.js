@@ -12,8 +12,7 @@ export { KEYBOARD_SHORTCUTS, BLOCKED_TAGS } from "./keyboard-config.js";
 export { 
   isModifierPressed, 
   shouldBlockShortcut, 
-  matchesShortcut,
-  normalizeKey
+  matchesShortcut
 } from "./keyboard-utils.js";
 
 // Exportar funções DOM

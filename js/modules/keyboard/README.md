@@ -45,7 +45,6 @@ Funções utilitárias puras para processamento de eventos.
 - `isModifierPressed(event)` - Detecta Ctrl/Cmd
 - `shouldBlockShortcut(event)` - Valida contexto de execução
 - `matchesShortcut(event, config)` - Compara evento com configuração
-- `normalizeKey(key)` - Normaliza tecla para comparação
 
 **Exemplo:**
 

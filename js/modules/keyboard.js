@@ -23,7 +23,6 @@ export {
   isModifierPressed,
   shouldBlockShortcut,
   matchesShortcut,
-  normalizeKey,
 
   // DOM
   createShortcutItem,
