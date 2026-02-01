@@ -54,9 +54,11 @@ const buildTodoItem = (task, filter, onRender, dragHandlers) => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("todo-item");
 
-  // Criar callbacks para menu
+  // Criar callbacks para menu com renderização
   const handleMenuToggle = (task, filter, buttonElement) => {
-    toggleMenu(task, filter, buttonElement, showEditDialog, showDeleteDialog);
+    const onEdit = (task, filter) => showEditDialog(task, filter, onRender);
+    const onDelete = (task, filter) => showDeleteDialog(task, filter, onRender);
+    toggleMenu(task, filter, buttonElement, onEdit, onDelete);
   };
 
   wrapper.append(
