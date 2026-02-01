@@ -281,23 +281,17 @@ Cada módulo tem uma responsabilidade única e bem definida.
 - Documentação inline (JSDoc)
 - Estrutura previsível
 
-## 🔌 Compatibilidade
+## 🔌 Uso
 
-O arquivo `ui.js` original foi mantido como **wrapper de compatibilidade**:
-
-```javascript
-// ui.js (22 linhas)
-export { renderTasks } from "./ui/index.js";
-```
-
-Todo código existente que importa de `ui.js` continua funcionando:
+Importe diretamente do módulo `ui/index.js`:
 
 ```javascript
-// Código existente - FUNCIONA
-import { renderTasks } from "./ui.js";
-
-// Novo código - RECOMENDADO
+// Importar do index.js (recomendado)
 import { renderTasks } from "./ui/index.js";
+
+// Ou importar diretamente dos módulos específicos
+import { renderTasks } from "./ui/ui-render.js";
+import { showEditDialog } from "./ui/ui-dialogs.js";
 ```
 
 ## 🧪 Testes

@@ -10,7 +10,7 @@
 - [js/main.js](../js/main.js) wires DOM events after `DOMContentLoaded`, sets the document theme attribute, and orchestrates filters, the add form, and the clear-completed button.
 - [js/modules/todo.js](../js/modules/todo.js) is the single source of truth for the in-memory `tasks` array; every mutation must flow through its helpers so persistence stays consistent.
 - [js/modules/storage.js](../js/modules/storage.js) is a thin wrapper around `localStorage` with JSON serialization; guard against `localStorage` availability if you add environments such as SSR or tests.
-- [js/modules/ui.js](../js/modules/ui.js) owns rendering; it queries the cached `#todo-list` once, then rebuilds the DOM on each `renderTasks(filter)` call, so make sure new UI state can be derived solely from `getTasks()`.
+- [js/modules/ui/](../js/modules/ui/) owns rendering; the modular structure includes ui-render.js for main rendering, ui-elements.js for components, ui-dialogs.js for modals, ui-menu.js for context menus, ui-drag.js for drag-and-drop, and ui-icons.js for SVG icons. Import from `ui/index.js` which exports `renderTasks(filter)` that rebuilds the DOM on each call.
 
 ## State & Persistence Guidelines
 - Task objects currently use `{ id: timestamp, text, completed }`; extend this schema cautiously and migrate existing data via `loadTasks()` fallbacks.

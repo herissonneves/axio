@@ -11,7 +11,7 @@
  */
 
 import { addTask, clearCompleted, clearAll } from "./modules/todo.js";
-import { renderTasks } from "./modules/ui.js";
+import { renderTasks } from "./modules/ui/index.js";
 import { initI18n } from "./modules/i18n.js";
 import {
   initKeyboardShortcuts,
