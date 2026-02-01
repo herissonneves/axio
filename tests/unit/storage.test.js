@@ -8,7 +8,7 @@
  * - Retorno de valores padrão quando não há dados
  */
 
-import { loadTasks, saveTasks } from "../js/modules/storage.js";
+import { loadTasks, saveTasks } from "../../js/modules/storage.js";
 
 /**
  * Registra todos os testes do módulo de armazenamento

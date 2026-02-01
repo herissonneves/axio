@@ -12,7 +12,7 @@ import {
   isModifierPressed,
   shouldBlockShortcut,
   matchesShortcut,
-} from "../js/modules/keyboard/keyboard-utils.js";
+} from "../../js/modules/keyboard/keyboard-utils.js";
 
 /**
  * Registra todos os testes do módulo de atalhos de teclado

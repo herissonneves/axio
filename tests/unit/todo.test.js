@@ -21,8 +21,8 @@ import {
   clearCompleted,
   clearAll,
   reorderTasks
-} from "../js/modules/todo.js";
-import { saveTasks } from "../js/modules/storage.js";
+} from "../../js/modules/todo.js";
+import { saveTasks } from "../../js/modules/storage.js";
 
 /**
  * Registra todos os testes do módulo de tarefas
