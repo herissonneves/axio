@@ -8,7 +8,7 @@
  * - Botões e controles
  */
 
-import { t } from "../i18n.js";
+import { t } from "../i18n/index.js";
 
 /**
  * Cria um item de atalho para exibição no diálogo

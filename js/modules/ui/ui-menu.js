@@ -5,7 +5,7 @@
  * Inclui controle de estado, posicionamento e fechamento automático.
  */
 
-import { t } from "../i18n.js";
+import { t } from "../i18n/index.js";
 import { createEditIcon, createDeleteIcon } from "./ui-icons.js";
 
 // Estado do menu
