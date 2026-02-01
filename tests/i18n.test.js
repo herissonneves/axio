@@ -1,6 +1,6 @@
 /**
  * Testes para o Módulo de Internacionalização (i18n)
- * 
+ *
  * Testa as funcionalidades de tradução e troca de idiomas:
  * - Funções principais (getLanguage, setLanguage, t, etc)
  * - Utilitários (replacePlaceholders, extractPlaceholders, etc)
@@ -38,7 +38,7 @@ import {
   saveLanguagePreference,
   loadLanguagePreference,
   clearLanguagePreference,
-} from "../js/modules/i18n.js";
+} from "../js/modules/i18n/index.js";
 
 /**
  * Registra todos os testes do módulo de internacionalização
@@ -115,7 +115,10 @@ export function runI18nTests(runner) {
   });
 
   runner.test("loadLanguage should load from localStorage if available", () => {
-    if (typeof localStorage !== "undefined" && typeof document !== "undefined") {
+    if (
+      typeof localStorage !== "undefined" &&
+      typeof document !== "undefined"
+    ) {
       localStorage.setItem("todo-language", "en");
       loadLanguage();
       runner.assertEquals(getLanguage(), "en");
@@ -144,10 +147,13 @@ export function runI18nTests(runner) {
   });
 
   runner.test("replacePlaceholders substitui múltiplos placeholders", () => {
-    const result = replacePlaceholders("Olá {name}, você tem {count} mensagens", {
-      name: "João",
-      count: 5
-    });
+    const result = replacePlaceholders(
+      "Olá {name}, você tem {count} mensagens",
+      {
+        name: "João",
+        count: 5,
+      }
+    );
     runner.assertEquals(result, "Olá João, você tem 5 mensagens");
   });
 
@@ -156,10 +162,13 @@ export function runI18nTests(runner) {
     runner.assertEquals(result, "Olá {name}!");
   });
 
-  runner.test("replacePlaceholders retorna texto sem placeholders inalterado", () => {
-    const result = replacePlaceholders("Olá mundo!", { name: "Maria" });
-    runner.assertEquals(result, "Olá mundo!");
-  });
+  runner.test(
+    "replacePlaceholders retorna texto sem placeholders inalterado",
+    () => {
+      const result = replacePlaceholders("Olá mundo!", { name: "Maria" });
+      runner.assertEquals(result, "Olá mundo!");
+    }
+  );
 
   runner.test("hasPlaceholders detecta presença de placeholders", () => {
     runner.assertTrue(hasPlaceholders("Olá {name}!"));
@@ -168,22 +177,30 @@ export function runI18nTests(runner) {
   });
 
   runner.test("extractPlaceholders extrai nomes dos placeholders", () => {
-    const placeholders = extractPlaceholders("Olá {name}, você tem {count} mensagens");
+    const placeholders = extractPlaceholders(
+      "Olá {name}, você tem {count} mensagens"
+    );
     runner.assertEquals(placeholders.length, 2);
     runner.assertTrue(placeholders.includes("name"));
     runner.assertTrue(placeholders.includes("count"));
   });
 
-  runner.test("extractPlaceholders retorna array vazio sem placeholders", () => {
-    const placeholders = extractPlaceholders("Olá mundo!");
-    runner.assertEquals(placeholders.length, 0);
-  });
+  runner.test(
+    "extractPlaceholders retorna array vazio sem placeholders",
+    () => {
+      const placeholders = extractPlaceholders("Olá mundo!");
+      runner.assertEquals(placeholders.length, 0);
+    }
+  );
 
-  runner.test("validatePlaceholders valida se todos placeholders têm valores", () => {
-    runner.assertTrue(validatePlaceholders("Olá {name}!", { name: "Maria" }));
-    runner.assertFalse(validatePlaceholders("Olá {name}!", {}));
-    runner.assertTrue(validatePlaceholders("Olá mundo!", {}));
-  });
+  runner.test(
+    "validatePlaceholders valida se todos placeholders têm valores",
+    () => {
+      runner.assertTrue(validatePlaceholders("Olá {name}!", { name: "Maria" }));
+      runner.assertFalse(validatePlaceholders("Olá {name}!", {}));
+      runner.assertTrue(validatePlaceholders("Olá mundo!", {}));
+    }
+  );
 
   runner.test("normalizeLanguageCode normaliza códigos de idioma", () => {
     runner.assertEquals(normalizeLanguageCode("PT"), "pt");
@@ -218,38 +235,50 @@ export function runI18nTests(runner) {
   // TESTES DE STORAGE (i18n-storage.js)
   // ============================================================================
 
-  runner.test("saveLanguagePreference salva preferência no localStorage", () => {
-    if (typeof localStorage !== "undefined") {
-      const saved = saveLanguagePreference("en");
-      runner.assertTrue(saved);
-      runner.assertEquals(localStorage.getItem(STORAGE_KEY), "en");
+  runner.test(
+    "saveLanguagePreference salva preferência no localStorage",
+    () => {
+      if (typeof localStorage !== "undefined") {
+        const saved = saveLanguagePreference("en");
+        runner.assertTrue(saved);
+        runner.assertEquals(localStorage.getItem(STORAGE_KEY), "en");
+      }
     }
-  });
+  );
 
-  runner.test("loadLanguagePreference carrega preferência do localStorage", () => {
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem(STORAGE_KEY, "pt");
-      const loaded = loadLanguagePreference();
-      runner.assertEquals(loaded, "pt");
+  runner.test(
+    "loadLanguagePreference carrega preferência do localStorage",
+    () => {
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem(STORAGE_KEY, "pt");
+        const loaded = loadLanguagePreference();
+        runner.assertEquals(loaded, "pt");
+      }
     }
-  });
+  );
 
-  runner.test("loadLanguagePreference retorna null se não houver preferência", () => {
-    if (typeof localStorage !== "undefined") {
-      localStorage.removeItem(STORAGE_KEY);
-      const loaded = loadLanguagePreference();
-      runner.assertEquals(loaded, null);
+  runner.test(
+    "loadLanguagePreference retorna null se não houver preferência",
+    () => {
+      if (typeof localStorage !== "undefined") {
+        localStorage.removeItem(STORAGE_KEY);
+        const loaded = loadLanguagePreference();
+        runner.assertEquals(loaded, null);
+      }
     }
-  });
+  );
 
-  runner.test("clearLanguagePreference remove preferência do localStorage", () => {
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem(STORAGE_KEY, "en");
-      const cleared = clearLanguagePreference();
-      runner.assertTrue(cleared);
-      runner.assertEquals(localStorage.getItem(STORAGE_KEY), null);
+  runner.test(
+    "clearLanguagePreference remove preferência do localStorage",
+    () => {
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem(STORAGE_KEY, "en");
+        const cleared = clearLanguagePreference();
+        runner.assertTrue(cleared);
+        runner.assertEquals(localStorage.getItem(STORAGE_KEY), null);
+      }
     }
-  });
+  );
 
   // ============================================================================
   // TESTES DE CORE AVANÇADOS (i18n-core.js)
@@ -272,24 +301,30 @@ export function runI18nTests(runner) {
     }
   });
 
-  runner.test("getAllTranslations retorna todas traduções do idioma atual", () => {
-    if (typeof document !== "undefined") {
-      setLanguage("pt");
-      const translations = getAllTranslations();
-      runner.assertNotEquals(translations, null);
-      runner.assertEquals(translations.pageTitle, "Axio");
-      runner.assertEquals(translations.addTaskButton, "Adicionar Tarefa");
+  runner.test(
+    "getAllTranslations retorna todas traduções do idioma atual",
+    () => {
+      if (typeof document !== "undefined") {
+        setLanguage("pt");
+        const translations = getAllTranslations();
+        runner.assertNotEquals(translations, null);
+        runner.assertEquals(translations.pageTitle, "Axio");
+        runner.assertEquals(translations.addTaskButton, "Adicionar Tarefa");
+      }
     }
-  });
+  );
 
-  runner.test("getAllTranslations retorna traduções de idioma específico", () => {
-    if (typeof document !== "undefined") {
-      const translations = getAllTranslations("en");
-      runner.assertNotEquals(translations, null);
-      runner.assertEquals(translations.pageTitle, "Axio");
-      runner.assertEquals(translations.addTaskButton, "Add Task");
+  runner.test(
+    "getAllTranslations retorna traduções de idioma específico",
+    () => {
+      if (typeof document !== "undefined") {
+        const translations = getAllTranslations("en");
+        runner.assertNotEquals(translations, null);
+        runner.assertEquals(translations.pageTitle, "Axio");
+        runner.assertEquals(translations.addTaskButton, "Add Task");
+      }
     }
-  });
+  );
 
   runner.test("getAllTranslations retorna null para idioma inválido", () => {
     if (typeof document !== "undefined") {
@@ -321,7 +356,10 @@ export function runI18nTests(runner) {
   // ============================================================================
 
   runner.test("Fluxo completo: salvar, carregar e traduzir", () => {
-    if (typeof document !== "undefined" && typeof localStorage !== "undefined") {
+    if (
+      typeof document !== "undefined" &&
+      typeof localStorage !== "undefined"
+    ) {
       // Salva inglês
       setLanguage("en");
       runner.assertEquals(getLanguage(), "en");
@@ -339,13 +377,16 @@ export function runI18nTests(runner) {
     }
   });
 
-  runner.test("Tradução com placeholder usa fallback se chave não existir", () => {
-    if (typeof document !== "undefined") {
-      setLanguage("en");
-      const result = t("chaveInexistente", { text: "teste" });
-      runner.assertEquals(result, "chaveInexistente");
+  runner.test(
+    "Tradução com placeholder usa fallback se chave não existir",
+    () => {
+      if (typeof document !== "undefined") {
+        setLanguage("en");
+        const result = t("chaveInexistente", { text: "teste" });
+        runner.assertEquals(result, "chaveInexistente");
+      }
     }
-  });
+  );
 
   runner.test("setLanguage normaliza código de idioma", () => {
     if (typeof document !== "undefined") {
