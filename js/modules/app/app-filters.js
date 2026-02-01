@@ -1,11 +1,11 @@
 /**
  * Gerenciamento de Filtros de Tarefas
- * 
+ *
  * Gerencia a seleção e visualização de filtros de tarefas.
  */
 
 import { FILTER_MAP, SVG_NS } from "./app-config.js";
-import { renderTasks } from "../ui.js";
+import { renderTasks } from "../ui/index.js";
 
 /**
  * Estado atual do filtro
@@ -84,7 +84,7 @@ export const handleFilterClick = (filterButtons, event) => {
   currentFilter = filter;
   setActiveFilter(filterButtons, id);
   renderTasks(filter);
-  
+
   return filter;
 };
 
