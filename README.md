@@ -6,7 +6,7 @@ Um aplicativo web moderno de lista de tarefas construído com **HTML, CSS e Java
 
 ## 📦 Versão atual
 
-**v1.3.0** (Em Desenvolvimento) — Refatoração completa da arquitetura. Esta versão inclui: todos os recursos da v1.2.0 + modularização extrema dos módulos `keyboard.js`, `i18n.js` e `main.js`, testes unitários completos, documentação detalhada, e estrutura de código otimizada para alta manutenibilidade e testabilidade.
+**v1.3.0** (Em Desenvolvimento) — Grande refatoração arquitetural. Esta versão inclui: todos os recursos da v1.2.0 + modularização completa de `main.js`, `ui.js`, remoção de wrappers desnecessários (114 linhas eliminadas), expansão de testes (+41 novos testes, total 128+), correções críticas de bugs, e arquitetura otimizada para máxima manutenibilidade, testabilidade e clareza estrutural.
 
 > 📋 Para changelog detalhado, consulte [CHANGELOG.md](CHANGELOG.md)
 
@@ -306,6 +306,3 @@ Consulte [CHANGELOG.md](CHANGELOG.md) para uma lista detalhada de alterações e
 
 Este projeto é open source e está disponível sob a [Licença MIT](LICENSE).
 
----
-
-**Feito com 💪 usando JavaScript vanilla**
