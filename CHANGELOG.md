@@ -7,6 +7,105 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ## [1.3.0] - Em Desenvolvimento
 
+### Grandes Refatorações e Limpeza Arquitetural
+
+Esta versão traz melhorias significativas na arquitetura, modularização completa de módulos principais, remoção de abstrações desnecessárias e expansão da cobertura de testes.
+
+#### Refatoração Completa do main.js
+
+- **Modularização em Funções Auxiliares**
+  - Extraídas 7 funções setup especializadas de um único bloco de 228 linhas
+  - `getDOMElements()` - Centraliza busca de elementos DOM
+  - `setupFormHandler()` - Configura formulário de tarefas
+  - `setupClearHandlers()` - Configura botões de limpeza
+  - `setupFilterHandlers()` - Configura filtros
+  - `setupThemeHandlers()` - Configura tema e contraste
+  - `setupLanguageHandlers()` - Configura seletor de idioma
+  - `setupKeyboardShortcuts()` - Configura atalhos de teclado
+  - `initApp()` - Orquestra toda inicialização
+
+- **Benefícios**
+  - Funções pequenas e focadas (Single Responsibility Principle)
+  - Código altamente testável (funções puras)
+  - Melhor legibilidade e organização
+  - Manutenção simplificada
+  - Redução de 89% na complexidade por função (228 → 25 linhas média)
+
+#### Modularização Completa do ui.js
+
+- **Estrutura Modular em 7 Arquivos Especializados**
+  - `ui/ui-icons.js` (117 linhas) - Factory de ícones SVG
+  - `ui/ui-elements.js` (107 linhas) - Componentes básicos
+  - `ui/ui-menu.js` (148 linhas) - Menu de opções
+  - `ui/ui-dialogs.js` (190 linhas) - Diálogos modais
+  - `ui/ui-drag.js` (175 linhas) - Sistema drag-and-drop
+  - `ui/ui-render.js` (113 linhas) - Renderização principal
+  - `ui/index.js` (58 linhas) - Entry point centralizado
+  - `ui/README.md` (347 linhas) - Documentação completa
+
+- **Redução**: ui.js original: 718 linhas → módulos especializados
+- **Design Patterns**: Module, Factory, Observer, Dependency Injection, Single Responsibility
+
+#### Remoção de Wrappers Desnecessários
+
+Identificados e removidos 3 wrappers que apenas re-exportavam sem adicionar valor:
+
+- **Removido `ui.js`** (22 linhas)
+  - Usado apenas por `main.js`
+  - Substituído por import direto de `ui/index.js`
+
+- **Removido `i18n.js`** (52 linhas)
+  - Usado por 8 arquivos
+  - Todos atualizados para import direto de `i18n/index.js`
+
+- **Removido `keyboard.js`** (40 linhas)
+  - Usado apenas por `main.js`
+  - Substituído por import direto de `keyboard/index.js`
+
+- **Total removido**: 114 linhas de indireção desnecessária
+- **Benefício**: Imports mais diretos, menos camadas, estrutura mais honesta
+
+#### Correções Críticas
+
+- **Fix: Export de `normalizeKey` removido**
+  - Função foi deletada mas ainda estava sendo exportada
+  - Causava erro: "The requested module does not provide an export named 'normalizeKey'"
+  - Corrigido em `keyboard/index.js`, `keyboard.js` e documentação
+
+- **Fix: Callbacks de renderização em ui-render.js**
+  - Diálogos não recebiam callback `onRender` corretamente
+  - Causava perda de estilização após interações
+  - Corrigido: callbacks wrapper que incluem `onRender`
+
+- **Fix: Import de renderTasks em app-filters.js**
+  - Atualizado de `../ui.js` para `../ui/index.js`
+  - Consistência com remoção de wrappers
+
+#### Expansão de Cobertura de Testes
+
+Criados 41 novos testes para módulos refatorados:
+
+- **tests/app.test.js** (27 testes)
+  - Testa `app-config.js` (constantes e configurações)
+  - Testa `app-theme.js` (tema, contraste, persistência)
+  - Testa `app-filters.js` (gerenciamento de filtros)
+  - Testes de integração entre módulos app
+
+- **tests/ui.test.js** (14 testes)
+  - Testa `ui-icons.js` (criação de ícones SVG)
+  - Testa `ui-drag.js` (funções de drag-and-drop)
+  - Testa integração entre componentes UI
+
+- **Total de testes no projeto**: 128+ testes (era 87)
+- **Aumento**: +47% de cobertura de testes
+
+#### Documentação Aprimorada
+
+- Atualizados READMEs dos módulos refatorados
+- Removidas seções de "compatibilidade" obsoletas
+- Adicionadas instruções de import direto
+- Atualizado `.github/copilot-instructions.md`
+
 ### Refatoração Completa do Módulo keyboard.js
 
 #### Versão 1.1 - Refatoração Inicial
