@@ -521,6 +521,8 @@
         const { runTodoTests } = await import("./todo.test.js");
         const { runI18nTests } = await import("./i18n.test.js");
         const { runKeyboardTests } = await import("./keyboard.test.js");
+        const { runAppTests } = await import("./app.test.js");
+        const { runUITests } = await import("./ui.test.js");
         const { runIntegrationTests } = await import("./integration.test.js");
 
         runner = new TestRunner();
@@ -568,6 +570,20 @@
             } catch (error) {
               console.error("Erro ao registrar testes de integração:", error);
               output.textContent += `${t("errorRegisteringTests", "Error registering tests")} (Integration): ${error.message}\n`;
+            }
+
+            try {
+              runAppTests(runner);
+            } catch (error) {
+              console.error("Erro ao registrar testes de app:", error);
+              output.textContent += `${t("errorRegisteringTests", "Error registering tests")} (App): ${error.message}\n`;
+            }
+
+            try {
+              runUITests(runner);
+            } catch (error) {
+              console.error("Erro ao registrar testes de UI:", error);
+              output.textContent += `${t("errorRegisteringTests", "Error registering tests")} (UI): ${error.message}\n`;
             }
 
             try {
