@@ -16,7 +16,7 @@ import { initI18n } from "./modules/i18n/index.js";
 import {
   initKeyboardShortcuts,
   showKeyboardShortcutsDialog,
-} from "./modules/keyboard.js";
+} from "./modules/keyboard/index.js";
 import {
   loadThemePreferences,
   toggleTheme,
