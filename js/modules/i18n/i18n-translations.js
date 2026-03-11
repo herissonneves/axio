@@ -114,7 +114,7 @@ export const TRANSLATIONS = {
     // Formulário
     taskDescription: "Descrição da tarefa",
     addTaskPlaceholder: "Adicionar uma nova tarefa...",
-    addTaskButton: "Adicionar Tarefa",
+    addTaskButton: "Adicionar",
 
     // Filtros
     filterAll: "Todas",
