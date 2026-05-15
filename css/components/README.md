@@ -1,111 +1,111 @@
-# Componentes CSS
+# CSS Components
 
-Este diretório contém os estilos dos componentes da interface do usuário, organizados por funcionalidade.
+This directory contains user interface component styles, organized by functionality.
 
-## Estrutura
+## Structure
 
-Cada arquivo CSS contém os estilos de um componente específico ou grupo relacionado de componentes:
+Each CSS file contains styles for a specific component or related group of components:
 
 ### `header.css`
 
-Estilos do cabeçalho da página e título principal.
+Page header and main title styles.
 
-- `.todo-page__header` - Container do cabeçalho
-- `.todo-page__title` - Título principal da aplicação
+- `.todo-page__header` - Header container
+- `.todo-page__title` - Main application title
 
 ### `language-selector.css`
 
-Seletor de idioma e menu dropdown.
+Language selector and dropdown menu.
 
-- `.language-selector` - Botão do seletor de idioma
-- `.language-menu` - Menu dropdown de idiomas
-- `.language-menu__item` - Item individual do menu
+- `.language-selector` - Language selector button
+- `.language-menu` - Language dropdown menu
+- `.language-menu__item` - Individual menu item
 
 ### `theme-controls.css`
 
-Controles de tema (claro/escuro) e contraste.
+Theme (light/dark) and contrast controls.
 
-- `.theme-controls` - Container dos controles
-- `.theme-toggle` - Botão de alternância de tema
-- `.contrast-selector` - Seletor de nível de contraste
+- `.theme-controls` - Controls container
+- `.theme-toggle` - Theme toggle button
+- `.contrast-selector` - Contrast level selector
 
 ### `form.css`
 
-Formulário de adição de tarefas.
+Task creation form.
 
-- `.todo-form` - Container do formulário
-- `.todo-form__input` - Campo de entrada de texto
-- `.todo-form__button` - Botão "Adicionar Tarefa"
+- `.todo-form` - Form container
+- `.todo-form__input` - Text input field
+- `.todo-form__button` - Add task button
 
 ### `todo-item.css`
 
-Item de tarefa individual e seus elementos.
+Individual task item and its elements.
 
-- `.todo-item` - Container do item de tarefa
-- `.todo-item__checkbox` - Checkbox de conclusão
-- `.todo-item__text` - Texto da tarefa
-- `.todo-item__options-btn` - Botão de opções (⋮)
+- `.todo-item` - Task item container
+- `.todo-item__checkbox` - Completion checkbox
+- `.todo-item__text` - Task text
+- `.todo-item__options-btn` - Options button (⋮)
 
 ### `filters.css`
 
-Botões de filtro de visualização (Todas/Ativas/Concluídas).
+View filter buttons (All / Active / Completed).
 
-- `.todo-filters` - Container dos filtros
-- `.todo-filters__button-wrapper` - Wrapper do botão
-- `.todo-filters__button--active` - Estado ativo do filtro
+- `.todo-filters` - Filters container
+- `.todo-filters__button-wrapper` - Button wrapper
+- `.todo-filters__button--active` - Active filter state
 
 ### `clear-buttons.css`
 
-Botões de limpeza (Limpar Concluídas / Limpar Todas).
+Clear buttons (Clear Completed / Clear All).
 
-- `.todo-clear` - Container dos botões
-- `.todo-clear__button` - Botão de limpeza
+- `.todo-clear` - Buttons container
+- `.todo-clear__button` - Clear button
 
 ### `drag-drop.css`
 
-Estilos de interação de arrastar e soltar.
+Drag-and-drop interaction styles.
 
-- `.todo-item__drag-handle` - Handle de arraste
-- `.todo-item--dragging` - Estado durante o arraste
-- `.todo-item--drag-over` - Estado do alvo de soltar
+- `.todo-item__drag-handle` - Drag handle
+- `.todo-item--dragging` - State while dragging
+- `.todo-item--drag-over` - Drop target state
 
 ### `menu.css`
 
-Menu de opções da tarefa (Editar/Excluir).
+Task options menu (Edit / Delete).
 
-- `.todo-menu` - Container do menu
-- `.todo-menu__item` - Item do menu
-- `.todo-menu__icon` - Ícone do item
+- `.todo-menu` - Menu container
+- `.todo-menu__item` - Menu item
+- `.todo-menu__icon` - Item icon
 
 ### `dialog.css`
 
-Diálogos modais (editar tarefa, excluir, atalhos).
+Modal dialogs (edit task, delete, shortcuts).
 
-- `.todo-dialog` - Container do diálogo
-- `.todo-dialog__overlay` - Overlay de fundo
-- `.todo-dialog__container` - Container do conteúdo
-- `.todo-dialog__button` - Botões de ação
-- `.shortcuts-dialog` - Diálogo de atalhos de teclado
+- `.todo-dialog` - Dialog container
+- `.todo-dialog__overlay` - Background overlay
+- `.todo-dialog__container` - Content container
+- `.todo-dialog__button` - Action buttons
+- `.shortcuts-dialog` - Keyboard shortcuts dialog
 
-## Uso
+## Usage
 
-Os componentes são importados automaticamente através do arquivo `css/components.css` principal, que é então importado pelo `css/main.css`.
+Components are imported automatically through the main `css/components.css` file, which is then imported by `css/main.css`.
 
 ## Material Design 3
 
-Todos os componentes seguem as diretrizes do Material Design 3:
+All components follow Material Design 3 guidelines:
 
-- Uso de tokens de cor (`--md-sys-color-*`)
-- Tipografia (`--md-text-*`)
-- Camadas de estado (state layers) para interatividade
-- Elevação e sombras adequadas
-- Animações suaves e transições
+- Color tokens (`--md-sys-color-*`)
+- Typography (`--md-text-*`)
+- State layers for interactivity
+- Proper elevation and shadows
+- Smooth animations and transitions
 
-## Acessibilidade
+## Accessibility
 
-Os componentes incluem:
+Components include:
 
-- Estados de foco visíveis
-- Contraste adequado de cores
-- Suporte a `prefers-reduced-motion`
-- Tamanhos de toque apropriados para dispositivos móveis
+- Visible focus states
+- Adequate color contrast
+- `prefers-reduced-motion` support
+- Appropriate touch sizes for mobile devices
