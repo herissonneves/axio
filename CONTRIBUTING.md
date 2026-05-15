@@ -1,29 +1,29 @@
-# 📚 Políticas do Repositório & Fluxo de Contribuição
+# 📚 Repository Policies & Contribution Workflow
 
-Este repositório usa um fluxo de trabalho com branch protegido para manter a branch `main` estável e evitar commits não intencionais ou acidentais diretamente nela.  
+This repository uses a protected-branch workflow to keep the `main` branch stable and prevent unintended or accidental commits directly to it.
 
-## ✅ Regras de Proteção da Branch (main)
+## ✅ Branch Protection Rules (main)
 
-- Commits diretos ou force-pushes para `main` **não são permitidos**.  
-- Exclusão da branch é **proibida**.  
-- Todas as alterações para `main` devem passar por um **Pull Request**.  
-- Cada Pull Request deve ter pelo menos **uma revisão aprovada** antes do merge.  
-- Após revisão, o código deve ser mesclado via merge do PR do GitHub (merge / squash / rebase).  
+- Direct commits or force-pushes to `main` are **not allowed**.
+- Branch deletion is **prohibited**.
+- All changes to `main` must go through a **Pull Request**.
+- Each Pull Request must have at least **one approved review** before merging.
+- After review, code must be merged via the GitHub PR merge (merge / squash / rebase).
 
-## 🔄 Fluxo de Contribuição / Desenvolvimento (para você ou colaboradores)
+## 🔄 Contribution / Development Workflow (for you or collaborators)
 
-1. Crie uma nova branch para seu trabalho (ex.: `feat/xxx`, `fix/yyy`, etc.).  
-2. Faça commits localmente em sua branch — sinta-se livre para estruturar commits conforme necessário.  
-3. Envie sua branch para o repositório (push).  
-4. Abra um Pull Request (PR) direcionado para `main`.  
-5. Aguarde revisão e aprovação (se necessário).  
-6. Após aprovação, faça o merge do PR usando um dos métodos permitidos.  
-7. **Não** faça push diretamente para `main`, ou rebase-force para reescrever o histórico.  
+1. Create a new branch for your work (e.g. `feat/xxx`, `fix/yyy`, etc.).
+2. Make commits locally on your branch — feel free to structure commits as needed.
+3. Push your branch to the repository.
+4. Open a Pull Request (PR) targeting `main`.
+5. Wait for review and approval (if required).
+6. After approval, merge the PR using one of the allowed methods.
+7. **Do not** push directly to `main`, or force-rebase to rewrite history.
 
-## 📌 Justificativa
+## 📌 Rationale
 
-- Prevenir quebras acidentais ou regressões na branch principal.  
-- Preservar histórico limpo e revisável.  
-- Facilitar manutenção, revisão de código e rastreabilidade.  
+- Prevent accidental breakages or regressions on the main branch.
+- Preserve a clean, reviewable history.
+- Ease maintenance, code review, and traceability.
 
-Se você deseja contribuir ou testar correções, siga estas diretrizes rigorosamente — elas ajudam a manter o projeto estável e sustentável.  
+If you want to contribute or test fixes, follow these guidelines strictly — they help keep the project stable and sustainable.
