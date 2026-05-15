@@ -1,19 +1,19 @@
 /**
- * Gerenciamento do Diálogo de Atalhos
- * 
- * Funções para exibir e gerenciar o diálogo de ajuda de atalhos:
- * - Exibição do diálogo
- * - Fechamento do diálogo
- * - Gerenciamento de eventos
+ * Shortcuts Dialog Management
+ *
+ * Functions to display and manage the shortcuts help dialog:
+ * - Dialog display
+ * - Dialog closing
+ * - Event management
  */
 
 import { createDialogStructure } from "./keyboard-dom.js";
 
 /**
- * Exibe o diálogo de ajuda com todos os atalhos de teclado disponíveis
+ * Displays the help dialog with all available keyboard shortcuts
  */
 export const showKeyboardShortcutsDialog = () => {
-  // Prevenir múltiplos diálogos
+  // Prevent multiple dialogs
   if (document.querySelector('.shortcuts-dialog')) {
     return;
   }

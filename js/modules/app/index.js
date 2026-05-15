@@ -1,12 +1,12 @@
 /**
- * Módulo Principal da Aplicação - Ponto de Entrada
+ * Main Application Module - Entry Point
  *
- * Re-exporta todas as funcionalidades dos módulos especializados.
- * Estrutura modular para melhor organização e manutenibilidade.
+ * Re-exports all functionality from specialized modules.
+ * Modular structure for better organization and maintainability.
  */
 
 // ============================================================================
-// CONFIGURAÇÕES
+// CONFIGURATION
 // ============================================================================
 
 export {
@@ -21,7 +21,7 @@ export {
 } from "./app-config.js";
 
 // ============================================================================
-// GERENCIAMENTO DE TEMA
+// THEME MANAGEMENT
 // ============================================================================
 
 export {
@@ -37,7 +37,7 @@ export {
 } from "./app-theme.js";
 
 // ============================================================================
-// GERENCIAMENTO DE FILTROS
+// FILTER MANAGEMENT
 // ============================================================================
 
 export {
@@ -50,7 +50,7 @@ export {
 } from "./app-filters.js";
 
 // ============================================================================
-// GERENCIAMENTO DE IDIOMA
+// LANGUAGE MANAGEMENT
 // ============================================================================
 
 export {

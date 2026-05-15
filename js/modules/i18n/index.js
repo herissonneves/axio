@@ -1,21 +1,21 @@
 /**
- * Sistema de Internacionalização (i18n) - Ponto de Entrada
- * 
- * Módulo modular para gerenciamento de traduções e idiomas.
- * 
- * Estrutura:
- * - i18n-config.js: Configurações e constantes
- * - i18n-translations.js: Todas as traduções
- * - i18n-storage.js: Persistência no localStorage
- * - i18n-detector.js: Detecção de idioma do navegador
- * - i18n-utils.js: Funções utilitárias puras
- * - i18n-core.js: Lógica principal e API pública
- * 
+ * Internationalization (i18n) System - Entry Point
+ *
+ * Modular module for managing translations and languages.
+ *
+ * Structure:
+ * - i18n-config.js: Configuration and constants
+ * - i18n-translations.js: All translations
+ * - i18n-storage.js: localStorage persistence
+ * - i18n-detector.js: Browser language detection
+ * - i18n-utils.js: Pure utility functions
+ * - i18n-core.js: Main logic and public API
+ *
  * @module i18n
  */
 
 // ============================================================================
-// EXPORTAÇÕES PRINCIPAIS (API Pública)
+// MAIN EXPORTS (Public API)
 // ============================================================================
 
 export {
@@ -30,7 +30,7 @@ export {
 } from "./i18n-core.js";
 
 // ============================================================================
-// EXPORTAÇÕES DE CONFIGURAÇÃO
+// CONFIGURATION EXPORTS
 // ============================================================================
 
 export {
@@ -40,7 +40,7 @@ export {
 } from "./i18n-config.js";
 
 // ============================================================================
-// EXPORTAÇÕES DE UTILITÁRIOS (para testes e uso avançado)
+// UTILITY EXPORTS (for tests and advanced use)
 // ============================================================================
 
 export {
@@ -65,7 +65,7 @@ export {
 } from "./i18n-storage.js";
 
 // ============================================================================
-// EXPORTAÇÕES DE TRADUÇÕES (para casos especiais)
+// TRANSLATION EXPORTS (for special cases)
 // ============================================================================
 
 export { TRANSLATIONS } from "./i18n-translations.js";

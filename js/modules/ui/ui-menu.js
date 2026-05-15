@@ -1,19 +1,19 @@
 /**
- * Menu de Opções da Tarefa
- * 
- * Gerencia o menu suspenso com opções de editar/excluir.
- * Inclui controle de estado, posicionamento e fechamento automático.
+ * Task Options Menu
+ *
+ * Manages the dropdown menu with edit/delete options.
+ * Includes state control, positioning, and automatic closing.
  */
 
 import { t } from "../i18n/index.js";
 import { createEditIcon, createDeleteIcon } from "./ui-icons.js";
 
-// Estado do menu
+// Menu state
 let openMenu = null;
 let openMenuButton = null;
 
 /**
- * Fecha qualquer menu aberto
+ * Closes any open menu
  */
 export const closeMenu = () => {
   if (openMenu) {
@@ -27,8 +27,8 @@ export const closeMenu = () => {
 };
 
 /**
- * Fecha o menu ao clicar fora dele
- * @param {Event} event - Evento de clique
+ * Closes the menu when clicking outside it
+ * @param {Event} event - Click event
  */
 const handleClickOutside = (event) => {
   if (openMenu && !openMenu.contains(event.target) && !event.target.closest(".todo-item__options-btn")) {
@@ -38,16 +38,16 @@ const handleClickOutside = (event) => {
 };
 
 /**
- * Cria o menu suspenso com opções da tarefa (editar/excluir)
- * @param {Object} task - Objeto da tarefa
- * @param {string} filter - Filtro atual aplicado
- * @param {HTMLElement} buttonElement - Elemento do botão que abriu o menu
- * @param {Function} onEdit - Callback para editar tarefa
- * @param {Function} onDelete - Callback para excluir tarefa
- * @returns {HTMLElement} Elemento do menu criado
+ * Creates the dropdown menu with task options (edit/delete)
+ * @param {Object} task - Task object
+ * @param {string} filter - Current applied filter
+ * @param {HTMLElement} buttonElement - Button element that opened the menu
+ * @param {Function} onEdit - Callback to edit task
+ * @param {Function} onDelete - Callback to delete task
+ * @returns {HTMLElement} Created menu element
  */
 export const createOptionsMenu = (task, filter, buttonElement, onEdit, onDelete) => {
-  // Fechar qualquer menu existente
+  // Close any existing menu
   closeMenu();
 
   const menu = document.createElement("div");
@@ -55,7 +55,7 @@ export const createOptionsMenu = (task, filter, buttonElement, onEdit, onDelete)
   menu.setAttribute("role", "menu");
   menu.setAttribute("aria-label", t("ariaTaskOptionsMenu"));
 
-  // Opção de editar
+  // Edit option
   const editItem = document.createElement("button");
   editItem.classList.add("todo-menu__item");
   editItem.setAttribute("role", "menuitem");
@@ -71,7 +71,7 @@ export const createOptionsMenu = (task, filter, buttonElement, onEdit, onDelete)
     onEdit(task, filter);
   });
 
-  // Opção de excluir
+  // Delete option
   const deleteItem = document.createElement("button");
   deleteItem.classList.add("todo-menu__item");
   deleteItem.setAttribute("role", "menuitem");
@@ -89,11 +89,11 @@ export const createOptionsMenu = (task, filter, buttonElement, onEdit, onDelete)
 
   menu.append(editItem, deleteItem);
 
-  // Posicionar menu
+  // Position menu
   const rect = buttonElement.getBoundingClientRect();
   menu.style.position = "fixed";
 
-  // Calcular posição para evitar sair da tela
+  // Calculate position to avoid going off-screen
   const menuHeight = 120; // Approximate height
   const menuWidth = 160; // Approximate width
   const spacing = 4;
@@ -101,12 +101,12 @@ export const createOptionsMenu = (task, filter, buttonElement, onEdit, onDelete)
   let top = rect.bottom + spacing;
   let right = window.innerWidth - rect.right;
 
-  // Ajustar se o menu ficaria abaixo do viewport
+  // Adjust if menu would go below the viewport
   if (top + menuHeight > window.innerHeight) {
     top = rect.top - menuHeight - spacing;
   }
 
-  // Ajustar se o menu ficaria fora da borda direita
+  // Adjust if menu would go past the right edge
   if (right + menuWidth > window.innerWidth) {
     right = window.innerWidth - rect.left;
   }
@@ -118,7 +118,7 @@ export const createOptionsMenu = (task, filter, buttonElement, onEdit, onDelete)
   openMenu = menu;
   openMenuButton = buttonElement;
 
-  // Fechar ao clicar fora
+  // Close when clicking outside
   setTimeout(() => {
     document.addEventListener("click", handleClickOutside);
   }, 0);
@@ -127,12 +127,12 @@ export const createOptionsMenu = (task, filter, buttonElement, onEdit, onDelete)
 };
 
 /**
- * Alterna o estado do menu (abre ou fecha)
- * @param {Object} task - Objeto da tarefa
- * @param {string} filter - Filtro atual aplicado
- * @param {HTMLElement} buttonElement - Elemento do botão
- * @param {Function} onEdit - Callback para editar
- * @param {Function} onDelete - Callback para excluir
+ * Toggles menu state (open or close)
+ * @param {Object} task - Task object
+ * @param {string} filter - Current applied filter
+ * @param {HTMLElement} buttonElement - Button element
+ * @param {Function} onEdit - Edit callback
+ * @param {Function} onDelete - Delete callback
  */
 export const toggleMenu = (task, filter, buttonElement, onEdit, onDelete) => {
   const isOpen = openMenu && openMenu.parentElement;

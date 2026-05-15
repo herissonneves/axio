@@ -1,57 +1,57 @@
 /**
- * Módulo UI - Interface do Usuário
- * 
- * Entry point centralizado para todos os componentes de UI.
- * Exporta funcionalidades de:
- * - Ícones SVG
- * - Elementos de tarefa
- * - Menu de opções
- * - Diálogos modais
+ * UI Module - User Interface
+ *
+ * Centralized entry point for all UI components.
+ * Exports functionality for:
+ * - SVG icons
+ * - Task elements
+ * - Options menu
+ * - Modal dialogs
  * - Drag and drop
- * - Renderização
+ * - Rendering
  */
 
-// Ícones
-export { 
-  createCheckIcon, 
-  createOptionsIcon, 
-  createDragHandleIcon, 
-  createEditIcon, 
-  createDeleteIcon 
+// Icons
+export {
+  createCheckIcon,
+  createOptionsIcon,
+  createDragHandleIcon,
+  createEditIcon,
+  createDeleteIcon
 } from "./ui-icons.js";
 
-// Elementos
-export { 
-  createCheckbox, 
-  createTaskText, 
-  createOptionsButton, 
-  createDragHandle 
+// Elements
+export {
+  createCheckbox,
+  createTaskText,
+  createOptionsButton,
+  createDragHandle
 } from "./ui-elements.js";
 
 // Menu
-export { 
-  createOptionsMenu, 
-  toggleMenu, 
-  closeMenu 
+export {
+  createOptionsMenu,
+  toggleMenu,
+  closeMenu
 } from "./ui-menu.js";
 
-// Diálogos
-export { 
-  showEditDialog, 
-  showDeleteDialog 
+// Dialogs
+export {
+  showEditDialog,
+  showDeleteDialog
 } from "./ui-dialogs.js";
 
 // Drag and Drop
-export { 
-  getTaskIndex, 
-  getOriginalIndex, 
-  handleDragStart, 
-  handleDragEnd, 
-  handleDragOver, 
-  handleDragLeave, 
+export {
+  getTaskIndex,
+  getOriginalIndex,
+  handleDragStart,
+  handleDragEnd,
+  handleDragOver,
+  handleDragLeave,
   handleDrop,
-  createDragHandlers 
+  createDragHandlers
 } from "./ui-drag.js";
 
-// Renderização (export principal)
+// Rendering (main export)
 export { renderTasks } from "./ui-render.js";

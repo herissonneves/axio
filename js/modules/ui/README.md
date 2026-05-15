@@ -1,40 +1,40 @@
-# Módulo UI - Interface do Usuário
+# UI Module - User Interface
 
-Sistema modular completo para renderização e interação com tarefas na interface.
+Complete modular system for rendering and interacting with tasks in the interface.
 
-## 📁 Estrutura Modular
+## 📁 Modular Structure
 
 ```
 js/modules/ui/
-├── ui-icons.js         # Ícones SVG (117 linhas)
-├── ui-elements.js      # Componentes básicos (107 linhas)
-├── ui-menu.js          # Menu de opções (144 linhas)
-├── ui-dialogs.js       # Diálogos modais (177 linhas)
-├── ui-drag.js          # Drag-and-drop (165 linhas)
-├── ui-render.js        # Renderização principal (98 linhas)
-├── index.js            # Entry point (57 linhas)
-└── README.md           # Esta documentação
+├── ui-icons.js         # SVG icons (117 lines)
+├── ui-elements.js      # Basic components (107 lines)
+├── ui-menu.js          # Options menu (144 lines)
+├── ui-dialogs.js       # Modal dialogs (177 lines)
+├── ui-drag.js          # Drag-and-drop (165 lines)
+├── ui-render.js        # Main rendering (98 lines)
+├── index.js            # Entry point (57 lines)
+└── README.md           # This documentation
 ```
 
-**Redução**: `ui.js` original: **718 linhas** → wrapper: **22 linhas** (-97%)
+**Reduction**: Original `ui.js`: **718 lines** → removed in v1.3.0; use `ui/index.js` directly
 
-## 🎯 Visão Geral dos Módulos
+## 🎯 Module Overview
 
-### 1. `ui-icons.js` - Fábrica de Ícones SVG
+### 1. `ui-icons.js` - SVG Icon Factory
 
-Factory para criação de todos os ícones SVG da interface.
+Factory for creating all SVG icons in the interface.
 
 **Exports:**
 
 ```javascript
-createCheckIcon()        // Ícone de check (checkbox)
-createOptionsIcon()      // Ícone de três pontos (menu)
-createDragHandleIcon()   // Ícone de seis pontos (arrastar)
-createEditIcon()         // Ícone de lápis (editar)
-createDeleteIcon()       // Ícone de lixeira (excluir)
+createCheckIcon()        // Check icon (checkbox)
+createOptionsIcon()      // Three-dot icon (menu)
+createDragHandleIcon()   // Six-dot icon (drag)
+createEditIcon()         // Pencil icon (edit)
+createDeleteIcon()       // Trash icon (delete)
 ```
 
-**Uso:**
+**Usage:**
 
 ```javascript
 import { createCheckIcon, createEditIcon } from "./ui/ui-icons.js";
@@ -43,9 +43,9 @@ const checkIcon = createCheckIcon();
 const editIcon = createEditIcon();
 ```
 
-### 2. `ui-elements.js` - Componentes Básicos
+### 2. `ui-elements.js` - Basic Components
 
-Componentes reutilizáveis para construção de itens de tarefa.
+Reusable components for building task items.
 
 **Exports:**
 
@@ -56,7 +56,7 @@ createOptionsButton(task, filter, onMenuToggle)
 createDragHandle()
 ```
 
-**Uso:**
+**Usage:**
 
 ```javascript
 import { createCheckbox, createTaskText } from "./ui/ui-elements.js";
@@ -65,15 +65,15 @@ const checkbox = createCheckbox(task, "all", renderTasks);
 const text = createTaskText(task, "all", renderTasks);
 ```
 
-**Características:**
+**Features:**
 
-- Componentes funcionais puros
-- Callbacks para interação (Dependency Injection)
-- Estado gerenciado externamente
+- Pure functional components
+- Callbacks for interaction (Dependency Injection)
+- State managed externally
 
-### 3. `ui-menu.js` - Menu de Opções
+### 3. `ui-menu.js` - Options Menu
 
-Gerenciamento completo do menu suspenso com opções de editar/excluir.
+Full management of the dropdown menu with edit/delete options.
 
 **Exports:**
 
@@ -83,26 +83,26 @@ toggleMenu(task, filter, buttonElement, onEdit, onDelete)
 closeMenu()
 ```
 
-**Funcionalidades:**
+**Features:**
 
-- Posicionamento inteligente (evita sair da tela)
-- Fechamento automático ao clicar fora
-- Controle de estado (apenas um menu aberto por vez)
-- Acessibilidade (ARIA attributes)
+- Smart positioning (avoids going off-screen)
+- Auto-close on outside click
+- State control (only one menu open at a time)
+- Accessibility (ARIA attributes)
 
-**Uso:**
+**Usage:**
 
 ```javascript
 import { toggleMenu, closeMenu } from "./ui/ui-menu.js";
 import { showEditDialog, showDeleteDialog } from "./ui/ui-dialogs.js";
 
 toggleMenu(task, "all", buttonElement, showEditDialog, showDeleteDialog);
-closeMenu(); // Fechar menu programaticamente
+closeMenu(); // Close menu programmatically
 ```
 
-### 4. `ui-dialogs.js` - Diálogos Modais
+### 4. `ui-dialogs.js` - Modal Dialogs
 
-Diálogos modais para edição e exclusão de tarefas.
+Modal dialogs for editing and deleting tasks.
 
 **Exports:**
 
@@ -111,15 +111,15 @@ showEditDialog(task, filter, onRender)
 showDeleteDialog(task, filter, onRender)
 ```
 
-**Funcionalidades:**
+**Features:**
 
-- Overlay modal com bloqueio de scroll
-- Foco automático (input para edição, botão para exclusão)
-- Seleção de texto automática (edição)
-- Fechamento via Escape
-- Validação de formulário
+- Modal overlay with scroll lock
+- Automatic focus (input for edit, button for delete)
+- Automatic text selection (edit)
+- Close via Escape
+- Form validation
 
-**Uso:**
+**Usage:**
 
 ```javascript
 import { showEditDialog, showDeleteDialog } from "./ui/ui-dialogs.js";
@@ -128,9 +128,9 @@ showEditDialog(task, "all", renderTasks);
 showDeleteDialog(task, "all", renderTasks);
 ```
 
-### 5. `ui-drag.js` - Sistema Drag-and-Drop
+### 5. `ui-drag.js` - Drag-and-Drop System
 
-Sistema completo de arrastar e soltar para reordenação de tarefas.
+Complete drag-and-drop system for task reordering.
 
 **Exports:**
 
@@ -145,21 +145,21 @@ handleDrop(event, listElement, currentFilter, onRender)
 createDragHandlers(listElement, getCurrentFilter, onRender)
 ```
 
-**Funcionalidades:**
+**Features:**
 
-- Mapeamento de índices (visível ↔ original)
-- Feedback visual durante arrasto
-- Suporte a filtros (arrasta apenas tarefas visíveis)
-- Event handlers reutilizáveis
+- Index mapping (visible ↔ original)
+- Visual feedback during drag
+- Filter support (drag only visible tasks)
+- Reusable event handlers
 
-**Uso:**
+**Usage:**
 
 ```javascript
 import { createDragHandlers } from "./ui/ui-drag.js";
 
 const dragHandlers = createDragHandlers(
-  listElement, 
-  () => "all", 
+  listElement,
+  () => "all",
   renderTasks
 );
 
@@ -167,139 +167,139 @@ li.addEventListener("dragstart", dragHandlers.onDragStart);
 li.addEventListener("drop", dragHandlers.onDrop);
 ```
 
-### 6. `ui-render.js` - Renderização Principal
+### 6. `ui-render.js` - Main Rendering
 
-Módulo central que orquestra a renderização completa da lista de tarefas.
+Central module that orchestrates full task list rendering.
 
 **Exports:**
 
 ```javascript
-renderTasks(filter = "all")  // Export principal
+renderTasks(filter = "all")  // Main export
 ```
 
-**Funcionalidades:**
+**Features:**
 
-- Constrói itens de tarefa completos
-- Aplica filtros (all, active, completed)
-- Integra todos os componentes
-- Gerencia o DOM da lista
-- Usa DocumentFragment para performance
+- Builds complete task items
+- Applies filters (all, active, completed)
+- Integrates all components
+- Manages list DOM
+- Uses DocumentFragment for performance
 
-**Uso:**
+**Usage:**
 
 ```javascript
 import { renderTasks } from "./ui/ui-render.js";
 
-renderTasks("all");        // Todas as tarefas
-renderTasks("active");     // Apenas ativas
-renderTasks("completed");  // Apenas concluídas
+renderTasks("all");        // All tasks
+renderTasks("active");     // Active only
+renderTasks("completed");  // Completed only
 ```
 
-### 7. `index.js` - Entry Point Centralizado
+### 7. `index.js` - Centralized Entry Point
 
-Ponto de entrada único que re-exporta todas as funcionalidades.
+Single entry point that re-exports all functionality.
 
-**Uso simplificado:**
+**Simplified usage:**
 
 ```javascript
-// Importar do index.js (recomendado)
+// Import from index.js (recommended)
 import { renderTasks, showEditDialog, createCheckIcon } from "./ui/index.js";
 
-// Ou importar diretamente dos módulos
+// Or import directly from modules
 import { renderTasks } from "./ui/ui-render.js";
 import { showEditDialog } from "./ui/ui-dialogs.js";
 ```
 
-## 🔄 Fluxo de Renderização
+## 🔄 Rendering Flow
 
 ```
 renderTasks(filter)
   ↓
-1. Fecha menus abertos (closeMenu)
-2. Filtra tarefas (FILTERS[filter])
-3. Cria drag handlers (createDragHandlers)
-4. Para cada tarefa:
+1. Close open menus (closeMenu)
+2. Filter tasks (FILTERS[filter])
+3. Create drag handlers (createDragHandlers)
+4. For each task:
    ├── buildTodoItem()
    │   ├── createDragHandle()
    │   ├── createCheckbox()
    │   ├── createTaskText()
    │   └── createOptionsButton()
-   └── Adiciona event listeners
-5. Atualiza DOM (replaceChildren)
+   └── Add event listeners
+5. Update DOM (replaceChildren)
 ```
 
-## 🎨 Design Patterns Aplicados
+## 🎨 Applied Design Patterns
 
 ### 1. **Module Pattern**
 
-Cada módulo encapsula sua lógica e expõe apenas API pública.
+Each module encapsulates its logic and exposes only a public API.
 
 ### 2. **Factory Pattern**
 
-Funções de criação de elementos (`createCheckbox`, `createCheckIcon`, etc).
+Element creation functions (`createCheckbox`, `createCheckIcon`, etc.).
 
 ### 3. **Observer Pattern**
 
-Callbacks para eventos e mudanças de estado.
+Callbacks for events and state changes.
 
 ### 4. **Dependency Injection**
 
-Funções recebem callbacks como parâmetros, não acoplam dependências.
+Functions receive callbacks as parameters without coupling dependencies.
 
 ```javascript
 createCheckbox(task, filter, onRender)
-                           ^^^^^^^^^ Injetado
+                           ^^^^^^^^^ Injected
 ```
 
 ### 5. **Single Responsibility**
 
-Cada módulo tem uma responsabilidade única e bem definida.
+Each module has a single, well-defined responsibility.
 
-## ✅ Benefícios da Modularização
+## ✅ Modularization Benefits
 
-### Manutenibilidade
+### Maintainability
 
-- Arquivos pequenos (~100-170 linhas)
-- Responsabilidade única por módulo
-- Fácil localização de código
+- Small files (~100–170 lines)
+- Single responsibility per module
+- Easy to locate code
 
-### Testabilidade
+### Testability
 
-- Funções puras e isoladas
-- Fácil criar mocks de callbacks
-- Testes unitários independentes
+- Pure, isolated functions
+- Easy to mock callbacks
+- Independent unit tests
 
-### Reutilização
+### Reusability
 
-- Componentes podem ser usados isoladamente
-- Fácil criar variações de componentes
-- Código DRY (Don't Repeat Yourself)
+- Components can be used in isolation
+- Easy to create component variants
+- DRY code (Don't Repeat Yourself)
 
-### Legibilidade
+### Readability
 
-- Nomenclatura clara e consistente
-- Documentação inline (JSDoc)
-- Estrutura previsível
+- Clear, consistent naming
+- Inline documentation (JSDoc)
+- Predictable structure
 
-## 🔌 Uso
+## 🔌 Usage
 
-Importe diretamente do módulo `ui/index.js`:
+Import directly from the `ui/index.js` module:
 
 ```javascript
-// Importar do index.js (recomendado)
+// Import from index.js (recommended)
 import { renderTasks } from "./ui/index.js";
 
-// Ou importar diretamente dos módulos específicos
+// Or import directly from specific modules
 import { renderTasks } from "./ui/ui-render.js";
 import { showEditDialog } from "./ui/ui-dialogs.js";
 ```
 
-## 🧪 Testes
+## 🧪 Tests
 
-Cada módulo pode ser testado isoladamente:
+Unit tests are in `tests/unit/ui.test.js`. Each module can also be tested in isolation:
 
 ```javascript
-// Exemplo: Testar ui-icons.js
+// Example: Test ui-icons.js
 import { createCheckIcon } from "./ui/ui-icons.js";
 
 const icon = createCheckIcon();
@@ -307,38 +307,38 @@ assert(icon.tagName === "svg");
 assert(icon.getAttribute("width") === "12");
 ```
 
-## 📚 Dependências
+## 📚 Dependencies
 
-### Internas
+### Internal
 
 - `todo.js`: `getTasks`, `toggleTask`, `removeTask`, `updateTask`, `reorderTasks`
-- `i18n.js`: `t` (função de tradução)
+- `i18n/index.js`: `t` (translation function)
 
-### Externas
+### External
 
-- DOM API (nativa)
-- SVG namespace (nativa)
+- DOM API (native)
+- SVG namespace (native)
 
-## 🔮 Próximos Passos
+## 🔮 Next Steps
 
-- [ ] Adicionar testes unitários para cada módulo
-- [ ] Criar variantes de componentes (dark mode específico)
-- [ ] Adicionar animações de transição
-- [ ] Implementar acessibilidade avançada (keyboard navigation)
-- [ ] Criar Storybook para documentação visual
+- [x] Add unit tests for each module (`tests/unit/ui.test.js`)
+- [ ] Create component variants (theme-specific)
+- [ ] Add transition animations
+- [ ] Implement advanced accessibility (keyboard navigation)
+- [ ] Create Storybook for visual documentation
 
-## 📊 Estatísticas
+## 📊 Statistics
 
-| Métrica | Antes | Depois | Melhoria |
-| ------- | ----- | ------ | -------- |
-| Linhas em ui.js | 718 | 22 | -97% |
-| Arquivos | 1 | 7 | +600% |
-| Linhas/arquivo | 718 | ~100-170 | -77% |
-| Funções exportadas | 1 | 27 | +2600% |
-| Testabilidade | Baixa | Alta | +∞ |
-| Manutenibilidade | Média | Excelente | +300% |
+| Metric | Before | After | Improvement |
+| ------ | ------ | ----- | ----------- |
+| Lines in ui.js | 718 | 0 (removed) | -100% |
+| Files | 1 | 7 | +600% |
+| Lines/file | 718 | ~100–170 | -77% |
+| Exported functions | 1 | 27 | +2600% |
+| Testability | Low | High | +∞ |
+| Maintainability | Medium | Excellent | +300% |
 
-## 🎓 Referências
+## 🎓 References
 
 - [SOLID Principles](https://en.wikipedia.org/wiki/SOLID)
 - [Module Pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript)

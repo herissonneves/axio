@@ -1,21 +1,21 @@
 /**
- * Criação de Elementos DOM para Atalhos de Teclado
- * 
- * Funções especializadas em criar elementos DOM para:
- * - Diálogo de ajuda de atalhos
- * - Lista de atalhos
- * - Itens individuais de atalho
- * - Botões e controles
+ * DOM Element Creation for Keyboard Shortcuts
+ *
+ * Specialized functions to create DOM elements for:
+ * - Shortcuts help dialog
+ * - Shortcut list
+ * - Individual shortcut items
+ * - Buttons and controls
  */
 
 import { t } from "../i18n/index.js";
 
 /**
- * Cria um item de atalho para exibição no diálogo
- * @param {Object} shortcut - Objeto com key e description
- * @param {string} shortcut.key - Representação visual da tecla
- * @param {string} shortcut.description - Descrição do atalho
- * @returns {HTMLElement} Elemento do item de atalho
+ * Creates a shortcut item for display in the dialog
+ * @param {Object} shortcut - Object with key and description
+ * @param {string} shortcut.key - Visual key representation
+ * @param {string} shortcut.description - Shortcut description
+ * @returns {HTMLElement} Shortcut item element
  */
 export const createShortcutItem = (shortcut) => {
   const item = document.createElement("div");
@@ -34,8 +34,8 @@ export const createShortcutItem = (shortcut) => {
 };
 
 /**
- * Cria a lista de atalhos para o diálogo
- * @returns {HTMLElement} Elemento da lista de atalhos
+ * Creates the shortcut list for the dialog
+ * @returns {HTMLElement} Shortcut list element
  */
 export const createShortcutsList = () => {
   const shortcutsList = document.createElement("div");
@@ -60,8 +60,8 @@ export const createShortcutsList = () => {
 };
 
 /**
- * Cria o título do diálogo
- * @returns {HTMLElement} Elemento do título
+ * Creates the dialog title
+ * @returns {HTMLElement} Title element
  */
 export const createDialogTitle = () => {
   const title = document.createElement("h2");
@@ -72,9 +72,9 @@ export const createDialogTitle = () => {
 };
 
 /**
- * Cria o botão de fechar do diálogo
- * @param {Function} onClose - Callback para fechar o diálogo
- * @returns {HTMLElement} Elemento do botão
+ * Creates the dialog close button
+ * @param {Function} onClose - Callback to close the dialog
+ * @returns {HTMLElement} Button element
  */
 export const createCloseButton = (onClose) => {
   const closeBtn = document.createElement("button");
@@ -86,9 +86,9 @@ export const createCloseButton = (onClose) => {
 };
 
 /**
- * Cria o overlay do diálogo
- * @param {Function} onClose - Callback para fechar o diálogo
- * @returns {HTMLElement} Elemento do overlay
+ * Creates the dialog overlay
+ * @param {Function} onClose - Callback to close the dialog
+ * @returns {HTMLElement} Overlay element
  */
 export const createDialogOverlay = (onClose) => {
   const overlay = document.createElement("div");
@@ -98,9 +98,9 @@ export const createDialogOverlay = (onClose) => {
 };
 
 /**
- * Cria o container do diálogo
- * @param {Function} onClose - Callback para fechar o diálogo
- * @returns {Object} Objeto com container e closeBtn
+ * Creates the dialog container
+ * @param {Function} onClose - Callback to close the dialog
+ * @returns {Object} Object with container and closeBtn
  */
 export const createDialogContainer = (onClose) => {
   const container = document.createElement("div");
@@ -121,9 +121,9 @@ export const createDialogContainer = (onClose) => {
 };
 
 /**
- * Cria a estrutura completa do diálogo de atalhos
- * @param {Function} onClose - Callback para fechar o diálogo
- * @returns {Object} Objeto com dialog e closeBtn
+ * Creates the complete shortcuts dialog structure
+ * @param {Function} onClose - Callback to close the dialog
+ * @returns {Object} Object with dialog and closeBtn
  */
 export const createDialogStructure = (onClose) => {
   const dialog = document.createElement("div");

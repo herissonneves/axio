@@ -1,19 +1,19 @@
 /**
- * Módulo de Persistência i18n
- * 
- * Gerencia a persistência da preferência de idioma no localStorage.
- * Funções puras que interagem com o localStorage para salvar e recuperar
- * a preferência de idioma do usuário.
+ * i18n Persistence Module
+ *
+ * Manages language preference persistence in localStorage.
+ * Pure functions that interact with localStorage to save and retrieve
+ * the user's language preference.
  */
 
 import { STORAGE_KEY } from "./i18n-config.js";
 
 /**
- * Salva a preferência de idioma no localStorage
- * 
- * @param {string} language - Código do idioma a ser salvo (ex: 'pt', 'en')
- * @returns {boolean} true se salvou com sucesso, false em caso de erro
- * 
+ * Saves the language preference to localStorage
+ *
+ * @param {string} language - Language code to save (e.g. 'pt', 'en')
+ * @returns {boolean} true if saved successfully, false on error
+ *
  * @example
  * saveLanguagePreference('en'); // true
  */
@@ -22,33 +22,33 @@ export const saveLanguagePreference = (language) => {
     localStorage.setItem(STORAGE_KEY, language);
     return true;
   } catch (error) {
-    console.error("Erro ao salvar preferência de idioma:", error);
+    console.error("Failed to save language preference:", error);
     return false;
   }
 };
 
 /**
- * Recupera a preferência de idioma do localStorage
- * 
- * @returns {string|null} Código do idioma salvo ou null se não houver
- * 
+ * Retrieves the language preference from localStorage
+ *
+ * @returns {string|null} Saved language code or null if none
+ *
  * @example
- * const lang = loadLanguagePreference(); // 'pt' ou null
+ * const lang = loadLanguagePreference(); // 'pt' or null
  */
 export const loadLanguagePreference = () => {
   try {
     return localStorage.getItem(STORAGE_KEY);
   } catch (error) {
-    console.error("Erro ao carregar preferência de idioma:", error);
+    console.error("Failed to load language preference:", error);
     return null;
   }
 };
 
 /**
- * Remove a preferência de idioma do localStorage
- * 
- * @returns {boolean} true se removeu com sucesso, false em caso de erro
- * 
+ * Removes the language preference from localStorage
+ *
+ * @returns {boolean} true if removed successfully, false on error
+ *
  * @example
  * clearLanguagePreference(); // true
  */
@@ -57,7 +57,7 @@ export const clearLanguagePreference = () => {
     localStorage.removeItem(STORAGE_KEY);
     return true;
   } catch (error) {
-    console.error("Erro ao limpar preferência de idioma:", error);
+    console.error("Failed to clear language preference:", error);
     return false;
   }
 };

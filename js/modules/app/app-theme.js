@@ -1,7 +1,7 @@
 /**
- * Gerenciamento de Tema e Contraste
- * 
- * Gerencia a aplicação e persistência de temas e níveis de contraste.
+ * Theme and Contrast Management
+ *
+ * Manages application and persistence of themes and contrast levels.
  */
 
 import {
@@ -14,33 +14,33 @@ import {
 } from "./app-config.js";
 
 /**
- * Estado atual do tema
+ * Current theme state
  * @private
  */
 let currentTheme = DEFAULT_THEME;
 
 /**
- * Estado atual do contraste
+ * Current contrast state
  * @private
  */
 let currentContrast = CONTRAST_DEFAULT;
 
 /**
- * Obtém o tema atual
- * @returns {string} Tema atual (light ou dark)
+ * Gets the current theme
+ * @returns {string} Current theme (light or dark)
  */
 export const getCurrentTheme = () => currentTheme;
 
 /**
- * Obtém o contraste atual
- * @returns {string} Contraste atual (default, medium ou high)
+ * Gets the current contrast
+ * @returns {string} Current contrast (default, medium, or high)
  */
 export const getCurrentContrast = () => currentContrast;
 
 /**
- * Aplica o tema e contraste selecionados ao documento
- * @param {string} theme - Tema (light ou dark)
- * @param {string} contrast - Nível de contraste (default, medium ou high)
+ * Applies the selected theme and contrast to the document
+ * @param {string} theme - Theme (light or dark)
+ * @param {string} contrast - Contrast level (default, medium, or high)
  */
 export const applyTheme = (theme, contrast) => {
   const resolvedTheme =
@@ -49,9 +49,9 @@ export const applyTheme = (theme, contrast) => {
 };
 
 /**
- * Atualiza o estado visual do botão de alternância de tema
- * @param {HTMLElement} themeToggle - Elemento do botão de tema
- * @param {string} theme - Tema atual (light ou dark)
+ * Updates the visual state of the theme toggle button
+ * @param {HTMLElement} themeToggle - Theme button element
+ * @param {string} theme - Current theme (light or dark)
  */
 export const updateThemeToggle = (themeToggle, theme) => {
   if (!themeToggle) return;
@@ -63,9 +63,9 @@ export const updateThemeToggle = (themeToggle, theme) => {
 };
 
 /**
- * Atualiza o estado visual dos botões de seleção de contraste
- * @param {NodeList} contrastButtons - Lista de botões de contraste
- * @param {string} contrast - Nível de contraste atual
+ * Updates the visual state of contrast selector buttons
+ * @param {NodeList} contrastButtons - List of contrast buttons
+ * @param {string} contrast - Current contrast level
  */
 export const updateContrastButtons = (contrastButtons, contrast) => {
   contrastButtons.forEach((btn) => {
@@ -77,10 +77,10 @@ export const updateContrastButtons = (contrastButtons, contrast) => {
 };
 
 /**
- * Carrega as preferências de tema e contraste do localStorage
- * @param {HTMLElement} themeToggle - Elemento do botão de tema
- * @param {NodeList} contrastButtons - Lista de botões de contraste
- * @returns {Object} Objeto com tema e contraste carregados
+ * Loads theme and contrast preferences from localStorage
+ * @param {HTMLElement} themeToggle - Theme button element
+ * @param {NodeList} contrastButtons - List of contrast buttons
+ * @returns {Object} Object with loaded theme and contrast
  */
 export const loadThemePreferences = (themeToggle, contrastButtons) => {
   const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
@@ -102,16 +102,16 @@ export const loadThemePreferences = (themeToggle, contrastButtons) => {
 };
 
 /**
- * Alterna entre os temas (light <-> dark)
- * @param {HTMLElement} themeToggle - Elemento do botão de tema
- * @returns {string} Novo tema aplicado
+ * Toggles between themes (light <-> dark)
+ * @param {HTMLElement} themeToggle - Theme button element
+ * @returns {string} Newly applied theme
  */
 export const toggleTheme = (themeToggle) => {
   const nextTheme = currentTheme === "dark" ? "light" : "dark";
   currentTheme = nextTheme;
 
-  console.log(`[Theme] Mudando de ${currentTheme === "dark" ? "light" : "dark"} para ${nextTheme}`);
-  
+  console.log(`[Theme] Switching from ${currentTheme === "dark" ? "light" : "dark"} to ${nextTheme}`);
+
   updateThemeToggle(themeToggle, nextTheme);
   applyTheme(nextTheme, currentContrast);
   localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
@@ -122,15 +122,15 @@ export const toggleTheme = (themeToggle) => {
 };
 
 /**
- * Define um novo nível de contraste
- * @param {NodeList} contrastButtons - Lista de botões de contraste
- * @param {string} contrast - Novo nível de contraste
- * @returns {boolean} true se o contraste foi aplicado, false caso contrário
+ * Sets a new contrast level
+ * @param {NodeList} contrastButtons - List of contrast buttons
+ * @param {string} contrast - New contrast level
+ * @returns {boolean} true if contrast was applied, false otherwise
  */
 export const setContrast = (contrastButtons, contrast) => {
   if (!VALID_CONTRASTS.includes(contrast)) return false;
 
-  console.log(`[Contrast] Mudando para: ${contrast}`);
+  console.log(`[Contrast] Switching to: ${contrast}`);
 
   currentContrast = contrast;
   updateContrastButtons(contrastButtons, contrast);
@@ -143,9 +143,9 @@ export const setContrast = (contrastButtons, contrast) => {
 };
 
 /**
- * Alterna entre os níveis de contraste (default -> medium -> high -> default)
- * @param {NodeList} contrastButtons - Lista de botões de contraste
- * @returns {string} Novo contraste aplicado
+ * Cycles contrast levels (default -> medium -> high -> default)
+ * @param {NodeList} contrastButtons - List of contrast buttons
+ * @returns {string} Newly applied contrast
  */
 export const toggleContrast = (contrastButtons) => {
   const contrastOrder = [CONTRAST_DEFAULT, "medium", "high"];
@@ -154,6 +154,6 @@ export const toggleContrast = (contrastButtons) => {
   const nextContrast = contrastOrder[nextIndex];
 
   setContrast(contrastButtons, nextContrast);
-  
+
   return nextContrast;
 };

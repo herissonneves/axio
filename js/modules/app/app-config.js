@@ -1,41 +1,41 @@
 /**
- * Configurações da Aplicação
- * 
- * Define todas as constantes e configurações globais da aplicação.
+ * Application Configuration
+ *
+ * Defines all global constants and application settings.
  */
 
 /**
- * Tema padrão da aplicação
+ * Default application theme
  * @constant {string}
  */
 export const DEFAULT_THEME = "light";
 
 /**
- * Nível de contraste padrão
+ * Default contrast level
  * @constant {string}
  */
 export const CONTRAST_DEFAULT = "default";
 
 /**
- * Chave do localStorage para o tema
+ * localStorage key for theme
  * @constant {string}
  */
 export const THEME_STORAGE_KEY = "todo-theme";
 
 /**
- * Chave do localStorage para o contraste
+ * localStorage key for contrast
  * @constant {string}
  */
 export const CONTRAST_STORAGE_KEY = "todo-contrast";
 
 /**
- * Lista de níveis de contraste válidos
+ * List of valid contrast levels
  * @constant {Array<string>}
  */
 export const VALID_CONTRASTS = [CONTRAST_DEFAULT, "medium", "high"];
 
 /**
- * Mapeamento de IDs de filtro para valores de filtro
+ * Mapping of filter IDs to filter values
  * @constant {Object.<string, string>}
  */
 export const FILTER_MAP = {
@@ -45,13 +45,13 @@ export const FILTER_MAP = {
 };
 
 /**
- * Namespace SVG para criação de elementos SVG
+ * SVG namespace for creating SVG elements
  * @constant {string}
  */
 export const SVG_NS = "http://www.w3.org/2000/svg";
 
 /**
- * Mapa de combinações tema/contraste para classes CSS
+ * Map of theme/contrast combinations to CSS classes
  * @constant {Object.<string, Object.<string, string>>}
  */
 export const THEME_MAP = {

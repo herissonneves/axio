@@ -1,58 +1,58 @@
 /**
- * Utilitários i18n
- * 
- * Funções utilitárias puras para processamento de traduções.
- * Inclui substituição de placeholders, validação e formatação.
+ * i18n Utilities
+ *
+ * Pure utility functions for translation processing.
+ * Includes placeholder replacement, validation, and formatting.
  */
 
 import { PLACEHOLDER_PATTERN } from "./i18n-config.js";
 
 /**
- * Substitui placeholders em uma string por valores fornecidos
- * 
- * Procura por placeholders no formato {nome} e os substitui pelos
- * valores correspondentes no objeto de parâmetros.
- * 
- * @param {string} text - Texto com placeholders
- * @param {Object.<string, any>} params - Objeto com valores para substituição
- * @returns {string} Texto com placeholders substituídos
- * 
+ * Replaces placeholders in a string with provided values
+ *
+ * Finds placeholders in {name} format and replaces them with
+ * corresponding values from the parameters object.
+ *
+ * @param {string} text - Text with placeholders
+ * @param {Object.<string, any>} params - Object with replacement values
+ * @returns {string} Text with placeholders replaced
+ *
  * @example
- * replacePlaceholders("Olá {name}!", { name: "Maria" })
- * // Retorna: "Olá Maria!"
- * 
+ * replacePlaceholders("Hello {name}!", { name: "Maria" })
+ * // Returns: "Hello Maria!"
+ *
  * @example
- * replacePlaceholders("Excluir {text}?", { text: "tarefa" })
- * // Retorna: "Excluir tarefa?"
- * 
+ * replacePlaceholders("Delete {text}?", { text: "task" })
+ * // Returns: "Delete task?"
+ *
  * @example
- * // Placeholder não encontrado mantém o original
- * replacePlaceholders("Olá {name}!", {})
- * // Retorna: "Olá {name}!"
+ * // Missing placeholder keeps the original
+ * replacePlaceholders("Hello {name}!", {})
+ * // Returns: "Hello {name}!"
  */
 export const replacePlaceholders = (text, params = {}) => {
   if (!text || typeof text !== "string") {
     return text;
   }
-  
+
   if (!params || Object.keys(params).length === 0) {
     return text;
   }
-  
+
   return text.replace(PLACEHOLDER_PATTERN, (match, paramKey) => {
     return params[paramKey] !== undefined ? params[paramKey] : match;
   });
 };
 
 /**
- * Verifica se uma string contém placeholders
- * 
- * @param {string} text - Texto a verificar
- * @returns {boolean} true se contém placeholders, false caso contrário
- * 
+ * Checks whether a string contains placeholders
+ *
+ * @param {string} text - Text to check
+ * @returns {boolean} true if it contains placeholders, false otherwise
+ *
  * @example
- * hasPlaceholders("Olá {name}!"); // true
- * hasPlaceholders("Olá mundo!"); // false
+ * hasPlaceholders("Hello {name}!"); // true
+ * hasPlaceholders("Hello world!"); // false
  */
 export const hasPlaceholders = (text) => {
   if (!text || typeof text !== "string") {
@@ -62,62 +62,62 @@ export const hasPlaceholders = (text) => {
 };
 
 /**
- * Extrai os nomes dos placeholders de uma string
- * 
- * @param {string} text - Texto com placeholders
- * @returns {Array<string>} Array com os nomes dos placeholders encontrados
- * 
+ * Extracts placeholder names from a string
+ *
+ * @param {string} text - Text with placeholders
+ * @returns {Array<string>} Array of placeholder names found
+ *
  * @example
- * extractPlaceholders("Olá {name}, você tem {count} mensagens")
- * // Retorna: ["name", "count"]
- * 
+ * extractPlaceholders("Hello {name}, you have {count} messages")
+ * // Returns: ["name", "count"]
+ *
  * @example
- * extractPlaceholders("Sem placeholders")
- * // Retorna: []
+ * extractPlaceholders("No placeholders")
+ * // Returns: []
  */
 export const extractPlaceholders = (text) => {
   if (!text || typeof text !== "string") {
     return [];
   }
-  
+
   const placeholders = [];
   const regex = new RegExp(PLACEHOLDER_PATTERN, "g");
   let match;
-  
+
   while ((match = regex.exec(text)) !== null) {
     placeholders.push(match[1]);
   }
-  
+
   return placeholders;
 };
 
 /**
- * Valida se todos os placeholders necessários foram fornecidos
- * 
- * @param {string} text - Texto com placeholders
- * @param {Object.<string, any>} params - Objeto com valores fornecidos
- * @returns {boolean} true se todos os placeholders têm valores, false caso contrário
- * 
+ * Validates that all required placeholders were provided
+ *
+ * @param {string} text - Text with placeholders
+ * @param {Object.<string, any>} params - Object with provided values
+ * @returns {boolean} true if all placeholders have values, false otherwise
+ *
  * @example
- * validatePlaceholders("Olá {name}!", { name: "Maria" }); // true
- * validatePlaceholders("Olá {name}!", {}); // false
+ * validatePlaceholders("Hello {name}!", { name: "Maria" }); // true
+ * validatePlaceholders("Hello {name}!", {}); // false
  */
 export const validatePlaceholders = (text, params = {}) => {
   const placeholders = extractPlaceholders(text);
-  
+
   if (placeholders.length === 0) {
     return true;
   }
-  
+
   return placeholders.every(placeholder => params[placeholder] !== undefined);
 };
 
 /**
- * Normaliza um código de idioma para o formato padrão
- * 
- * @param {string} language - Código do idioma
- * @returns {string} Código normalizado (minúsculas, sem espaços)
- * 
+ * Normalizes a language code to the standard format
+ *
+ * @param {string} language - Language code
+ * @returns {string} Normalized code (lowercase, no spaces)
+ *
  * @example
  * normalizeLanguageCode("PT"); // "pt"
  * normalizeLanguageCode(" en "); // "en"

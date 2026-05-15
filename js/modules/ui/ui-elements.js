@@ -1,11 +1,11 @@
 /**
- * Elementos de UI - Componentes Básicos
- * 
- * Componentes reutilizáveis para construção de itens de tarefa:
- * - Checkbox com estado
- * - Texto da tarefa
- * - Botão de opções
- * - Handle de arrastar
+ * UI Elements - Basic Components
+ *
+ * Reusable components for building task items:
+ * - Checkbox with state
+ * - Task text
+ * - Options button
+ * - Drag handle
  */
 
 import { toggleTask } from "../todo.js";
@@ -13,11 +13,11 @@ import { t } from "../i18n/index.js";
 import { createCheckIcon, createOptionsIcon, createDragHandleIcon } from "./ui-icons.js";
 
 /**
- * Cria o componente de checkbox para uma tarefa
- * @param {Object} task - Objeto da tarefa
- * @param {string} filter - Filtro atual aplicado
- * @param {Function} onRender - Callback para re-renderizar
- * @returns {HTMLElement} Elemento do container da checkbox
+ * Creates the checkbox component for a task
+ * @param {Object} task - Task object
+ * @param {string} filter - Current applied filter
+ * @param {Function} onRender - Callback to re-render
+ * @returns {HTMLElement} Checkbox container element
  */
 export const createCheckbox = (task, filter, onRender) => {
   const checkboxContainer = document.createElement("div");
@@ -51,11 +51,11 @@ export const createCheckbox = (task, filter, onRender) => {
 };
 
 /**
- * Cria o elemento de texto da tarefa
- * @param {Object} task - Objeto da tarefa
- * @param {string} filter - Filtro atual aplicado
- * @param {Function} onRender - Callback para re-renderizar
- * @returns {HTMLElement} Elemento span com o texto da tarefa
+ * Creates the task text element
+ * @param {Object} task - Task object
+ * @param {string} filter - Current applied filter
+ * @param {Function} onRender - Callback to re-render
+ * @returns {HTMLElement} Span element with task text
  */
 export const createTaskText = (task, filter, onRender) => {
   const text = document.createElement("span");
@@ -69,11 +69,11 @@ export const createTaskText = (task, filter, onRender) => {
 };
 
 /**
- * Cria o botão de opções (três pontos) para uma tarefa
- * @param {Object} task - Objeto da tarefa
- * @param {string} filter - Filtro atual aplicado
- * @param {Function} onMenuToggle - Callback para abrir/fechar menu
- * @returns {HTMLElement} Elemento do botão de opções
+ * Creates the options button (three dots) for a task
+ * @param {Object} task - Task object
+ * @param {string} filter - Current applied filter
+ * @param {Function} onMenuToggle - Callback to open/close menu
+ * @returns {HTMLElement} Options button element
  */
 export const createOptionsButton = (task, filter, onMenuToggle) => {
   const optionsBtn = document.createElement("button");
@@ -92,8 +92,8 @@ export const createOptionsButton = (task, filter, onMenuToggle) => {
 };
 
 /**
- * Cria o elemento de arrasto (drag handle) para uma tarefa
- * @returns {HTMLElement} Elemento do drag handle
+ * Creates the drag handle element for a task
+ * @returns {HTMLElement} Drag handle element
  */
 export const createDragHandle = () => {
   const handle = document.createElement("div");

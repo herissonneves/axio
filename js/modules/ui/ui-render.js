@@ -1,11 +1,11 @@
 /**
- * Renderização da Lista de Tarefas
- * 
- * Módulo central de renderização que:
- * - Constrói itens de tarefa completos
- * - Aplica filtros (todas/ativas/concluídas)
- * - Orquestra todos os componentes
- * - Gerencia o DOM da lista
+ * Task List Rendering
+ *
+ * Central rendering module that:
+ * - Builds complete task items
+ * - Applies filters (all/active/completed)
+ * - Orchestrates all components
+ * - Manages list DOM
  */
 
 import { getTasks } from "../todo.js";
@@ -14,32 +14,32 @@ import { toggleMenu, closeMenu } from "./ui-menu.js";
 import { showEditDialog, showDeleteDialog } from "./ui-dialogs.js";
 import { createDragHandlers } from "./ui-drag.js";
 
-// Filtros para tarefas
+// Task filters
 const FILTERS = {
   all: () => true,
   active: (task) => !task.completed,
   completed: (task) => task.completed,
 };
 
-// Estado do filtro atual
+// Current filter state
 let currentFilter = "all";
 
-// Elemento da lista
+// List element
 const listElement = document.getElementById("todo-list");
 
 /**
- * Obtém o filtro atual aplicado
- * @returns {string} Filtro atual
+ * Gets the current applied filter
+ * @returns {string} Current filter
  */
 const getCurrentFilter = () => currentFilter;
 
 /**
- * Constrói um item de tarefa completo com todos os elementos
- * @param {Object} task - Objeto da tarefa
- * @param {string} filter - Filtro atual aplicado
- * @param {Function} onRender - Callback para re-renderizar
- * @param {Object} dragHandlers - Handlers de drag-and-drop
- * @returns {HTMLElement} Elemento li da tarefa
+ * Builds a complete task item with all elements
+ * @param {Object} task - Task object
+ * @param {string} filter - Current applied filter
+ * @param {Function} onRender - Callback to re-render
+ * @param {Object} dragHandlers - Drag-and-drop handlers
+ * @returns {HTMLElement} Task li element
  */
 const buildTodoItem = (task, filter, onRender, dragHandlers) => {
   const li = document.createElement("li");
@@ -54,7 +54,7 @@ const buildTodoItem = (task, filter, onRender, dragHandlers) => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("todo-item");
 
-  // Criar callbacks para menu com renderização
+  // Create menu callbacks with rendering
   const handleMenuToggle = (task, filter, buttonElement) => {
     const onEdit = (task, filter) => showEditDialog(task, filter, onRender);
     const onDelete = (task, filter) => showDeleteDialog(task, filter, onRender);
@@ -68,7 +68,7 @@ const buildTodoItem = (task, filter, onRender, dragHandlers) => {
     createOptionsButton(task, filter, handleMenuToggle)
   );
 
-  // Adicionar event listeners de arrasto
+  // Add drag event listeners
   li.addEventListener("dragstart", dragHandlers.onDragStart);
   li.addEventListener("dragend", dragHandlers.onDragEnd);
   li.addEventListener("dragover", dragHandlers.onDragOver);
@@ -80,27 +80,27 @@ const buildTodoItem = (task, filter, onRender, dragHandlers) => {
 };
 
 /**
- * Renderiza as tarefas no elemento da lista usando o filtro fornecido
- * 
- * Esta é a função principal de renderização que:
- * - Filtra as tarefas de acordo com o filtro especificado
- * - Cria os elementos DOM para cada tarefa
- * - Atualiza a lista na interface
- * 
- * @param {string} filter - Filtro a ser aplicado: "all", "active" ou "completed"
+ * Renders tasks in the list element using the provided filter
+ *
+ * Main rendering function that:
+ * - Filters tasks according to the specified filter
+ * - Creates DOM elements for each task
+ * - Updates the interface list
+ *
+ * @param {string} filter - Filter to apply: "all", "active", or "completed"
  */
 export function renderTasks(filter = "all") {
   if (!listElement) return;
 
-  // Fechar qualquer menu aberto ao re-renderizar
+  // Close any open menu when re-rendering
   closeMenu();
 
-  // Armazenar filtro atual para reordenação por arrastar e soltar
+  // Store current filter for drag-and-drop reordering
   currentFilter = filter;
 
   const predicate = FILTERS[filter] ?? FILTERS.all;
 
-  // Criar handlers de drag vinculados ao contexto atual
+  // Create drag handlers bound to current context
   const dragHandlers = createDragHandlers(listElement, getCurrentFilter, renderTasks);
 
   const fragment = document.createDocumentFragment();

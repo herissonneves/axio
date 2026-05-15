@@ -1,21 +1,21 @@
 /**
- * Diálogos de Interação
- * 
- * Gerencia diálogos modais para:
- * - Edição de tarefas
- * - Confirmação de exclusão
- * 
- * Inclui controle de foco, acessibilidade e fechamento via Escape.
+ * Interaction Dialogs
+ *
+ * Manages modal dialogs for:
+ * - Task editing
+ * - Delete confirmation
+ *
+ * Includes focus control, accessibility, and Escape-to-close.
  */
 
 import { removeTask, updateTask } from "../todo.js";
 import { t } from "../i18n/index.js";
 
 /**
- * Cria e exibe o diálogo de confirmação de exclusão
- * @param {Object} task - Tarefa a ser excluída
- * @param {string} filter - Filtro atual aplicado
- * @param {Function} onRender - Callback para re-renderizar
+ * Creates and displays the delete confirmation dialog
+ * @param {Object} task - Task to delete
+ * @param {string} filter - Current applied filter
+ * @param {Function} onRender - Callback to re-render
  */
 export const showDeleteDialog = (task, filter, onRender) => {
   const dialog = document.createElement("div");
@@ -73,10 +73,10 @@ export const showDeleteDialog = (task, filter, onRender) => {
   document.body.append(dialog);
   document.body.style.overflow = "hidden";
 
-  // Focar no primeiro botão
+  // Focus the first button
   cancelBtn.focus();
 
-  // Fechar ao pressionar Escape
+  // Close on Escape
   const handleEscape = (event) => {
     if (event.key === "Escape") {
       closeDialog();
@@ -87,10 +87,10 @@ export const showDeleteDialog = (task, filter, onRender) => {
 };
 
 /**
- * Cria e exibe o diálogo de edição de tarefa
- * @param {Object} task - Tarefa a ser editada
- * @param {string} filter - Filtro atual aplicado
- * @param {Function} onRender - Callback para re-renderizar
+ * Creates and displays the task edit dialog
+ * @param {Object} task - Task to edit
+ * @param {string} filter - Current applied filter
+ * @param {Function} onRender - Callback to re-render
  */
 export const showEditDialog = (task, filter, onRender) => {
   const dialog = document.createElement("div");
@@ -174,11 +174,11 @@ export const showEditDialog = (task, filter, onRender) => {
   document.body.append(dialog);
   document.body.style.overflow = "hidden";
 
-  // Focar no input e selecionar texto
+  // Focus input and select text
   input.focus();
   input.select();
 
-  // Fechar ao pressionar Escape
+  // Close on Escape
   const handleEscape = (event) => {
     if (event.key === "Escape") {
       closeDialog();

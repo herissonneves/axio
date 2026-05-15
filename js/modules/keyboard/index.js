@@ -1,22 +1,22 @@
 /**
- * Módulo de Atalhos de Teclado - Ponto de Entrada
- * 
- * Exporta todas as funcionalidades do sistema de atalhos de teclado.
- * Este é o arquivo principal que deve ser importado por outros módulos.
+ * Keyboard Shortcuts Module - Entry Point
+ *
+ * Exports all keyboard shortcut system functionality.
+ * This is the main file that should be imported by other modules.
  */
 
-// Exportar configurações
+// Export configuration
 export { KEYBOARD_SHORTCUTS, BLOCKED_TAGS } from "./keyboard-config.js";
 
-// Exportar utilitários
-export { 
-  isModifierPressed, 
-  shouldBlockShortcut, 
+// Export utilities
+export {
+  isModifierPressed,
+  shouldBlockShortcut,
   matchesShortcut
 } from "./keyboard-utils.js";
 
-// Exportar funções DOM
-export { 
+// Export DOM functions
+export {
   createShortcutItem,
   createShortcutsList,
   createDialogTitle,
@@ -26,12 +26,12 @@ export {
   createDialogStructure
 } from "./keyboard-dom.js";
 
-// Exportar processamento de atalhos
-export { 
+// Export shortcut processing
+export {
   processShortcut,
   createKeyboardListener,
   initKeyboardShortcuts
 } from "./keyboard-shortcuts.js";
 
-// Exportar diálogo
+// Export dialog
 export { showKeyboardShortcutsDialog } from "./keyboard-dialog.js";

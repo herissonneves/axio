@@ -1,8 +1,8 @@
 /**
- * Módulo Principal i18n
- * 
- * Gerencia o estado do idioma atual e fornece a API principal para traduções.
- * Integra todos os outros módulos (storage, detector, utils, translations).
+ * Main i18n Module
+ *
+ * Manages the current language state and provides the main translation API.
+ * Integrates all other modules (storage, detector, utils, translations).
  */
 
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from "./i18n-config.js";
@@ -12,125 +12,125 @@ import { detectLanguage, isLanguageSupported } from "./i18n-detector.js";
 import { replacePlaceholders, normalizeLanguageCode } from "./i18n-utils.js";
 
 /**
- * Estado interno - idioma atual da aplicação
+ * Internal state - current application language
  * @private
  */
 let currentLanguage = DEFAULT_LANGUAGE;
 
 /**
- * Obtém o idioma atual da aplicação
- * 
- * @returns {string} Código do idioma atual (ex: 'pt', 'en')
- * 
+ * Gets the current application language
+ *
+ * @returns {string} Current language code (e.g. 'pt', 'en')
+ *
  * @example
  * const lang = getLanguage(); // 'pt'
  */
 export const getLanguage = () => currentLanguage;
 
 /**
- * Define o idioma da aplicação e persiste a preferência
- * 
- * Valida se o idioma é suportado antes de aplicar.
- * Atualiza o atributo lang do documento HTML.
- * Salva a preferência no localStorage.
- * 
- * @param {string} lang - Código do idioma (ex: 'pt', 'en')
- * @returns {boolean} true se o idioma foi definido com sucesso, false caso contrário
- * 
+ * Sets the application language and persists the preference
+ *
+ * Validates that the language is supported before applying.
+ * Updates the HTML document lang attribute.
+ * Saves the preference to localStorage.
+ *
+ * @param {string} lang - Language code (e.g. 'pt', 'en')
+ * @returns {boolean} true if language was set successfully, false otherwise
+ *
  * @example
- * setLanguage('en'); // true - muda para inglês
- * setLanguage('fr'); // false - idioma não suportado
+ * setLanguage('en'); // true - switches to English
+ * setLanguage('fr'); // false - language not supported
  */
 export const setLanguage = (lang) => {
   const normalizedLang = normalizeLanguageCode(lang);
-  
+
   if (!isLanguageSupported(normalizedLang)) {
-    console.warn(`Idioma '${lang}' não é suportado. Idiomas disponíveis: ${SUPPORTED_LANGUAGES.join(", ")}`);
+    console.warn(`Language '${lang}' is not supported. Available languages: ${SUPPORTED_LANGUAGES.join(", ")}`);
     return false;
   }
-  
+
   currentLanguage = normalizedLang;
   document.documentElement.lang = normalizedLang;
   saveLanguagePreference(normalizedLang);
-  
+
   return true;
 };
 
 /**
- * Carrega o idioma salvo ou detecta automaticamente
- * 
- * Prioridade de detecção:
- * 1. Idioma salvo no localStorage
- * 2. Idioma do navegador (se suportado)
- * 3. Idioma padrão (pt)
- * 
- * @returns {string} Código do idioma carregado
- * 
+ * Loads saved language or detects automatically
+ *
+ * Detection priority:
+ * 1. Language saved in localStorage
+ * 2. Browser language (if supported)
+ * 3. Default language (pt)
+ *
+ * @returns {string} Loaded language code
+ *
  * @example
- * const lang = loadLanguage(); // 'pt' ou 'en'
+ * const lang = loadLanguage(); // 'pt' or 'en'
  */
 export const loadLanguage = () => {
   const stored = loadLanguagePreference();
-  
+
   if (stored && isLanguageSupported(stored)) {
     currentLanguage = stored;
   } else {
     currentLanguage = detectLanguage();
   }
-  
+
   document.documentElement.lang = currentLanguage;
   return currentLanguage;
 };
 
 /**
- * Obtém a tradução para uma chave específica
- * 
- * Busca a tradução no idioma atual. Se não encontrar, usa o idioma padrão.
- * Se ainda assim não encontrar, retorna a própria chave.
- * Suporta placeholders dinâmicos no formato {nome}.
- * 
- * @param {string} key - Chave da tradução
- * @param {Object.<string, any>} params - Parâmetros para substituir placeholders
- * @returns {string} Texto traduzido
- * 
+ * Gets the translation for a specific key
+ *
+ * Looks up the translation in the current language. If not found, uses the default language.
+ * If still not found, returns the key itself.
+ * Supports dynamic placeholders in {name} format.
+ *
+ * @param {string} key - Translation key
+ * @param {Object.<string, any>} params - Parameters to replace placeholders
+ * @returns {string} Translated text
+ *
  * @example
- * t('addTaskButton'); // 'Adicionar Tarefa'
- * 
+ * t('addTaskButton'); // 'Add Task' (when language is en)
+ *
  * @example
- * t('deleteTaskConfirm', { text: 'Comprar leite' })
- * // 'Tem certeza de que deseja excluir "Comprar leite"?...'
- * 
+ * t('deleteTaskConfirm', { text: 'Buy milk' })
+ * // 'Are you sure you want to delete "Buy milk"?...'
+ *
  * @example
- * t('chaveInexistente'); // 'chaveInexistente' (retorna a chave)
+ * t('missingKey'); // 'missingKey' (returns the key)
  */
 export const t = (key, params = {}) => {
-  // Busca no idioma atual
+  // Look up in current language
   let translation = TRANSLATIONS[currentLanguage]?.[key];
-  
-  // Fallback para idioma padrão
+
+  // Fallback to default language
   if (translation === undefined) {
     translation = TRANSLATIONS[DEFAULT_LANGUAGE]?.[key];
   }
-  
-  // Fallback para a própria chave
+
+  // Fallback to the key itself
   if (translation === undefined) {
-    console.warn(`Tradução não encontrada para chave '${key}' nos idiomas '${currentLanguage}' e '${DEFAULT_LANGUAGE}'`);
+    console.warn(`Translation not found for key '${key}' in languages '${currentLanguage}' and '${DEFAULT_LANGUAGE}'`);
     return key;
   }
-  
-  // Substituir placeholders se houver parâmetros
+
+  // Replace placeholders if parameters are provided
   if (params && Object.keys(params).length > 0) {
     return replacePlaceholders(translation, params);
   }
-  
+
   return translation;
 };
 
 /**
- * Obtém todos os idiomas disponíveis na aplicação
- * 
- * @returns {Array<string>} Array com códigos dos idiomas disponíveis
- * 
+ * Gets all languages available in the application
+ *
+ * @returns {Array<string>} Array of available language codes
+ *
  * @example
  * const languages = getAvailableLanguages(); // ['pt', 'en']
  */
@@ -139,15 +139,15 @@ export const getAvailableLanguages = () => {
 };
 
 /**
- * Verifica se uma chave de tradução existe
- * 
- * @param {string} key - Chave a verificar
- * @param {string} [lang] - Idioma específico (opcional, usa atual se não fornecido)
- * @returns {boolean} true se a chave existe, false caso contrário
- * 
+ * Checks whether a translation key exists
+ *
+ * @param {string} key - Key to check
+ * @param {string} [lang] - Specific language (optional, uses current if omitted)
+ * @returns {boolean} true if the key exists, false otherwise
+ *
  * @example
  * hasTranslation('addTaskButton'); // true
- * hasTranslation('chaveInexistente'); // false
+ * hasTranslation('missingKey'); // false
  * hasTranslation('addTaskButton', 'en'); // true
  */
 export const hasTranslation = (key, lang) => {
@@ -156,33 +156,33 @@ export const hasTranslation = (key, lang) => {
 };
 
 /**
- * Obtém todas as traduções de um idioma específico
- * 
- * @param {string} [lang] - Código do idioma (opcional, usa atual se não fornecido)
- * @returns {Object.<string, string>|null} Objeto com todas as traduções ou null se idioma inválido
- * 
+ * Gets all translations for a specific language
+ *
+ * @param {string} [lang] - Language code (optional, uses current if omitted)
+ * @returns {Object.<string, string>|null} Object with all translations or null if language is invalid
+ *
  * @example
  * const translations = getAllTranslations('en');
  * // { pageTitle: 'Axio', addTaskButton: 'Add Task', ... }
  */
 export const getAllTranslations = (lang) => {
   const language = lang || currentLanguage;
-  
+
   if (!isLanguageSupported(language)) {
     return null;
   }
-  
+
   return { ...TRANSLATIONS[language] };
 };
 
 /**
- * Inicializa o sistema de internacionalização
- * 
- * Carrega o idioma salvo ou detecta automaticamente.
- * Deve ser chamado no início da aplicação.
- * 
- * @returns {string} Código do idioma inicializado
- * 
+ * Initializes the internationalization system
+ *
+ * Loads saved language or detects automatically.
+ * Should be called at application startup.
+ *
+ * @returns {string} Initialized language code
+ *
  * @example
  * initI18n(); // 'pt'
  */

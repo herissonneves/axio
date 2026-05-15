@@ -1,35 +1,35 @@
 /**
- * Gerenciamento de Filtros de Tarefas
+ * Task Filter Management
  *
- * Gerencia a seleção e visualização de filtros de tarefas.
+ * Manages task filter selection and display.
  */
 
 import { FILTER_MAP, SVG_NS } from "./app-config.js";
 import { renderTasks } from "../ui/index.js";
 
 /**
- * Estado atual do filtro
+ * Current filter state
  * @private
  */
 let currentFilter = "all";
 
 /**
- * Obtém o filtro atual
- * @returns {string} Filtro atual (all, active ou completed)
+ * Gets the current filter
+ * @returns {string} Current filter (all, active, or completed)
  */
 export const getCurrentFilter = () => currentFilter;
 
 /**
- * Define o filtro atual
- * @param {string} filter - Novo filtro
+ * Sets the current filter
+ * @param {string} filter - New filter
  */
 export const setCurrentFilter = (filter) => {
   currentFilter = filter;
 };
 
 /**
- * Cria o ícone de check para indicar o filtro ativo
- * @returns {SVGElement} Elemento SVG do ícone de check
+ * Creates the check icon to indicate the active filter
+ * @returns {SVGElement} SVG check icon element
  */
 export const createFilterIcon = () => {
   const icon = document.createElementNS(SVG_NS, "svg");
@@ -49,9 +49,9 @@ export const createFilterIcon = () => {
 };
 
 /**
- * Alterna os estilos do botão de filtro ativo e estados de acessibilidade
- * @param {NodeList} filterButtons - Lista de botões de filtro
- * @param {string} activeButtonId - ID do botão de filtro ativo
+ * Toggles active filter button styles and accessibility states
+ * @param {NodeList} filterButtons - List of filter buttons
+ * @param {string} activeButtonId - ID of the active filter button
  */
 export const setActiveFilter = (filterButtons, activeButtonId) => {
   filterButtons.forEach((btn) => {
@@ -71,10 +71,10 @@ export const setActiveFilter = (filterButtons, activeButtonId) => {
 };
 
 /**
- * Manipula o clique em um botão de filtro
- * @param {NodeList} filterButtons - Lista de botões de filtro
- * @param {Event} event - Evento de clique
- * @returns {string} Filtro aplicado
+ * Handles a filter button click
+ * @param {NodeList} filterButtons - List of filter buttons
+ * @param {Event} event - Click event
+ * @returns {string} Applied filter
  */
 export const handleFilterClick = (filterButtons, event) => {
   const { id } = event.currentTarget;
@@ -89,10 +89,10 @@ export const handleFilterClick = (filterButtons, event) => {
 };
 
 /**
- * Aplica um filtro específico
- * @param {NodeList} filterButtons - Lista de botões de filtro
- * @param {string} filter - Filtro a aplicar (all, active ou completed)
- * @param {string} buttonId - ID do botão correspondente
+ * Applies a specific filter
+ * @param {NodeList} filterButtons - List of filter buttons
+ * @param {string} filter - Filter to apply (all, active, or completed)
+ * @param {string} buttonId - Corresponding button ID
  */
 export const applyFilter = (filterButtons, filter, buttonId) => {
   currentFilter = filter;

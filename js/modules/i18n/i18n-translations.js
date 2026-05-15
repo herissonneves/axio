@@ -1,12 +1,12 @@
 /**
- * Traduções do Sistema i18n
- * 
- * Contém todas as traduções disponíveis para cada idioma suportado.
- * Estrutura: { idioma: { chave: valor } }
+ * i18n System Translations
+ *
+ * Contains all translations available for each supported language.
+ * Structure: { language: { key: value } }
  */
 
 /**
- * Objeto com todas as traduções organizadas por idioma
+ * Object with all translations organized by language
  * @constant {Object.<string, Object.<string, string>>}
  */
 export const TRANSLATIONS = {
@@ -108,28 +108,28 @@ export const TRANSLATIONS = {
     close: "Close",
   },
   pt: {
-    // Título da página
+    // Page title
     pageTitle: "Axio",
 
-    // Formulário
+    // Form
     taskDescription: "Descrição da tarefa",
     addTaskPlaceholder: "Adicionar uma nova tarefa...",
     addTaskButton: "Adicionar",
 
-    // Filtros
+    // Filters
     filterAll: "Todas",
     filterActive: "Ativas",
     filterCompleted: "Concluídas",
 
-    // Ações
+    // Actions
     clearCompleted: "Limpar Concluídas",
     clearAll: "Limpar Todas",
 
-    // Opções do menu
+    // Menu options
     edit: "Editar",
     delete: "Excluir",
 
-    // Diálogos
+    // Dialogs
     editTask: "Editar tarefa",
     deleteTask: "Excluir tarefa?",
     deleteTaskConfirm: "Tem certeza de que deseja excluir \"{text}\"? Esta ação não pode ser desfeita.",
@@ -137,7 +137,7 @@ export const TRANSLATIONS = {
     save: "Salvar",
     deleteButton: "Excluir",
 
-    // Rótulos ARIA
+    // ARIA labels
     ariaTaskOptions: "Opções da tarefa",
     ariaTaskOptionsMenu: "Menu de opções da tarefa",
     ariaEditTask: "Editar tarefa",
@@ -156,11 +156,11 @@ export const TRANSLATIONS = {
     ariaThemeSettings: "Configurações de tema e contraste",
     ariaLanguageSelector: "Selecionar idioma",
 
-    // Nomes dos idiomas
+    // Language names
     languageEnglish: "English",
     languagePortuguese: "Português",
 
-    // Página de testes
+    // Test page
     testPageTitle: "Testes",
     testPageDescription: "Execute os testes unitários e de integração para verificar o funcionamento dos módulos e fluxos completos da aplicação.",
     runTests: "Executar Testes",
@@ -180,7 +180,7 @@ export const TRANSLATIONS = {
     ensureHttpServer: "Certifique-se de que está executando em um servidor HTTP (não file://)",
     errorRegisteringTests: "Erro ao registrar testes",
 
-    // Atalhos de teclado
+    // Keyboard shortcuts
     keyboardShortcutsTitle: "Atalhos de Teclado",
     shortcutKeyFocusInput: "Ctrl+K ou /",
     shortcutFocusInput: "Focar no campo de tarefa",

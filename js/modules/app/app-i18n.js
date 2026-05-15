@@ -1,61 +1,61 @@
 /**
- * Gerenciamento de Idioma
- * 
- * Gerencia a mudança de idioma e atualização de textos da interface.
+ * Language Management
+ *
+ * Manages language switching and interface text updates.
  */
 
 import { getLanguage, setLanguage, t } from "../i18n/index.js";
 import { renderTasks } from "../ui/index.js";
 
 /**
- * Atualiza todos os textos estáticos da interface com as traduções do idioma atual
- * @param {string} currentFilter - Filtro atual para re-renderizar as tarefas
+ * Updates all static interface texts with the current language translations
+ * @param {string} currentFilter - Current filter to re-render tasks
  */
 export const updateTexts = (currentFilter) => {
-  // Elementos da página
+  // Page elements
   const pageTitle = document.getElementById("page-title");
   const todoFormLabel = document.getElementById("todo-form-label");
   const todoInput = document.getElementById("todo-input");
   const addTaskButton = document.getElementById("add-task-button");
-  
-  // Filtros
+
+  // Filters
   const filterAll = document.getElementById("filter-all");
   const filterActive = document.getElementById("filter-active");
   const filterCompleted = document.getElementById("filter-completed");
-  
-  // Botões de ação
+
+  // Action buttons
   const clearCompletedBtn = document.getElementById("clear-completed");
   const clearAllBtn = document.getElementById("clear-all");
-  
-  // Seletor de idioma
+
+  // Language selector
   const languageSelector = document.getElementById("language-selector");
   const languageSelectorText = document.getElementById("language-selector-text");
-  
-  // Controles de tema
+
+  // Theme controls
   const themeControls = document.querySelector(".theme-controls");
   const todoFilters = document.querySelector(".todo-filters");
   const themeToggle = document.getElementById("theme-toggle");
 
-  // Atualizar textos
+  // Update texts
   if (pageTitle) pageTitle.textContent = t("pageTitle");
   if (todoFormLabel) todoFormLabel.textContent = t("taskDescription");
   if (todoInput) todoInput.placeholder = t("addTaskPlaceholder");
   if (addTaskButton) addTaskButton.textContent = t("addTaskButton");
-  
+
   if (filterAll) filterAll.textContent = t("filterAll");
   if (filterActive) filterActive.textContent = t("filterActive");
   if (filterCompleted) filterCompleted.textContent = t("filterCompleted");
-  
+
   if (clearCompletedBtn) {
     clearCompletedBtn.textContent = t("clearCompleted");
     clearCompletedBtn.setAttribute("aria-label", t("ariaClearCompleted"));
   }
-  
+
   if (clearAllBtn) {
     clearAllBtn.textContent = t("clearAll");
     clearAllBtn.setAttribute("aria-label", t("ariaClearAll"));
   }
-  
+
   if (languageSelector) {
     languageSelector.setAttribute("aria-label", t("ariaLanguageSelector"));
     const currentLang = getLanguage();
@@ -63,11 +63,11 @@ export const updateTexts = (currentFilter) => {
       languageSelectorText.textContent = currentLang.toUpperCase();
     }
   }
-  
+
   if (themeControls) {
     themeControls.setAttribute("aria-label", t("ariaThemeSettings"));
   }
-  
+
   if (todoFilters) {
     todoFilters.setAttribute("aria-label", t("ariaTaskFilters"));
   }
@@ -76,7 +76,7 @@ export const updateTexts = (currentFilter) => {
     themeToggle.setAttribute("aria-label", t("ariaThemeToggle"));
   }
 
-  // Atualizar botões de contraste
+  // Update contrast buttons
   const contrastButtons = document.querySelectorAll(".contrast-selector__btn");
   contrastButtons.forEach((btn) => {
     const contrast = btn.dataset.contrast;
@@ -89,15 +89,15 @@ export const updateTexts = (currentFilter) => {
     }
   });
 
-  // Re-renderizar tarefas para atualizar conteúdo dinâmico
+  // Re-render tasks to update dynamic content
   renderTasks(currentFilter);
 };
 
 /**
- * Fecha o menu de seleção de idioma
- * @param {HTMLElement|null} languageMenu - Menu de idioma
- * @param {HTMLElement} languageSelector - Botão seletor de idioma
- * @returns {null} Retorna null para limpar a referência ao menu
+ * Closes the language selection menu
+ * @param {HTMLElement|null} languageMenu - Language menu
+ * @param {HTMLElement} languageSelector - Language selector button
+ * @returns {null} Returns null to clear the menu reference
  */
 export const closeLanguageMenu = (languageMenu, languageSelector) => {
   if (languageMenu) {
@@ -110,11 +110,11 @@ export const closeLanguageMenu = (languageMenu, languageSelector) => {
 };
 
 /**
- * Cria e exibe o menu de seleção de idioma
- * @param {HTMLElement} languageSelector - Botão seletor de idioma
- * @param {string} currentFilter - Filtro atual
- * @param {Function} onClose - Callback para fechar o menu
- * @returns {HTMLElement} Menu criado
+ * Creates and displays the language selection menu
+ * @param {HTMLElement} languageSelector - Language selector button
+ * @param {string} currentFilter - Current filter
+ * @param {Function} onClose - Callback to close the menu
+ * @returns {HTMLElement} Created menu
  */
 export const createLanguageMenu = (languageSelector, currentFilter, onClose) => {
   const menu = document.createElement("div");
@@ -145,7 +145,7 @@ export const createLanguageMenu = (languageSelector, currentFilter, onClose) => 
     menu.append(item);
   });
 
-  // Posicionar menu
+  // Position menu
   const rect = languageSelector.getBoundingClientRect();
   menu.style.position = "fixed";
   menu.style.top = `${rect.bottom + 4}px`;
@@ -154,7 +154,7 @@ export const createLanguageMenu = (languageSelector, currentFilter, onClose) => 
   document.body.append(menu);
   languageSelector.setAttribute("aria-expanded", "true");
 
-  // Fechar ao clicar fora do menu
+  // Close when clicking outside the menu
   setTimeout(() => {
     const handleClickOutside = (event) => {
       if (!menu.contains(event.target) && event.target !== languageSelector) {
@@ -169,8 +169,8 @@ export const createLanguageMenu = (languageSelector, currentFilter, onClose) => 
 };
 
 /**
- * Alterna entre os idiomas disponíveis (pt <-> en)
- * @param {string} currentFilter - Filtro atual
+ * Toggles between available languages (pt <-> en)
+ * @param {string} currentFilter - Current filter
  */
 export const toggleLanguage = (currentFilter) => {
   const currentLang = getLanguage();

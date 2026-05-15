@@ -1,13 +1,13 @@
 /**
- * Módulo Principal da Aplicação
+ * Main Application Module
  *
- * Ponto de entrada da aplicação que orquestra:
- * - Inicialização do sistema de internacionalização (i18n)
- * - Gerenciamento de temas e contraste
- * - Gerenciamento de filtros de tarefas
- * - Submissão de formulário e manipulação de tarefas
- * - Seletor de idioma
- * - Atalhos de teclado
+ * Application entry point that orchestrates:
+ * - Internationalization (i18n) system initialization
+ * - Theme and contrast management
+ * - Task filter management
+ * - Form submission and task handling
+ * - Language selector
+ * - Keyboard shortcuts
  */
 
 import { addTask, clearCompleted, clearAll } from "./modules/todo.js";
@@ -37,12 +37,12 @@ import {
 } from "./modules/app/index.js";
 
 // ============================================================================
-// SELETORES DOM
+// DOM SELECTORS
 // ============================================================================
 
 /**
- * Busca e retorna referências aos elementos DOM principais
- * @returns {Object} Objeto com referências aos elementos DOM
+ * Fetches and returns references to main DOM elements
+ * @returns {Object} Object with DOM element references
  */
 const getDOMElements = () => ({
   themeToggle: document.getElementById("theme-toggle"),
@@ -56,13 +56,13 @@ const getDOMElements = () => ({
 });
 
 // ============================================================================
-// MANIPULADORES DE EVENTO
+// EVENT HANDLERS
 // ============================================================================
 
 /**
- * Configura o manipulador de submissão do formulário
- * @param {HTMLFormElement} form - Elemento do formulário
- * @param {HTMLInputElement} input - Elemento de input
+ * Sets up the form submission handler
+ * @param {HTMLFormElement} form - Form element
+ * @param {HTMLInputElement} input - Input element
  */
 const setupFormHandler = (form, input) => {
   form?.addEventListener("submit", (event) => {
@@ -79,10 +79,10 @@ const setupFormHandler = (form, input) => {
 };
 
 /**
- * Configura os manipuladores dos botões de limpeza
- * @param {HTMLButtonElement} btnClear - Botão de limpar concluídas
- * @param {HTMLButtonElement} btnClearAll - Botão de limpar todas
- * @param {NodeList} filterButtons - Botões de filtro
+ * Sets up clear button handlers
+ * @param {HTMLButtonElement} btnClear - Clear completed button
+ * @param {HTMLButtonElement} btnClearAll - Clear all button
+ * @param {NodeList} filterButtons - Filter buttons
  */
 const setupClearHandlers = (btnClear, btnClearAll, filterButtons) => {
   btnClear?.addEventListener("click", () => {
@@ -106,8 +106,8 @@ const setupClearHandlers = (btnClear, btnClearAll, filterButtons) => {
 };
 
 /**
- * Configura os manipuladores dos botões de filtro
- * @param {NodeList} filterButtons - Botões de filtro
+ * Sets up filter button handlers
+ * @param {NodeList} filterButtons - Filter buttons
  */
 const setupFilterHandlers = (filterButtons) => {
   filterButtons.forEach((button) =>
@@ -118,9 +118,9 @@ const setupFilterHandlers = (filterButtons) => {
 };
 
 /**
- * Configura os manipuladores de tema e contraste
- * @param {HTMLButtonElement} themeToggle - Botão de alternância de tema
- * @param {NodeList} contrastButtons - Botões de seleção de contraste
+ * Sets up theme and contrast handlers
+ * @param {HTMLButtonElement} themeToggle - Theme toggle button
+ * @param {NodeList} contrastButtons - Contrast selector buttons
  */
 const setupThemeHandlers = (themeToggle, contrastButtons) => {
   themeToggle?.addEventListener("click", () => toggleTheme(themeToggle));
@@ -134,9 +134,9 @@ const setupThemeHandlers = (themeToggle, contrastButtons) => {
 };
 
 /**
- * Configura os manipuladores do seletor de idioma
- * @param {HTMLButtonElement} languageSelector - Botão seletor de idioma
- * @returns {Object} Objeto com getter/setter para o menu de idioma
+ * Sets up language selector handlers
+ * @param {HTMLButtonElement} languageSelector - Language selector button
+ * @returns {Object} Object with getter/setter for the language menu
  */
 const setupLanguageHandlers = (languageSelector) => {
   let languageMenu = null;
@@ -173,11 +173,11 @@ const setupLanguageHandlers = (languageSelector) => {
 };
 
 /**
- * Configura os atalhos de teclado da aplicação
- * @param {HTMLInputElement} input - Input de tarefa
- * @param {HTMLButtonElement} themeToggle - Botão de tema
- * @param {NodeList} contrastButtons - Botões de contraste
- * @param {NodeList} filterButtons - Botões de filtro
+ * Sets up application keyboard shortcuts
+ * @param {HTMLInputElement} input - Task input
+ * @param {HTMLButtonElement} themeToggle - Theme button
+ * @param {NodeList} contrastButtons - Contrast buttons
+ * @param {NodeList} filterButtons - Filter buttons
  */
 const setupKeyboardShortcuts = (input, themeToggle, contrastButtons, filterButtons) => {
   initKeyboardShortcuts({
@@ -206,30 +206,30 @@ const setupKeyboardShortcuts = (input, themeToggle, contrastButtons, filterButto
 };
 
 // ============================================================================
-// INICIALIZAÇÃO
+// INITIALIZATION
 // ============================================================================
 
 /**
- * Inicializa a aplicação
+ * Initializes the application
  */
 const initApp = () => {
-  // Inicializar sistema de internacionalização
+  // Initialize internationalization system
   initI18n();
 
-  // Buscar elementos DOM
+  // Fetch DOM elements
   const elements = getDOMElements();
 
-  // Carregar preferências de tema e contraste
+  // Load theme and contrast preferences
   loadThemePreferences(elements.themeToggle, elements.contrastButtons);
 
-  // Atualizar textos com idioma atual
+  // Update texts with current language
   updateTexts(getCurrentFilter());
 
-  // Renderizar tarefas e definir filtro inicial
+  // Render tasks and set initial filter
   renderTasks(getCurrentFilter());
   setActiveFilter(elements.filterButtons, "filter-all");
 
-  // Configurar manipuladores de eventos
+  // Set up event handlers
   setupFormHandler(elements.form, elements.input);
   setupClearHandlers(elements.btnClear, elements.btnClearAll, elements.filterButtons);
   setupFilterHandlers(elements.filterButtons);
@@ -244,10 +244,10 @@ const initApp = () => {
 };
 
 // ============================================================================
-// PONTO DE ENTRADA
+// ENTRY POINT
 // ============================================================================
 
 /**
- * Inicialização da aplicação ao carregar o DOM
+ * Initialize application when DOM is loaded
  */
 document.addEventListener("DOMContentLoaded", initApp);

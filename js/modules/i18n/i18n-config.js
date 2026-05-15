@@ -1,33 +1,33 @@
 /**
- * Configurações do Sistema de Internacionalização
- * 
- * Define as constantes e configurações base para o sistema i18n:
- * - Chave de armazenamento no localStorage
- * - Idioma padrão da aplicação
- * - Idiomas suportados
+ * Internationalization System Configuration
+ *
+ * Defines base constants and settings for the i18n system:
+ * - localStorage storage key
+ * - Default application language
+ * - Supported languages
  */
 
 /**
- * Chave usada para armazenar a preferência de idioma no localStorage
+ * Key used to store language preference in localStorage
  * @constant {string}
  */
 export const STORAGE_KEY = "todo-language";
 
 /**
- * Código do idioma padrão da aplicação
+ * Default application language code
  * @constant {string}
  */
 export const DEFAULT_LANGUAGE = "pt";
 
 /**
- * Lista de idiomas suportados pela aplicação
+ * List of languages supported by the application
  * @constant {Array<string>}
  */
 export const SUPPORTED_LANGUAGES = ["pt", "en"];
 
 /**
- * Padrão regex para identificar placeholders nas traduções
- * Formato: {nomeDoPlaceholder}
+ * Regex pattern to identify placeholders in translations
+ * Format: {placeholderName}
  * @constant {RegExp}
  */
 export const PLACEHOLDER_PATTERN = /\{(\w+)\}/g;

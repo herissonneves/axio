@@ -1,23 +1,23 @@
 /**
- * Processamento de Atalhos de Teclado
- * 
- * Lógica de processamento e execução de atalhos:
- * - Processamento de eventos
- * - Execução de handlers
- * - Gerenciamento de listeners
+ * Keyboard Shortcut Processing
+ *
+ * Shortcut processing and execution logic:
+ * - Event processing
+ * - Handler execution
+ * - Listener management
  */
 
 import { KEYBOARD_SHORTCUTS } from "./keyboard-config.js";
 import { shouldBlockShortcut, matchesShortcut } from "./keyboard-utils.js";
 
 /**
- * Processa um evento de teclado e executa o handler correspondente
- * @param {KeyboardEvent} event - Evento de teclado
- * @param {Object} handlers - Objeto com os handlers disponíveis
- * @returns {boolean} true se um atalho foi processado
+ * Processes a keyboard event and runs the corresponding handler
+ * @param {KeyboardEvent} event - Keyboard event
+ * @param {Object} handlers - Object with available handlers
+ * @returns {boolean} true if a shortcut was processed
  */
 export const processShortcut = (event, handlers) => {
-  // Verificar cada atalho configurado
+  // Check each configured shortcut
   for (const [name, config] of Object.entries(KEYBOARD_SHORTCUTS)) {
     if (matchesShortcut(event, config)) {
       const handler = handlers[config.handler];
@@ -28,48 +28,48 @@ export const processShortcut = (event, handlers) => {
       }
     }
   }
-  
+
   return false;
 };
 
 /**
- * Cria um listener de teclado com os handlers fornecidos
- * @param {Object} handlers - Objeto com funções handler
- * @returns {Function} Função listener a ser usada com addEventListener
+ * Creates a keyboard listener with the provided handlers
+ * @param {Object} handlers - Object with handler functions
+ * @returns {Function} Listener function for addEventListener
  */
 export const createKeyboardListener = (handlers) => {
   return (event) => {
-    // Verificar se os atalhos devem ser bloqueados neste contexto
+    // Check whether shortcuts should be blocked in this context
     if (shouldBlockShortcut(event)) {
       return;
     }
 
-    // Processar o atalho
+    // Process the shortcut
     processShortcut(event, handlers);
   };
 };
 
 /**
- * Inicializa os atalhos de teclado da aplicação
- * 
- * @param {Object} handlers - Objeto com funções handler para cada atalho
- * @param {Function} handlers.focusInput - Focar no campo de entrada
- * @param {Function} handlers.toggleTheme - Alternar tema
- * @param {Function} handlers.toggleContrast - Alternar nível de contraste
- * @param {Function} handlers.toggleLanguage - Alternar idioma
- * @param {Function} handlers.setFilterAll - Mostrar todas as tarefas
- * @param {Function} handlers.setFilterActive - Mostrar tarefas ativas
- * @param {Function} handlers.setFilterCompleted - Mostrar tarefas concluídas
- * @param {Function} handlers.clearCompleted - Limpar tarefas concluídas
- * @param {Function} handlers.clearAll - Limpar todas as tarefas
- * @param {Function} handlers.showHelp - Mostrar diálogo de ajuda
- * @returns {Function} Função para remover o listener (cleanup)
+ * Initializes application keyboard shortcuts
+ *
+ * @param {Object} handlers - Object with handler functions for each shortcut
+ * @param {Function} handlers.focusInput - Focus the input field
+ * @param {Function} handlers.toggleTheme - Toggle theme
+ * @param {Function} handlers.toggleContrast - Toggle contrast level
+ * @param {Function} handlers.toggleLanguage - Toggle language
+ * @param {Function} handlers.setFilterAll - Show all tasks
+ * @param {Function} handlers.setFilterActive - Show active tasks
+ * @param {Function} handlers.setFilterCompleted - Show completed tasks
+ * @param {Function} handlers.clearCompleted - Clear completed tasks
+ * @param {Function} handlers.clearAll - Clear all tasks
+ * @param {Function} handlers.showHelp - Show help dialog
+ * @returns {Function} Function to remove the listener (cleanup)
  */
 export const initKeyboardShortcuts = (handlers) => {
   const listener = createKeyboardListener(handlers);
   document.addEventListener("keydown", listener);
-  
-  // Retornar função de cleanup
+
+  // Return cleanup function
   return () => {
     document.removeEventListener("keydown", listener);
   };

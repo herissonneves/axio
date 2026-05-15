@@ -1,33 +1,33 @@
-# Módulo de Atalhos de Teclado
+# Keyboard Shortcuts Module
 
-Sistema modular para gerenciamento de atalhos de teclado na aplicação.
+Modular system for managing keyboard shortcuts in the application.
 
-## 📁 Estrutura de Arquivos
+## 📁 File Structure
 
 ```plaintext
 keyboard/
-├── index.js                    # Ponto de entrada - exporta tudo
-├── keyboard-config.js          # Configurações e constantes
-├── keyboard-utils.js           # Funções utilitárias
-├── keyboard-dom.js             # Criação de elementos DOM
-├── keyboard-shortcuts.js       # Processamento de atalhos
-├── keyboard-dialog.js          # Gerenciamento do diálogo
-└── README.md                   # Esta documentação
+├── index.js                    # Entry point - exports everything
+├── keyboard-config.js          # Configuration and constants
+├── keyboard-utils.js           # Utility functions
+├── keyboard-dom.js             # DOM element creation
+├── keyboard-shortcuts.js       # Shortcut processing
+├── keyboard-dialog.js          # Dialog management
+└── README.md                   # This documentation
 ```
 
-## 📦 Módulos
+## 📦 Modules
 
 ### 1. **keyboard-config.js**
 
-Configurações e constantes do sistema.
+System configuration and constants.
 
-**Exporta:**
+**Exports:**
 
-- `KEYBOARD_SHORTCUTS` - Mapeamento de todos os atalhos
-- `BLOCKED_TAGS` - Tags HTML que bloqueiam atalhos
-- `SPECIAL_ALLOWED_KEYS` - Teclas permitidas em qualquer contexto
+- `KEYBOARD_SHORTCUTS` - Mapping of all shortcuts
+- `BLOCKED_TAGS` - HTML tags that block shortcuts
+- `SPECIAL_ALLOWED_KEYS` - Keys allowed in any context
 
-**Exemplo:**
+**Example:**
 
 ```javascript
 import { KEYBOARD_SHORTCUTS } from "./keyboard-config.js";
@@ -38,74 +38,74 @@ console.log(KEYBOARD_SHORTCUTS.FOCUS_INPUT);
 
 ### 2. **keyboard-utils.js**
 
-Funções utilitárias puras para processamento de eventos.
+Pure utility functions for event processing.
 
-**Exporta:**
+**Exports:**
 
-- `isModifierPressed(event)` - Detecta Ctrl/Cmd
-- `shouldBlockShortcut(event)` - Valida contexto de execução
-- `matchesShortcut(event, config)` - Compara evento com configuração
+- `isModifierPressed(event)` - Detects Ctrl/Cmd
+- `shouldBlockShortcut(event)` - Validates execution context
+- `matchesShortcut(event, config)` - Compares event with configuration
 
-**Exemplo:**
+**Example:**
 
 ```javascript
 import { isModifierPressed, matchesShortcut } from "./keyboard-utils.js";
 
 const event = { key: "k", ctrlKey: true };
 if (isModifierPressed(event)) {
-  console.log("Modificador pressionado!");
+  console.log("Modifier pressed!");
 }
 ```
 
-**Características:**
+**Features:**
 
-- ✅ Funções puras (sem efeitos colaterais)
-- ✅ Facilmente testáveis
-- ✅ Sem dependências de DOM
+- ✅ Pure functions (no side effects)
+- ✅ Easily testable
+- ✅ No DOM dependencies
 
 ### 3. **keyboard-dom.js**
 
-Criação de elementos DOM para o diálogo de atalhos.
+DOM element creation for the shortcuts help dialog.
 
-**Exporta:**
+**Exports:**
 
-- `createShortcutItem(shortcut)` - Item individual
-- `createShortcutsList()` - Lista completa
-- `createDialogTitle()` - Título do diálogo
-- `createCloseButton(onClose)` - Botão fechar
+- `createShortcutItem(shortcut)` - Individual item
+- `createShortcutsList()` - Full list
+- `createDialogTitle()` - Dialog title
+- `createCloseButton(onClose)` - Close button
 - `createDialogOverlay(onClose)` - Overlay
 - `createDialogContainer(onClose)` - Container
-- `createDialogStructure(onClose)` - Estrutura completa
+- `createDialogStructure(onClose)` - Complete structure
 
-**Exemplo:**
+**Example:**
 
 ```javascript
 import { createShortcutItem } from "./keyboard-dom.js";
 
 const item = createShortcutItem({
   key: "Ctrl+K",
-  description: "Focar no campo de busca",
+  description: "Focus search field",
 });
 document.body.append(item);
 ```
 
-**Características:**
+**Features:**
 
-- ✅ Factory functions para elementos
-- ✅ Separação de responsabilidades
-- ✅ Reutilizável
+- ✅ Factory functions for elements
+- ✅ Separation of concerns
+- ✅ Reusable
 
 ### 4. **keyboard-shortcuts.js**
 
-Lógica de processamento e execução de atalhos.
+Shortcut processing and execution logic.
 
-**Exporta:**
+**Exports:**
 
-- `processShortcut(event, handlers)` - Processa evento
-- `createKeyboardListener(handlers)` - Cria listener
-- `initKeyboardShortcuts(handlers)` - Inicializa sistema
+- `processShortcut(event, handlers)` - Processes event
+- `createKeyboardListener(handlers)` - Creates listener
+- `initKeyboardShortcuts(handlers)` - Initializes system
 
-**Exemplo:**
+**Example:**
 
 ```javascript
 import { initKeyboardShortcuts } from "./keyboard-shortcuts.js";
@@ -113,28 +113,28 @@ import { initKeyboardShortcuts } from "./keyboard-shortcuts.js";
 const cleanup = initKeyboardShortcuts({
   focusInput: () => document.querySelector("input").focus(),
   toggleTheme: () => document.body.classList.toggle("dark"),
-  // ... outros handlers
+  // ... other handlers
 });
 
-// Limpar quando não for mais necessário
+// Clean up when no longer needed
 cleanup();
 ```
 
-**Características:**
+**Features:**
 
-- ✅ Retorna função de cleanup
-- ✅ Processamento eficiente
-- ✅ Extensível
+- ✅ Returns cleanup function
+- ✅ Efficient processing
+- ✅ Extensible
 
 ### 5. **keyboard-dialog.js**
 
-Gerenciamento do diálogo de ajuda.
+Help dialog management.
 
-**Exporta:**
+**Exports:**
 
-- `showKeyboardShortcutsDialog()` - Exibe diálogo
+- `showKeyboardShortcutsDialog()` - Shows dialog
 
-**Exemplo:**
+**Example:**
 
 ```javascript
 import { showKeyboardShortcutsDialog } from "./keyboard-dialog.js";
@@ -142,32 +142,32 @@ import { showKeyboardShortcutsDialog } from "./keyboard-dialog.js";
 button.addEventListener("click", showKeyboardShortcutsDialog);
 ```
 
-**Características:**
+**Features:**
 
-- ✅ Previne múltiplos diálogos
-- ✅ Gerencia foco e overflow
-- ✅ Suporte a Escape
+- ✅ Prevents multiple dialogs
+- ✅ Manages focus and overflow
+- ✅ Escape key support
 
 ### 6. **index.js**
 
-Ponto de entrada que re-exporta tudo.
+Entry point that re-exports everything.
 
-**Uso:**
+**Usage:**
 
 ```javascript
-// Importar tudo de uma vez
+// Import everything at once
 import * as Keyboard from "./keyboard/index.js";
 
-// Ou importar seletivamente
+// Or import selectively
 import {
   initKeyboardShortcuts,
   showKeyboardShortcutsDialog,
 } from "./keyboard/index.js";
 ```
 
-## 🎯 Uso Básico
+## 🎯 Basic Usage
 
-### Inicializar Atalhos
+### Initialize Shortcuts
 
 ```javascript
 import { initKeyboardShortcuts } from "./keyboard/index.js";
@@ -182,20 +182,20 @@ const handlers = {
   setFilterAll: () => {
     showAllTasks();
   },
-  // ... outros handlers
+  // ... other handlers
   showHelp: () => {
     showKeyboardShortcutsDialog();
   },
 };
 
-// Inicializar
+// Initialize
 const cleanup = initKeyboardShortcuts(handlers);
 
-// Limpar quando necessário (ex: ao desmontar componente)
+// Clean up when needed (e.g. when unmounting component)
 window.addEventListener("beforeunload", cleanup);
 ```
 
-### Exibir Diálogo de Ajuda
+### Show Help Dialog
 
 ```javascript
 import { showKeyboardShortcutsDialog } from "./keyboard/index.js";
@@ -205,29 +205,29 @@ document
   .addEventListener("click", showKeyboardShortcutsDialog);
 ```
 
-## 🧪 Testes
+## 🧪 Tests
 
-Os testes estão em `tests/keyboard.test.js` e cobrem:
+Tests are in `tests/unit/keyboard.test.js` and cover:
 
-- ✅ `isModifierPressed` - Detecção de Ctrl/Cmd
-- ✅ `shouldBlockShortcut` - Validação de contexto
-- ✅ `matchesShortcut` - Correspondência de atalhos
-- ✅ Configurações de atalhos
+- ✅ `isModifierPressed` - Ctrl/Cmd detection
+- ✅ `shouldBlockShortcut` - Context validation
+- ✅ `matchesShortcut` - Shortcut matching
+- ✅ Shortcut configuration
 
-**Executar testes:**
+**Run tests:**
 
 ```bash
-# No navegador
-Abrir tests/tests.html
+# In the browser
+Open tests/index.html
 ```
 
-## 🔧 Adicionar Novo Atalho
+## 🔧 Add a New Shortcut
 
-1. **Adicionar em keyboard-config.js:**
+1. **Add in keyboard-config.js:**
 
 ```javascript
 export const KEYBOARD_SHORTCUTS = {
-  // ... atalhos existentes
+  // ... existing shortcuts
   NEW_SHORTCUT: {
     key: "n",
     modifier: true,
@@ -236,22 +236,22 @@ export const KEYBOARD_SHORTCUTS = {
 };
 ```
 
-2. **Adicionar handler no main.js:**
+2. **Add handler in main.js:**
 
 ```javascript
 initKeyboardShortcuts({
-  // ... handlers existentes
+  // ... existing handlers
   myNewHandler: () => {
-    console.log("Novo atalho executado!");
+    console.log("New shortcut executed!");
   },
 });
 ```
 
-3. **(Opcional) Adicionar à lista do diálogo em keyboard-dom.js:**
+3. **(Optional) Add to dialog list in keyboard-dom.js:**
 
 ```javascript
 const shortcuts = [
-  // ... atalhos existentes
+  // ... existing shortcuts
   {
     key: t("shortcutKeyNewShortcut"),
     description: t("shortcutNewShortcut"),
@@ -259,55 +259,52 @@ const shortcuts = [
 ];
 ```
 
-## 📊 Benefícios da Modularização
+## 📊 Modularization Benefits
 
-| Aspecto            | Antes        | Depois                   |
-| ------------------ | ------------ | ------------------------ |
-| **Arquivos**       | 1            | 6 especializados         |
-| **Linhas/arquivo** | 315          | ~60 média                |
-| **Testabilidade**  | Difícil      | Fácil (funções isoladas) |
-| **Manutenção**     | Monolítica   | Modular                  |
-| **Reutilização**   | Baixa        | Alta                     |
-| **Importações**    | Tudo ou nada | Seletivas                |
+| Aspect            | Before       | After                    |
+| ----------------- | ------------ | ------------------------ |
+| **Files**         | 1            | 6 specialized            |
+| **Lines/file**    | 315          | ~60 average              |
+| **Testability**   | Difficult    | Easy (isolated functions)|
+| **Maintenance**   | Monolithic   | Modular                  |
+| **Reusability**   | Low          | High                     |
+| **Imports**       | All or nothing | Selective              |
 
-## 🎨 Padrões Aplicados
+## 🎨 Applied Patterns
 
-1. **Module Pattern** - Cada arquivo é um módulo independente
-2. **Single Responsibility** - Cada módulo tem uma responsabilidade
-3. **Factory Pattern** - Funções criadoras de elementos DOM
-4. **Strategy Pattern** - Sistema de handlers configurável
-5. **Dependency Injection** - Handlers injetados via parâmetro
-6. **Pure Functions** - Utilitários sem efeitos colaterais
+1. **Module Pattern** - Each file is an independent module
+2. **Single Responsibility** - Each module has one responsibility
+3. **Factory Pattern** - DOM element factory functions
+4. **Strategy Pattern** - Configurable handler system
+5. **Dependency Injection** - Handlers injected via parameter
+6. **Pure Functions** - Utilities without side effects
 
-## 🔄 Retrocompatibilidade
+## 🔄 Migration from Legacy Code
 
-O arquivo `keyboard.js` original agora re-exporta tudo:
+The legacy `keyboard.js` wrapper was removed in v1.3.0. Use the modular entry point:
 
 ```javascript
-// Código antigo continua funcionando
-import { initKeyboardShortcuts } from "./keyboard.js";
-
-// Novo código pode importar dos módulos
+// Recommended import
 import { initKeyboardShortcuts } from "./keyboard/index.js";
 ```
 
-## 📈 Próximos Passos
+## 📈 Next Steps
 
-- [ ] Adicionar testes de integração
-- [ ] Implementar cache de configuração
-- [ ] Adicionar validação de conflitos de atalhos
-- [ ] Criar builder para configuração
-- [ ] Adicionar telemetria de uso de atalhos
+- [ ] Add integration tests
+- [ ] Implement configuration cache
+- [ ] Add shortcut conflict validation
+- [ ] Create configuration builder
+- [ ] Add shortcut usage telemetry
 
-## 📝 Convenções
+## 📝 Conventions
 
-- **Arquivos**: kebab-case (keyboard-config.js)
-- **Funções**: camelCase (createShortcutItem)
-- **Constantes**: UPPER_SNAKE_CASE (KEYBOARD_SHORTCUTS)
-- **Exports**: Named exports (não default)
+- **Files**: kebab-case (keyboard-config.js)
+- **Functions**: camelCase (createShortcutItem)
+- **Constants**: UPPER_SNAKE_CASE (KEYBOARD_SHORTCUTS)
+- **Exports**: Named exports (not default)
 
 ---
 
-**Versão**: 2.0.0  
-**Data**: 2026-01-30  
-**Autor**: AI Assistant
+**Version**: 2.0.0  
+**Date**: 2026-01-30  
+**Status**: ✅ Production

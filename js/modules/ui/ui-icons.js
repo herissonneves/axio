@@ -1,16 +1,16 @@
 /**
- * Ícones SVG da Interface
- * 
- * Factory de ícones SVG reutilizáveis para a interface do usuário.
- * Todos os ícones são criados dinamicamente usando o namespace SVG.
+ * UI SVG Icons
+ *
+ * Reusable SVG icon factory for the user interface.
+ * All icons are created dynamically using the SVG namespace.
  */
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 /**
- * Cria um elemento SVG com atributos especificados
- * @param {Object} attrs - Atributos a serem aplicados ao SVG
- * @returns {SVGElement} Elemento SVG criado
+ * Creates an SVG element with the specified attributes
+ * @param {Object} attrs - Attributes to apply to the SVG
+ * @returns {SVGElement} Created SVG element
  */
 const createSvg = (attrs) => {
   const svg = document.createElementNS(SVG_NS, "svg");
@@ -19,8 +19,8 @@ const createSvg = (attrs) => {
 };
 
 /**
- * Cria o ícone de check para a checkbox de tarefa
- * @returns {SVGElement} Ícone de check SVG
+ * Creates the check icon for the task checkbox
+ * @returns {SVGElement} SVG check icon
  */
 export const createCheckIcon = () => {
   const icon = createSvg({
@@ -37,8 +37,8 @@ export const createCheckIcon = () => {
 };
 
 /**
- * Cria o ícone de três pontos para o menu de opções
- * @returns {SVGElement} Ícone de opções SVG
+ * Creates the three-dot icon for the options menu
+ * @returns {SVGElement} SVG options icon
  */
 export const createOptionsIcon = () => {
   const svg = createSvg({
@@ -56,8 +56,8 @@ export const createOptionsIcon = () => {
 };
 
 /**
- * Cria o ícone de arrastar (seis pontos)
- * @returns {SVGElement} Ícone de arrastar SVG
+ * Creates the drag handle icon (six dots)
+ * @returns {SVGElement} SVG drag icon
  */
 export const createDragHandleIcon = () => {
   const svg = createSvg({
@@ -76,8 +76,8 @@ export const createDragHandleIcon = () => {
 };
 
 /**
- * Cria o ícone de editar
- * @returns {SVGElement} Ícone de editar SVG
+ * Creates the edit icon
+ * @returns {SVGElement} SVG edit icon
  */
 export const createEditIcon = () => {
   const svg = createSvg({
@@ -96,8 +96,8 @@ export const createEditIcon = () => {
 };
 
 /**
- * Cria o ícone de excluir
- * @returns {SVGElement} Ícone de excluir SVG
+ * Creates the delete icon
+ * @returns {SVGElement} SVG delete icon
  */
 export const createDeleteIcon = () => {
   const svg = createSvg({
