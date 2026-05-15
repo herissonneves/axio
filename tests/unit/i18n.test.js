@@ -1,17 +1,17 @@
 /**
- * Testes para o Módulo de Internacionalização (i18n)
+ * Internationalization (i18n) Module Tests
  *
- * Testa as funcionalidades de tradução e troca de idiomas:
- * - Funções principais (getLanguage, setLanguage, t, etc)
- * - Utilitários (replacePlaceholders, extractPlaceholders, etc)
- * - Detecção de idioma (detectLanguage, isLanguageSupported, etc)
- * - Persistência (storage)
- * - Traduções e placeholders
- * - Inicialização do sistema
+ * Tests translation and language switching functionality:
+ * - Core functions (getLanguage, setLanguage, t, etc.)
+ * - Utilities (replacePlaceholders, extractPlaceholders, etc.)
+ * - Language detection (detectLanguage, isLanguageSupported, etc.)
+ * - Persistence (storage)
+ * - Translations and placeholders
+ * - System initialization
  */
 
 import {
-  // API principal
+  // Core API
   getLanguage,
   setLanguage,
   loadLanguage,
@@ -20,11 +20,11 @@ import {
   initI18n,
   hasTranslation,
   getAllTranslations,
-  // Constantes
+  // Constants
   DEFAULT_LANGUAGE,
   SUPPORTED_LANGUAGES,
   STORAGE_KEY,
-  // Utilitários
+  // Utilities
   replacePlaceholders,
   hasPlaceholders,
   extractPlaceholders,
@@ -41,11 +41,11 @@ import {
 } from "../../js/modules/i18n/index.js";
 
 /**
- * Registra todos os testes do módulo de internacionalização
- * @param {TestRunner} runner - Instância do executor de testes
+ * Registers all internationalization module tests
+ * @param {TestRunner} runner - Test runner instance
  */
 export function runI18nTests(runner) {
-  runner.category("Testes Unitários - i18n");
+  runner.category("Unit Tests - i18n");
 
   runner.test("getAvailableLanguages should return all language codes", () => {
     const languages = getAvailableLanguages();
@@ -80,7 +80,7 @@ export function runI18nTests(runner) {
 
       setLanguage("pt");
       runner.assertEquals(t("pageTitle"), "Axio");
-      runner.assertEquals(t("addTaskButton"), "Adicionar Tarefa");
+      runner.assertEquals(t("addTaskButton"), "Adicionar");
     }
   });
 
@@ -138,47 +138,47 @@ export function runI18nTests(runner) {
   });
 
   // ============================================================================
-  // TESTES DE UTILITÁRIOS (i18n-utils.js)
+  // UTILITY TESTS (i18n-utils.js)
   // ============================================================================
 
-  runner.test("replacePlaceholders substitui placeholders simples", () => {
-    const result = replacePlaceholders("Olá {name}!", { name: "Maria" });
-    runner.assertEquals(result, "Olá Maria!");
+  runner.test("replacePlaceholders replaces simple placeholders", () => {
+    const result = replacePlaceholders("Hello {name}!", { name: "Maria" });
+    runner.assertEquals(result, "Hello Maria!");
   });
 
-  runner.test("replacePlaceholders substitui múltiplos placeholders", () => {
+  runner.test("replacePlaceholders replaces multiple placeholders", () => {
     const result = replacePlaceholders(
-      "Olá {name}, você tem {count} mensagens",
+      "Hello {name}, you have {count} messages",
       {
-        name: "João",
+        name: "John",
         count: 5,
       }
     );
-    runner.assertEquals(result, "Olá João, você tem 5 mensagens");
+    runner.assertEquals(result, "Hello John, you have 5 messages");
   });
 
-  runner.test("replacePlaceholders mantém placeholders sem valor", () => {
-    const result = replacePlaceholders("Olá {name}!", {});
-    runner.assertEquals(result, "Olá {name}!");
+  runner.test("replacePlaceholders keeps placeholders without values", () => {
+    const result = replacePlaceholders("Hello {name}!", {});
+    runner.assertEquals(result, "Hello {name}!");
   });
 
   runner.test(
-    "replacePlaceholders retorna texto sem placeholders inalterado",
+    "replacePlaceholders returns text without placeholders unchanged",
     () => {
-      const result = replacePlaceholders("Olá mundo!", { name: "Maria" });
-      runner.assertEquals(result, "Olá mundo!");
+      const result = replacePlaceholders("Hello world!", { name: "Maria" });
+      runner.assertEquals(result, "Hello world!");
     }
   );
 
-  runner.test("hasPlaceholders detecta presença de placeholders", () => {
-    runner.assertTrue(hasPlaceholders("Olá {name}!"));
-    runner.assertFalse(hasPlaceholders("Olá mundo!"));
+  runner.test("hasPlaceholders detects presence of placeholders", () => {
+    runner.assertTrue(hasPlaceholders("Hello {name}!"));
+    runner.assertFalse(hasPlaceholders("Hello world!"));
     runner.assertFalse(hasPlaceholders(""));
   });
 
-  runner.test("extractPlaceholders extrai nomes dos placeholders", () => {
+  runner.test("extractPlaceholders extracts placeholder names", () => {
     const placeholders = extractPlaceholders(
-      "Olá {name}, você tem {count} mensagens"
+      "Hello {name}, you have {count} messages"
     );
     runner.assertEquals(placeholders.length, 2);
     runner.assertTrue(placeholders.includes("name"));
@@ -186,57 +186,57 @@ export function runI18nTests(runner) {
   });
 
   runner.test(
-    "extractPlaceholders retorna array vazio sem placeholders",
+    "extractPlaceholders returns empty array without placeholders",
     () => {
-      const placeholders = extractPlaceholders("Olá mundo!");
+      const placeholders = extractPlaceholders("Hello world!");
       runner.assertEquals(placeholders.length, 0);
     }
   );
 
   runner.test(
-    "validatePlaceholders valida se todos placeholders têm valores",
+    "validatePlaceholders validates that all placeholders have values",
     () => {
-      runner.assertTrue(validatePlaceholders("Olá {name}!", { name: "Maria" }));
-      runner.assertFalse(validatePlaceholders("Olá {name}!", {}));
-      runner.assertTrue(validatePlaceholders("Olá mundo!", {}));
+      runner.assertTrue(validatePlaceholders("Hello {name}!", { name: "Maria" }));
+      runner.assertFalse(validatePlaceholders("Hello {name}!", {}));
+      runner.assertTrue(validatePlaceholders("Hello world!", {}));
     }
   );
 
-  runner.test("normalizeLanguageCode normaliza códigos de idioma", () => {
+  runner.test("normalizeLanguageCode normalizes language codes", () => {
     runner.assertEquals(normalizeLanguageCode("PT"), "pt");
     runner.assertEquals(normalizeLanguageCode(" en "), "en");
     runner.assertEquals(normalizeLanguageCode("En"), "en");
   });
 
   // ============================================================================
-  // TESTES DE DETECTOR (i18n-detector.js)
+  // DETECTOR TESTS (i18n-detector.js)
   // ============================================================================
 
-  runner.test("extractBaseLanguage extrai código base do idioma", () => {
+  runner.test("extractBaseLanguage extracts base language code", () => {
     runner.assertEquals(extractBaseLanguage("pt-BR"), "pt");
     runner.assertEquals(extractBaseLanguage("en-US"), "en");
     runner.assertEquals(extractBaseLanguage("pt"), "pt");
     runner.assertEquals(extractBaseLanguage(""), "");
   });
 
-  runner.test("isLanguageSupported verifica idiomas suportados", () => {
+  runner.test("isLanguageSupported checks supported languages", () => {
     runner.assertTrue(isLanguageSupported("pt"));
     runner.assertTrue(isLanguageSupported("en"));
     runner.assertFalse(isLanguageSupported("fr"));
     runner.assertFalse(isLanguageSupported(""));
   });
 
-  runner.test("detectLanguage retorna idioma válido", () => {
+  runner.test("detectLanguage returns a valid language", () => {
     const detected = detectLanguage();
     runner.assertTrue(detected === "pt" || detected === "en");
   });
 
   // ============================================================================
-  // TESTES DE STORAGE (i18n-storage.js)
+  // STORAGE TESTS (i18n-storage.js)
   // ============================================================================
 
   runner.test(
-    "saveLanguagePreference salva preferência no localStorage",
+    "saveLanguagePreference saves preference to localStorage",
     () => {
       if (typeof localStorage !== "undefined") {
         const saved = saveLanguagePreference("en");
@@ -247,7 +247,7 @@ export function runI18nTests(runner) {
   );
 
   runner.test(
-    "loadLanguagePreference carrega preferência do localStorage",
+    "loadLanguagePreference loads preference from localStorage",
     () => {
       if (typeof localStorage !== "undefined") {
         localStorage.setItem(STORAGE_KEY, "pt");
@@ -258,7 +258,7 @@ export function runI18nTests(runner) {
   );
 
   runner.test(
-    "loadLanguagePreference retorna null se não houver preferência",
+    "loadLanguagePreference returns null when no preference exists",
     () => {
       if (typeof localStorage !== "undefined") {
         localStorage.removeItem(STORAGE_KEY);
@@ -269,7 +269,7 @@ export function runI18nTests(runner) {
   );
 
   runner.test(
-    "clearLanguagePreference remove preferência do localStorage",
+    "clearLanguagePreference removes preference from localStorage",
     () => {
       if (typeof localStorage !== "undefined") {
         localStorage.setItem(STORAGE_KEY, "en");
@@ -281,41 +281,41 @@ export function runI18nTests(runner) {
   );
 
   // ============================================================================
-  // TESTES DE CORE AVANÇADOS (i18n-core.js)
+  // ADVANCED CORE TESTS (i18n-core.js)
   // ============================================================================
 
-  runner.test("hasTranslation verifica existência de chave de tradução", () => {
+  runner.test("hasTranslation checks translation key existence", () => {
     if (typeof document !== "undefined") {
       setLanguage("pt");
       runner.assertTrue(hasTranslation("pageTitle"));
       runner.assertTrue(hasTranslation("addTaskButton"));
-      runner.assertFalse(hasTranslation("chaveInexistente"));
+      runner.assertFalse(hasTranslation("nonexistentKey"));
     }
   });
 
-  runner.test("hasTranslation verifica em idioma específico", () => {
+  runner.test("hasTranslation checks specific language", () => {
     if (typeof document !== "undefined") {
       runner.assertTrue(hasTranslation("addTaskButton", "en"));
       runner.assertTrue(hasTranslation("addTaskButton", "pt"));
-      runner.assertFalse(hasTranslation("chaveInexistente", "en"));
+      runner.assertFalse(hasTranslation("nonexistentKey", "en"));
     }
   });
 
   runner.test(
-    "getAllTranslations retorna todas traduções do idioma atual",
+    "getAllTranslations returns all translations for current language",
     () => {
       if (typeof document !== "undefined") {
         setLanguage("pt");
         const translations = getAllTranslations();
         runner.assertNotEquals(translations, null);
         runner.assertEquals(translations.pageTitle, "Axio");
-        runner.assertEquals(translations.addTaskButton, "Adicionar Tarefa");
+        runner.assertEquals(translations.addTaskButton, "Adicionar");
       }
     }
   );
 
   runner.test(
-    "getAllTranslations retorna traduções de idioma específico",
+    "getAllTranslations returns translations for specific language",
     () => {
       if (typeof document !== "undefined") {
         const translations = getAllTranslations("en");
@@ -326,7 +326,7 @@ export function runI18nTests(runner) {
     }
   );
 
-  runner.test("getAllTranslations retorna null para idioma inválido", () => {
+  runner.test("getAllTranslations returns null for invalid language", () => {
     if (typeof document !== "undefined") {
       const translations = getAllTranslations("fr");
       runner.assertEquals(translations, null);
@@ -334,61 +334,61 @@ export function runI18nTests(runner) {
   });
 
   // ============================================================================
-  // TESTES DE CONSTANTES
+  // CONSTANTS TESTS
   // ============================================================================
 
-  runner.test("DEFAULT_LANGUAGE está definido corretamente", () => {
+  runner.test("DEFAULT_LANGUAGE is defined correctly", () => {
     runner.assertEquals(DEFAULT_LANGUAGE, "pt");
   });
 
-  runner.test("SUPPORTED_LANGUAGES contém idiomas corretos", () => {
+  runner.test("SUPPORTED_LANGUAGES contains correct languages", () => {
     runner.assertEquals(SUPPORTED_LANGUAGES.length, 2);
     runner.assertTrue(SUPPORTED_LANGUAGES.includes("pt"));
     runner.assertTrue(SUPPORTED_LANGUAGES.includes("en"));
   });
 
-  runner.test("STORAGE_KEY está definido corretamente", () => {
+  runner.test("STORAGE_KEY is defined correctly", () => {
     runner.assertEquals(STORAGE_KEY, "todo-language");
   });
 
   // ============================================================================
-  // TESTES DE INTEGRAÇÃO
+  // INTEGRATION TESTS
   // ============================================================================
 
-  runner.test("Fluxo completo: salvar, carregar e traduzir", () => {
+  runner.test("Full flow: save, load, and translate", () => {
     if (
       typeof document !== "undefined" &&
       typeof localStorage !== "undefined"
     ) {
-      // Salva inglês
+      // Save English
       setLanguage("en");
       runner.assertEquals(getLanguage(), "en");
       runner.assertEquals(t("addTaskButton"), "Add Task");
 
-      // Recarrega do storage
+      // Reload from storage
       loadLanguage();
       runner.assertEquals(getLanguage(), "en");
       runner.assertEquals(t("addTaskButton"), "Add Task");
 
-      // Muda para português
+      // Switch to Portuguese
       setLanguage("pt");
       runner.assertEquals(getLanguage(), "pt");
-      runner.assertEquals(t("addTaskButton"), "Adicionar Tarefa");
+      runner.assertEquals(t("addTaskButton"), "Adicionar");
     }
   });
 
   runner.test(
-    "Tradução com placeholder usa fallback se chave não existir",
+    "Translation with placeholder uses fallback if key does not exist",
     () => {
       if (typeof document !== "undefined") {
         setLanguage("en");
-        const result = t("chaveInexistente", { text: "teste" });
-        runner.assertEquals(result, "chaveInexistente");
+        const result = t("nonexistentKey", { text: "test" });
+        runner.assertEquals(result, "nonexistentKey");
       }
     }
   );
 
-  runner.test("setLanguage normaliza código de idioma", () => {
+  runner.test("setLanguage normalizes language code", () => {
     if (typeof document !== "undefined") {
       const result = setLanguage("EN");
       runner.assertTrue(result);

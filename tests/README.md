@@ -1,37 +1,39 @@
-# Testes Unitários e de Integração - Axio
+# Unit and Integration Tests - Axio
 
-Sistema de testes unitários e de integração sem dependências externas, usando apenas JavaScript vanilla.
+Unit and integration test system with no external dependencies, using vanilla JavaScript only.
 
-## Estrutura
+## Structure
 
 ```plaintext
 tests/
-├── unit/                      # Testes unitários por módulo
-│   ├── storage.test.js        # Testes do módulo de armazenamento
-│   ├── todo.test.js           # Testes do módulo de tarefas
-│   ├── i18n.test.js           # Testes do módulo de internacionalização
-│   ├── keyboard.test.js       # Testes do módulo de atalhos
-│   ├── app.test.js            # Testes dos módulos app/* 
-│   └── ui.test.js             # Testes dos módulos ui/*
-├── integration/               # Testes de integração
-│   └── integration.test.js    # Testes de fluxos completos
-├── test-runner.js             # Framework de testes customizado
-├── tests.html                 # Interface web para executar testes
-└── README.md                  # Esta documentação
+├── unit/                      # Unit tests per module
+│   ├── storage.test.js        # Storage module tests
+│   ├── todo.test.js           # Task module tests
+│   ├── i18n.test.js           # Internationalization module tests
+│   ├── keyboard.test.js       # Keyboard shortcuts module tests
+│   ├── app.test.js            # app/* module tests
+│   └── ui.test.js             # ui/* module tests
+├── integration/               # Integration tests
+│   └── integration.test.js    # Full flow tests
+├── test-runner.js             # Custom test framework
+├── test-runner-ui.js          # Test runner UI logic
+├── test-runner-ui.css         # Test runner UI styles
+├── index.html                 # Web UI to run tests
+└── README.md                  # This documentation
 ```
 
-## Como Executar
+## How to Run
 
-### No Navegador
+### In the Browser
 
-1. Abra o arquivo `tests/tests.html` no navegador
-2. Clique no botão "Executar Testes"
-3. Veja os resultados na tela e no console
+1. Open `tests/index.html` in your browser
+2. Click the "Run Tests" button
+3. View results on screen and in the console
 
-### Via Console do Navegador
+### Via Browser Console
 
 ```javascript
-// Importe os módulos necessários
+// Import required modules
 import TestRunner from './tests/test-runner.js';
 import { runStorageTests } from './tests/unit/storage.test.js';
 import { runTodoTests } from './tests/unit/todo.test.js';
@@ -41,10 +43,10 @@ import { runAppTests } from './tests/unit/app.test.js';
 import { runUITests } from './tests/unit/ui.test.js';
 import { runIntegrationTests } from './tests/integration/integration.test.js';
 
-// Crie uma instância do test runner
+// Create a test runner instance
 const runner = new TestRunner();
 
-// Registre os testes
+// Register tests
 runStorageTests(runner);
 runTodoTests(runner);
 runI18nTests(runner);
@@ -53,126 +55,126 @@ runAppTests(runner);
 runUITests(runner);
 runIntegrationTests(runner);
 
-// Execute os testes
+// Run tests
 await runner.run();
 ```
 
-## API do Test Runner
+## Test Runner API
 
-### Métodos de Teste
+### Test Methods
 
-- `test(name, fn)` - Registra um teste
-- `category(name)` - Define uma categoria de testes
-- `assert(condition, message)` - Verifica se uma condição é verdadeira
-- `assertEquals(actual, expected, message)` - Verifica se dois valores são iguais
-- `assertNotEquals(actual, expected, message)` - Verifica se dois valores são diferentes
-- `assertTrue(value, message)` - Verifica se um valor é truthy
-- `assertFalse(value, message)` - Verifica se um valor é falsy
-- `assertThrows(fn, message)` - Verifica se uma função lança um erro
+- `test(name, fn)` - Registers a test
+- `category(name)` - Sets a test category
+- `assert(condition, message)` - Asserts that a condition is true
+- `assertEquals(actual, expected, message)` - Asserts that two values are equal
+- `assertNotEquals(actual, expected, message)` - Asserts that two values are not equal
+- `assertTrue(value, message)` - Asserts that a value is truthy
+- `assertFalse(value, message)` - Asserts that a value is falsy
+- `assertThrows(fn, message)` - Asserts that a function throws an error
 
-### Exemplo de Uso
+### Usage Example
 
 ```javascript
-runner.test("meu teste", () => {
+runner.test("my test", () => {
   runner.assertEquals(1 + 1, 2);
   runner.assertTrue(true);
   runner.assertFalse(false);
 });
 ```
 
-## Cobertura de Testes
+## Test Coverage
 
-### Testes Unitários
+### Unit Tests
 
 #### Storage Module (`unit/storage.test.js`)
 
-- ✅ Carregar tarefas do localStorage
-- ✅ Salvar tarefas no localStorage
-- ✅ Tratamento de erros (JSON inválido, null, etc.)
-- ✅ Retorno de valores padrão quando não há dados
+- ✅ Load tasks from localStorage
+- ✅ Save tasks to localStorage
+- ✅ Error handling (invalid JSON, null, etc.)
+- ✅ Default values when no data exists
 
 #### Todo Module (`unit/todo.test.js`)
 
-- ✅ Obter lista de tarefas
-- ✅ Adicionar nova tarefa
-- ✅ Remover tarefa
-- ✅ Alternar status de conclusão
-- ✅ Atualizar texto da tarefa
-- ✅ Limpar tarefas concluídas
-- ✅ Limpar todas as tarefas
-- ✅ Reordenar tarefas
+- ✅ Get task list
+- ✅ Add new task
+- ✅ Remove task
+- ✅ Toggle completion status
+- ✅ Update task text
+- ✅ Clear completed tasks
+- ✅ Clear all tasks
+- ✅ Reorder tasks
 
 #### i18n Module (`unit/i18n.test.js`)
 
-- ✅ Funções principais (getLanguage, setLanguage, t, etc) - 35+ testes
-- ✅ Utilitários (replacePlaceholders, extractPlaceholders, etc)
-- ✅ Detecção de idioma (detectLanguage, isLanguageSupported, etc)
-- ✅ Persistência (storage)
-- ✅ Traduções e placeholders
-- ✅ Inicialização do sistema
+- ✅ Core functions (getLanguage, setLanguage, t, etc.) - 35+ tests
+- ✅ Utilities (replacePlaceholders, extractPlaceholders, etc.)
+- ✅ Language detection (detectLanguage, isLanguageSupported, etc.)
+- ✅ Persistence (storage)
+- ✅ Translations and placeholders
+- ✅ System initialization
 
 #### Keyboard Module (`unit/keyboard.test.js`)
 
-- ✅ Detecção de teclas modificadoras
-- ✅ Validação de contexto para bloqueio
-- ✅ Correspondência de atalhos com eventos
-- ✅ Utilitários de processamento
+- ✅ Modifier key detection
+- ✅ Context validation for blocking
+- ✅ Shortcut matching with events
+- ✅ Processing utilities
 
 #### App Module (`unit/app.test.js`)
 
-- ✅ Configurações (app-config.js)
-- ✅ Gerenciamento de tema e contraste (app-theme.js)
-- ✅ Gerenciamento de filtros (app-filters.js)
-- ✅ Integração entre módulos app/*
+- ✅ Configuration (app-config.js)
+- ✅ Theme and contrast management (app-theme.js)
+- ✅ Filter management (app-filters.js)
+- ✅ Integration between app/* modules
 
 #### UI Module (`unit/ui.test.js`)
 
-- ✅ Criação de ícones SVG (ui-icons.js)
-- ✅ Sistema de drag-and-drop (ui-drag.js)
-- ✅ Integração entre componentes UI
+- ✅ SVG icon creation (ui-icons.js)
+- ✅ Drag-and-drop system (ui-drag.js)
+- ✅ Integration between UI components
 
-### Testes de Integração (`integration/integration.test.js`)
+### Integration Tests (`integration/integration.test.js`)
 
-- ✅ Fluxo completo: adicionar, completar e remover tarefa
-- ✅ Fluxo completo: múltiplas tarefas, filtrar e limpar
-- ✅ Fluxo completo: adicionar, editar e verificar
-- ✅ Reordenar tarefas e verificar persistência
-- ✅ Limpar tudo e verificar estado vazio
-- ✅ Integração entre módulos Storage e Todo
-- ✅ Integração entre módulos i18n e Todo
-- ✅ Fluxo completo de usuário (add, filter, complete, clear)
-- ✅ Operações mantêm integridade dos dados
-- ✅ Casos extremos (operações vazias)
-- ✅ Múltiplas operações rápidas mantêm consistência
+- ✅ Full flow: add, complete, and remove task
+- ✅ Full flow: multiple tasks, filter, and clear
+- ✅ Full flow: add, edit, and verify
+- ✅ Reorder tasks and verify persistence
+- ✅ Clear all and verify empty state
+- ✅ Integration between Storage and Todo modules
+- ✅ Integration between i18n and Todo modules
+- ✅ Full user flow (add, filter, complete, clear)
+- ✅ Operations maintain data integrity
+- ✅ Edge cases (empty operations)
+- ✅ Rapid multiple operations maintain consistency
 
-## Estatísticas
+## Statistics
 
-- **Total de testes**: 128+ testes
-- **Testes unitários**: 87+ testes
-- **Testes de integração**: 41+ testes
-- **Cobertura estimada**: ~85%
-- **Módulos testados**: 7 módulos principais + 4 sub-módulos
+- **Total tests**: 128+ tests
+- **Unit tests**: 87+ tests
+- **Integration tests**: 41+ tests
+- **Estimated coverage**: ~85%
+- **Modules tested**: 7 main modules + 4 sub-modules
 
-## Organização
+## Organization
 
-A estrutura de testes segue a organização modular do código-fonte:
+The test structure follows the modular organization of the source code:
 
-- **`unit/`** - Um arquivo de teste para cada módulo principal ou grupo de módulos relacionados
-- **`integration/`** - Testes que verificam a integração entre múltiplos módulos
-- **`test-runner.js`** - Framework customizado, independente de bibliotecas externas
-- **`tests.html`** - Interface visual para execução e visualização de resultados
+- **`unit/`** - One test file per main module or group of related modules
+- **`integration/`** - Tests that verify integration between multiple modules
+- **`test-runner.js`** - Custom framework, independent of external libraries
+- **`index.html`** - Visual interface for running and viewing results
 
-## Notas
+## Notes
 
-- Os testes usam `localStorage` do navegador, então certifique-se de executá-los em um ambiente que suporte isso
-- Alguns testes podem interferir uns nos outros devido ao estado compartilhado
-- Para testes mais isolados, considere limpar o `localStorage` entre testes
-- Execute os testes em um servidor HTTP (não `file://`) para evitar problemas com módulos ES6
+- Tests use the browser's `localStorage`, so make sure you run them in an environment that supports it
+- Some tests may interfere with each other due to shared state
+- For more isolated tests, consider clearing `localStorage` between tests
+- Run tests on an HTTP server (not `file://`) to avoid issues with ES6 modules
 
-## Melhorias Futuras
+## Future Improvements
 
-- [ ] Adicionar mocks para `localStorage` e `document`
-- [ ] Implementar setup/teardown automático entre testes
-- [ ] Adicionar medição de cobertura de código
-- [ ] Implementar testes end-to-end com Playwright ou similar
-- [ ] Adicionar testes de performance
+- [ ] Add mocks for `localStorage` and `document`
+- [ ] Implement automatic setup/teardown between tests
+- [ ] Add code coverage measurement
+- [ ] Implement end-to-end tests with Playwright or similar
+- [ ] Add performance tests

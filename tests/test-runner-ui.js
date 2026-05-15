@@ -1,11 +1,11 @@
 /**
  * Test Runner UI Manager
- * 
- * Gerencia a interface do usuário para execução de testes:
- * - Internacionalização
- * - Gerenciamento de tema
- * - Menu de idiomas
- * - Execução e exibição de resultados
+ *
+ * Manages the user interface for running tests:
+ * - Internationalization
+ * - Theme management
+ * - Language menu
+ * - Test execution and result display
  */
 
 import { initI18n, setLanguage, getLanguage, t } from "../js/modules/i18n/index.js";
@@ -16,11 +16,11 @@ let currentTheme = "light";
 let languageMenu = null;
 
 // ============================================================================
-// INTERNACIONALIZAÇÃO
+// INTERNATIONALIZATION
 // ============================================================================
 
 /**
- * Atualiza todos os textos da interface conforme o idioma atual
+ * Updates all UI text according to the current language
  */
 export function updateTexts() {
   const elements = {
@@ -54,13 +54,13 @@ export function updateTexts() {
 }
 
 // ============================================================================
-// GERENCIAMENTO DE TEMA
+// THEME MANAGEMENT
 // ============================================================================
 
 const THEME_STORAGE_KEY = "todo-theme";
 
 /**
- * Carrega o tema do localStorage e aplica
+ * Loads the theme from localStorage and applies it
  */
 export function loadTheme() {
   const stored = localStorage.getItem(THEME_STORAGE_KEY);
@@ -70,7 +70,7 @@ export function loadTheme() {
 }
 
 /**
- * Atualiza o botão de alternância de tema
+ * Updates the theme toggle button
  */
 function updateThemeToggle() {
   const toggle = document.getElementById("theme-toggle");
@@ -83,7 +83,7 @@ function updateThemeToggle() {
 }
 
 /**
- * Alterna entre tema claro e escuro
+ * Toggles between light and dark theme
  */
 export function toggleTheme() {
   currentTheme = currentTheme === "dark" ? "light" : "dark";
@@ -93,11 +93,11 @@ export function toggleTheme() {
 }
 
 // ============================================================================
-// MENU DE IDIOMAS
+// LANGUAGE MENU
 // ============================================================================
 
 /**
- * Fecha o menu de idiomas se estiver aberto
+ * Closes the language menu if open
  */
 export function closeLanguageMenu() {
   if (languageMenu) {
@@ -111,7 +111,7 @@ export function closeLanguageMenu() {
 }
 
 /**
- * Cria e exibe o menu de seleção de idiomas
+ * Creates and displays the language selection menu
  */
 export function createLanguageMenu() {
   closeLanguageMenu();
@@ -157,7 +157,7 @@ export function createLanguageMenu() {
   languageMenu = menu;
   selector.setAttribute("aria-expanded", "true");
 
-  // Fechar ao clicar fora
+  // Close when clicking outside
   setTimeout(() => {
     const handleClickOutside = (event) => {
       if (!menu.contains(event.target) && event.target !== selector) {
@@ -170,11 +170,11 @@ export function createLanguageMenu() {
 }
 
 // ============================================================================
-// EXECUÇÃO DE TESTES
+// TEST EXECUTION
 // ============================================================================
 
 /**
- * Captura console.log e console.error para exibição na UI
+ * Captures console.log and console.error for display in the UI
  */
 function setupConsoleCapture() {
   const originalLog = console.log;
@@ -192,7 +192,7 @@ function setupConsoleCapture() {
 }
 
 /**
- * Registra e executa todos os testes
+ * Registers and runs all tests
  */
 async function runAllTests() {
   try {
@@ -202,7 +202,7 @@ async function runAllTests() {
 
     runner = new (await import("./test-runner.js")).default();
 
-    // Importar e registrar todos os testes
+    // Import and register all tests
     const testModules = [
       { name: "Storage", path: "./unit/storage.test.js", fn: "runStorageTests" },
       { name: "Todo", path: "./unit/todo.test.js", fn: "runTodoTests" },
@@ -218,48 +218,48 @@ async function runAllTests() {
         const testModule = await import(module.path);
         testModule[module.fn](runner);
       } catch (error) {
-        console.error(`Erro ao registrar testes de ${module.name}:`, error);
+        console.error(`Error registering ${module.name} tests:`, error);
         output.textContent += `${t("errorRegisteringTests", "Error registering tests")} (${module.name}): ${error.message}\n`;
       }
     }
 
-    // Executar testes
+    // Run tests
     try {
       await runner.run();
     } catch (error) {
-      console.error("Erro ao executar testes:", error);
+      console.error("Error running tests:", error);
       output.textContent += `${t("errorRunningTests")}: ${error.message}\n`;
     }
 
-    // Exibir resultados
+    // Display results
     output.textContent = logOutput || output.textContent || t("noOutputCaptured");
     resultsDiv.innerHTML = runner.getResultsHTML(t);
   } catch (error) {
-    console.error("Erro geral:", error);
+    console.error("General error:", error);
     output.textContent = `${t("errorRunningTests")}: ${error.message}\n\n${error.stack || ""}`;
     resultsDiv.innerHTML = `<div class="test-result test-failed"><span class="test-icon">✗</span><span class="test-name">${t("errorRunningTests")}</span><div class="test-error">${error.message}</div></div>`;
   }
 }
 
 // ============================================================================
-// INICIALIZAÇÃO
+// INITIALIZATION
 // ============================================================================
 
 /**
- * Inicializa a interface de testes
+ * Initializes the test interface
  */
 export async function initTestUI() {
   try {
-    // Importar test runner
+    // Import test runner
     const TestRunnerModule = await import("./test-runner.js");
     const TestRunner = TestRunnerModule.default || TestRunnerModule.TestRunner;
 
-    // Inicializar elementos do DOM
+    // Initialize DOM elements
     runner = new TestRunner();
     output = document.getElementById("test-output");
     resultsDiv = document.getElementById("test-results");
 
-    // Configurar captura de console
+    // Set up console capture
     setupConsoleCapture();
 
     // Event listeners
@@ -274,19 +274,19 @@ export async function initTestUI() {
       }
     });
 
-    // Fechar menu de idiomas com Escape
+    // Close language menu with Escape
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && languageMenu) {
         closeLanguageMenu();
       }
     });
 
-    // Inicializar tema e textos
+    // Initialize theme and text
     initI18n();
     loadTheme();
     updateTexts();
   } catch (error) {
-    console.error("Erro ao carregar módulos:", error);
+    console.error("Error loading modules:", error);
     const errorMsg = typeof t === "function" ? t("errorLoadingModules") : "Error loading modules";
     const httpMsg = typeof t === "function" ? t("ensureHttpServer") : "Make sure you are running on an HTTP server (not file://)";
     document.getElementById("test-output").textContent = `${errorMsg}: ${error.message}\n\n${error.stack || ""}\n\n${httpMsg}`;

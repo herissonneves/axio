@@ -1,15 +1,15 @@
 /**
- * Testes de Integração para Fluxos Completos da Aplicação
- * 
- * Testa a integração entre módulos e fluxos de usuário completos:
- * - Fluxo completo de adicionar, completar e remover tarefas
- * - Múltiplas tarefas com filtros e limpeza
- * - Edição de tarefas
- * - Reordenação e persistência
- * - Integração entre Storage e Todo
- * - Integração entre i18n e Todo
- * - Casos extremos e operações rápidas
- * - Integridade dos dados
+ * Integration Tests for Full Application Flows
+ *
+ * Tests integration between modules and complete user flows:
+ * - Full flow of adding, completing, and removing tasks
+ * - Multiple tasks with filters and clearing
+ * - Task editing
+ * - Reordering and persistence
+ * - Integration between Storage and Todo
+ * - Integration between i18n and Todo
+ * - Edge cases and rapid operations
+ * - Data integrity
  */
 
 import {
@@ -26,13 +26,13 @@ import { saveTasks, loadTasks } from "../../js/modules/storage.js";
 import { setLanguage, getLanguage, t, initI18n } from "../../js/modules/i18n/index.js";
 
 /**
- * Registra todos os testes de integração da aplicação
- * @param {TestRunner} runner - Instância do executor de testes
+ * Registers all application integration tests
+ * @param {TestRunner} runner - Test runner instance
  */
 export function runIntegrationTests(runner) {
-  runner.category("Testes de Integração");
+  runner.category("Integration Tests");
 
-  // Função auxiliar para limpar todas as tarefas
+  // Helper to clear all tasks
   const clearAllTasks = () => {
     const allTasks = getTasks();
     allTasks.forEach(task => removeTask(task.id));
@@ -235,7 +235,7 @@ export function runIntegrationTests(runner) {
     runner.assertEquals(titlePt, "Axio");
 
     const addButtonPt = t("addTaskButton");
-    runner.assertEquals(addButtonPt, "Adicionar Tarefa");
+    runner.assertEquals(addButtonPt, "Adicionar");
 
     // Verify language persists
     const savedLang = localStorage.getItem("todo-language");

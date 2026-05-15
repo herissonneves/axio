@@ -1,15 +1,15 @@
 /**
- * Testes para o Módulo de Gerenciamento de Tarefas (Todo)
- * 
- * Testa todas as operações CRUD de tarefas:
- * - Obter lista de tarefas
- * - Adicionar novas tarefas
- * - Remover tarefas
- * - Alternar estado de conclusão
- * - Atualizar texto de tarefas
- * - Limpar tarefas concluídas
- * - Limpar todas as tarefas
- * - Reordenar tarefas
+ * Task Management Module (Todo) Tests
+ *
+ * Tests all task CRUD operations:
+ * - Get task list
+ * - Add new tasks
+ * - Remove tasks
+ * - Toggle completion state
+ * - Update task text
+ * - Clear completed tasks
+ * - Clear all tasks
+ * - Reorder tasks
  */
 
 import {
@@ -25,13 +25,13 @@ import {
 import { saveTasks } from "../../js/modules/storage.js";
 
 /**
- * Registra todos os testes do módulo de tarefas
- * @param {TestRunner} runner - Instância do executor de testes
+ * Registers all task module tests
+ * @param {TestRunner} runner - Test runner instance
  */
 export function runTodoTests(runner) {
-  runner.category("Testes Unitários - Todo");
+  runner.category("Unit Tests - Todo");
 
-  // Função auxiliar para limpar todas as tarefas
+  // Helper to clear all tasks
   const clearAllTasks = () => {
     const allTasks = getTasks();
     allTasks.forEach(task => removeTask(task.id));

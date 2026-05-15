@@ -1,13 +1,13 @@
 /**
- * Executor de Testes Simples
- * 
- * Framework de testes unitários sem dependências externas.
- * Fornece funcionalidades básicas para:
- * - Registro e execução de testes
- * - Asserções (assert, assertEquals, assertTrue, etc.)
- * - Agrupamento por categorias
- * - Relatórios de resultados (console e HTML)
- * - Suporte para testes síncronos e assíncronos
+ * Simple Test Runner
+ *
+ * Unit test framework with no external dependencies.
+ * Provides basic functionality for:
+ * - Test registration and execution
+ * - Assertions (assert, assertEquals, assertTrue, etc.)
+ * - Grouping by category
+ * - Result reports (console and HTML)
+ * - Support for synchronous and asynchronous tests
  */
 
 class TestRunner {
@@ -20,99 +20,99 @@ class TestRunner {
   }
 
   /**
-   * Define a categoria atual para os próximos testes
-   * @param {string} name - Nome da categoria
+   * Sets the current category for upcoming tests
+   * @param {string} name - Category name
    */
   category(name) {
     this.currentCategory = name;
   }
 
   /**
-   * Registra um novo teste
-   * @param {string} name - Nome do teste
-   * @param {Function} fn - Função do teste a ser executada
+   * Registers a new test
+   * @param {string} name - Test name
+   * @param {Function} fn - Test function to run
    */
   test(name, fn) {
-    this.tests.push({ name, fn, category: this.currentCategory || "Sem categoria" });
+    this.tests.push({ name, fn, category: this.currentCategory || "Uncategorized" });
   }
 
   /**
-   * Verifica se uma condição é verdadeira
-   * @param {boolean} condition - Condição a ser verificada
-   * @param {string} message - Mensagem de erro caso a condição seja falsa
-   * @throws {Error} Se a condição for falsa
+   * Asserts that a condition is true
+   * @param {boolean} condition - Condition to verify
+   * @param {string} message - Error message if the condition is false
+   * @throws {Error} If the condition is false
    */
-  assert(condition, message = "Asserção falhou") {
+  assert(condition, message = "Assertion failed") {
     if (!condition) {
       throw new Error(message);
     }
   }
 
   /**
-   * Verifica se dois valores são iguais (comparação profunda via JSON)
-   * @param {*} actual - Valor obtido
-   * @param {*} expected - Valor esperado
-   * @param {string} message - Mensagem de erro personalizada (opcional)
-   * @throws {Error} Se os valores não forem iguais
+   * Asserts that two values are equal (deep comparison via JSON)
+   * @param {*} actual - Actual value
+   * @param {*} expected - Expected value
+   * @param {string} message - Custom error message (optional)
+   * @throws {Error} If the values are not equal
    */
   assertEquals(actual, expected, message) {
     const actualStr = JSON.stringify(actual);
     const expectedStr = JSON.stringify(expected);
     if (actualStr !== expectedStr) {
       throw new Error(
-        message || `Esperado ${expectedStr}, mas obteve ${actualStr}`
+        message || `Expected ${expectedStr}, but got ${actualStr}`
       );
     }
   }
 
   /**
-   * Verifica se dois valores são diferentes
-   * @param {*} actual - Primeiro valor
-   * @param {*} expected - Segundo valor
-   * @param {string} message - Mensagem de erro personalizada (opcional)
-   * @throws {Error} Se os valores forem iguais
+   * Asserts that two values are not equal
+   * @param {*} actual - First value
+   * @param {*} expected - Second value
+   * @param {string} message - Custom error message (optional)
+   * @throws {Error} If the values are equal
    */
   assertNotEquals(actual, expected, message) {
     const actualStr = JSON.stringify(actual);
     const expectedStr = JSON.stringify(expected);
     if (actualStr === expectedStr) {
       throw new Error(
-        message || `Esperava valores diferentes, mas ambos são ${actualStr}`
+        message || `Expected different values, but both are ${actualStr}`
       );
     }
   }
 
   /**
-   * Verifica se um valor é truthy
-   * @param {*} value - Valor a ser verificado
-   * @param {string} message - Mensagem de erro (opcional)
-   * @throws {Error} Se o valor for falsy
+   * Asserts that a value is truthy
+   * @param {*} value - Value to verify
+   * @param {string} message - Error message (optional)
+   * @throws {Error} If the value is falsy
    */
-  assertTrue(value, message = "Esperava valor truthy") {
+  assertTrue(value, message = "Expected truthy value") {
     if (!value) {
       throw new Error(message);
     }
   }
 
   /**
-   * Verifica se um valor é falsy
-   * @param {*} value - Valor a ser verificado
-   * @param {string} message - Mensagem de erro (opcional)
-   * @throws {Error} Se o valor for truthy
+   * Asserts that a value is falsy
+   * @param {*} value - Value to verify
+   * @param {string} message - Error message (optional)
+   * @throws {Error} If the value is truthy
    */
-  assertFalse(value, message = "Esperava valor falsy") {
+  assertFalse(value, message = "Expected falsy value") {
     if (value) {
       throw new Error(message);
     }
   }
 
   /**
-   * Verifica se uma função lança um erro
-   * @param {Function} fn - Função que deve lançar erro
-   * @param {string} message - Mensagem de erro (opcional)
-   * @throws {Error} Se a função não lançar erro
+   * Asserts that a function throws an error
+   * @param {Function} fn - Function that should throw
+   * @param {string} message - Error message (optional)
+   * @throws {Error} If the function does not throw
    */
-  assertThrows(fn, message = "Esperava que a função lançasse um erro") {
+  assertThrows(fn, message = "Expected function to throw an error") {
     try {
       fn();
       throw new Error(message);
@@ -120,32 +120,32 @@ class TestRunner {
       if (error.message === message) {
         throw error;
       }
-      // Erro esperado foi lançado
+      // Expected error was thrown
     }
   }
 
   /**
-   * Executa todos os testes registrados
-   * Suporta testes síncronos e assíncronos
+   * Runs all registered tests
+   * Supports synchronous and asynchronous tests
    * @returns {Promise<void>}
    */
   async run() {
-    console.log("Executando testes...\n");
+    console.log("Running tests...\n");
 
     for (const { name, fn, category } of this.tests) {
       try {
         const result = fn();
-        // Tratar funções síncronas e assíncronas
+        // Handle synchronous and asynchronous functions
         if (result && typeof result.then === "function") {
           await result;
         }
         this.passed++;
-        this.results.push({ name, passed: true, error: null, category: category || "Sem categoria" });
+        this.results.push({ name, passed: true, error: null, category: category || "Uncategorized" });
         console.log(`✓ ${name}`);
       } catch (error) {
         this.failed++;
         const errorMessage = error?.message || String(error);
-        this.results.push({ name, passed: false, error: errorMessage, category: category || "Sem categoria" });
+        this.results.push({ name, passed: false, error: errorMessage, category: category || "Uncategorized" });
         console.error(`✗ ${name}`);
         console.error(`  ${errorMessage}`);
         if (error?.stack) {
@@ -158,29 +158,29 @@ class TestRunner {
   }
 
   /**
-   * Imprime um resumo dos resultados dos testes no console
+   * Prints a summary of test results to the console
    */
   printSummary() {
     console.log("\n" + "=".repeat(50));
-    console.log(`Testes: ${this.passed} passaram, ${this.failed} falharam, ${this.tests.length} total`);
+    console.log(`Tests: ${this.passed} passed, ${this.failed} failed, ${this.tests.length} total`);
     console.log("=".repeat(50));
   }
 
   /**
-   * Gera HTML com os resultados dos testes agrupados por categoria
-   * @param {Function} t - Função de tradução (opcional)
-   * @returns {string} HTML formatado com os resultados
+   * Generates HTML with test results grouped by category
+   * @param {Function} t - Translation function (optional)
+   * @returns {string} Formatted HTML with results
    */
   getResultsHTML(t = null) {
     const translate = (key, fallback) => t ? t(key) : fallback;
 
     let html = "<div class='test-results'>";
-    html += `<h2>${translate("testResults", "Resultados dos Testes")}</h2>`;
+    html += `<h2>${translate("testResults", "Test Results")}</h2>`;
 
-    // Agrupar resultados por categoria
+    // Group results by category
     const categories = {};
     for (const result of this.results) {
-      const category = result.category || "Sem categoria";
+      const category = result.category || "Uncategorized";
       if (!categories[category]) {
         categories[category] = { results: [], passed: 0, failed: 0 };
       }
@@ -192,27 +192,35 @@ class TestRunner {
       }
     }
 
-    // Exibir resultados por categoria
+    // Display results by category
     for (const [categoryName, categoryData] of Object.entries(categories)) {
       const categoryTotal = categoryData.results.length;
       const categoryPassed = categoryData.passed;
       const categoryFailed = categoryData.failed;
 
-      // Mapear nomes de categoria para chaves de tradução
+      // Map category names to translation keys (keys match runner.category() values in test files)
       const categoryMap = {
-        "Testes Unitários - Storage": translate("testCategoryUnitStorage", "Testes Unitários - Storage"),
-        "Testes Unitários - Todo": translate("testCategoryUnitTodo", "Testes Unitários - Todo"),
-        "Testes Unitários - i18n": translate("testCategoryUniti18n", "Testes Unitários - i18n"),
-        "Testes Unitários - Keyboard": translate("testCategoryUnitKeyboard", "Testes Unitários - Keyboard"),
-        "Testes de Integração": translate("testCategoryIntegration", "Testes de Integração"),
+        "Unit Tests - Storage": translate("testCategoryUnitStorage", "Unit Tests - Storage"),
+        "Testes Unitários - Storage": translate("testCategoryUnitStorage", "Unit Tests - Storage"),
+        "Unit Tests - Todo": translate("testCategoryUnitTodo", "Unit Tests - Todo"),
+        "Testes Unitários - Todo": translate("testCategoryUnitTodo", "Unit Tests - Todo"),
+        "Unit Tests - i18n": translate("testCategoryUniti18n", "Unit Tests - i18n"),
+        "Testes Unitários - i18n": translate("testCategoryUniti18n", "Unit Tests - i18n"),
+        "Unit Tests - Keyboard": translate("testCategoryUnitKeyboard", "Unit Tests - Keyboard"),
+        "Testes Unitários - Keyboard": translate("testCategoryUnitKeyboard", "Unit Tests - Keyboard"),
+        "Testes de Integração": translate("testCategoryIntegration", "Integration Tests"),
+        "UI Module Tests": translate("testCategoryUnitUI", "UI Module Tests"),
+        "Testes do Módulo UI": translate("testCategoryUnitUI", "UI Module Tests"),
+        "App Module Tests": translate("testCategoryUnitApp", "App Module Tests"),
+        "Testes do Módulo App": translate("testCategoryUnitApp", "App Module Tests"),
       };
 
       const displayName = categoryMap[categoryName] || categoryName;
 
       html += `<div class='test-category'>`;
       html += `<h3 class='test-category-title'>${displayName}</h3>`;
-      const passedText = translate("testsPassed", "passaram");
-      const failedText = translate("testsFailed", "falharam");
+      const passedText = translate("testsPassed", "passed");
+      const failedText = translate("testsFailed", "failed");
       const totalText = translate("testsTotal", "total");
       html += `<div class='test-category-summary'>${categoryPassed} ${passedText}, ${categoryFailed} ${failedText}, ${categoryTotal} ${totalText}</div>`;
 
@@ -232,8 +240,8 @@ class TestRunner {
     }
 
     html += "<div class='test-summary'>";
-    const passedText = translate("testsPassed", "passaram");
-    const failedText = translate("testsFailed", "falharam");
+    const passedText = translate("testsPassed", "passed");
+    const failedText = translate("testsFailed", "failed");
     const totalText = translate("testsTotal", "total");
     html += `<strong>Total: ${this.passed} ${passedText}, ${this.failed} ${failedText}, ${this.tests.length} ${totalText}</strong>`;
     html += "</div>";
@@ -243,11 +251,11 @@ class TestRunner {
   }
 }
 
-// Exportar para uso nos testes
+// Export for use in tests
 if (typeof window !== "undefined") {
   window.TestRunner = TestRunner;
 }
-// Export padrão para módulos ES
+// Default export for ES modules
 export default TestRunner;
 if (typeof module !== "undefined" && module.exports) {
   module.exports = TestRunner;
