@@ -23,11 +23,9 @@ Language selector and dropdown menu.
 
 ### `theme-controls.css`
 
-Theme (light/dark) and contrast controls.
+Theme toggle button (placed in the page header next to the language selector).
 
-- `.theme-controls` - Controls container
 - `.theme-toggle` - Theme toggle button
-- `.contrast-selector` - Contrast level selector
 
 ### `form.css`
 
