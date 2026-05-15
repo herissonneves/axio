@@ -29,7 +29,6 @@ export const KEYBOARD_SHORTCUTS = {
 
   // Appearance
   TOGGLE_THEME: { key: "g", modifier: true, handler: "toggleTheme" },
-  TOGGLE_CONTRAST: { key: "j", modifier: true, handler: "toggleContrast" },
   TOGGLE_LANGUAGE: { key: "l", modifier: true, handler: "toggleLanguage" },
 
   // Filters

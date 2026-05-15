@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Removed
+
+- Medium and high contrast theme variants (`theme-*-mc.css`, `theme-*-hc.css`)
+- Contrast selector UI and contrast-related keyboard shortcut (Ctrl+J)
+- Contrast persistence and API (`setContrast`, `toggleContrast`, `getCurrentContrast`)
+
+### Changed
+
+- Theme system simplified to light and dark only
+- Theme settings section and i18n strings updated accordingly
+
 ## [1.3.0] - 2026-01-30
 
 ### Highly Modular Architecture

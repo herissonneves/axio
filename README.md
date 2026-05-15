@@ -35,7 +35,6 @@ A modern todo list web app built with **HTML, CSS, and vanilla JavaScript** — 
 
 - ✅ Material Design 3–compatible interface
 - ✅ Light and dark theme toggle
-- ✅ Multiple contrast levels (Default / Medium / High)
 - ✅ Smooth animations and transitions
 - ✅ Responsive layout
 - ✅ Touch device support
@@ -73,11 +72,7 @@ A modern todo list web app built with **HTML, CSS, and vanilla JavaScript** — 
 │   ├── utilities.css         # Utility classes
 │   └── themes/               # Theme definitions
 │       ├── theme-light.css
-│       ├── theme-light-mc.css
-│       ├── theme-light-hc.css
-│       ├── theme-dark.css
-│       ├── theme-dark-mc.css
-│       └── theme-dark-hc.css
+│       └── theme-dark.css
 ├── js/
 │   ├── main.js               # Main application orchestrator (254 lines)
 │   └── modules/
@@ -86,7 +81,7 @@ A modern todo list web app built with **HTML, CSS, and vanilla JavaScript** — 
 │       ├── app/              # Main application modules
 │       │   ├── index.js      # Centralized exports
 │       │   ├── app-config.js # Application configuration
-│       │   ├── app-theme.js  # Theme/contrast management
+│       │   ├── app-theme.js  # Theme management
 │       │   ├── app-filters.js # Filter management
 │       │   └── app-i18n.js   # Language/translation management
 │       ├── i18n/             # Internationalization modules
@@ -169,14 +164,10 @@ A modern todo list web app built with **HTML, CSS, and vanilla JavaScript** — 
 - Release to place the task in the new position
 - The new order is saved automatically
 
-### Theme and contrast
+### Theme
 
 - Click the **sun/moon icon** to toggle between light and dark themes
-- Use the **contrast selector** buttons to choose the contrast level:
-  - **Default**: Standard contrast
-  - **Medium**: Medium contrast
-  - **High**: High contrast
-- Your theme and contrast preferences are saved automatically
+- Your theme preference is saved automatically
 
 ### Keyboard shortcuts
 
@@ -196,7 +187,6 @@ The app supports several keyboard shortcuts for easier use:
 #### Quick actions
 
 - **Ctrl+G** — Toggle light and dark theme
-- **Ctrl+J** — Cycle contrast level (default → medium → high → default)
 - **Ctrl+L** — Toggle language (Portuguese ↔ English)
 - **Ctrl+Delete** — Clear all completed tasks
 - **Ctrl+Shift+Delete** — Clear all tasks
@@ -228,8 +218,6 @@ This app follows **Material Design 3** guidelines:
 - **Focus management**: Proper focus handling in dialogs and menus
 - **Reduced motion**: Respects the `prefers-reduced-motion` media query
 - **Screen readers**: Semantic HTML and ARIA attributes for screen reader support
-- **High contrast**: Support for high-contrast themes
-
 ## ⚙️ Implementation details
 
 ### Tech stack
@@ -288,7 +276,7 @@ This app follows **Material Design 3** guidelines:
 - [x] Add integration tests ✅ (v1.3.0)
 - [x] Add keyboard shortcut documentation ✅ (v1.2.0)
 - [x] Modularize entire project structure ✅ (v1.3.0 — 28 specialized modules)
-- [x] Implement theme system with multiple contrast levels ✅ (v1.1.0)
+- [x] Implement light/dark theme system ✅ (v1.1.0)
 - [x] Add internationalization (PT/EN) ✅ (v1.2.0)
 - [ ] Add more demo GIFs
 - [ ] Implement task categories/tags

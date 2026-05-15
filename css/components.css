@@ -8,7 +8,7 @@
 /* Language selector and dropdown */
 @import "./components/language-selector.css";
 
-/* Theme toggle and contrast controls */
+/* Theme toggle controls */
 @import "./components/theme-controls.css";
 
 /* Task form input and add button */

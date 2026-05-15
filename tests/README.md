@@ -123,7 +123,7 @@ runner.test("my test", () => {
 #### App Module (`unit/app.test.js`)
 
 - ✅ Configuration (app-config.js)
-- ✅ Theme and contrast management (app-theme.js)
+- ✅ Theme management (app-theme.js)
 - ✅ Filter management (app-filters.js)
 - ✅ Integration between app/* modules
 

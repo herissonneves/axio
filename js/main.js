@@ -3,7 +3,7 @@
  *
  * Application entry point that orchestrates:
  * - Internationalization (i18n) system initialization
- * - Theme and contrast management
+ * - Theme management
  * - Task filter management
  * - Form submission and task handling
  * - Language selector
@@ -20,8 +20,6 @@ import {
 import {
   loadThemePreferences,
   toggleTheme,
-  toggleContrast,
-  setContrast,
 } from "./modules/app/index.js";
 import {
   getCurrentFilter,
@@ -46,7 +44,6 @@ import {
  */
 const getDOMElements = () => ({
   themeToggle: document.getElementById("theme-toggle"),
-  contrastButtons: document.querySelectorAll(".contrast-selector__btn"),
   form: document.getElementById("todo-form"),
   input: document.getElementById("todo-input"),
   btnClear: document.getElementById("clear-completed"),
@@ -118,19 +115,11 @@ const setupFilterHandlers = (filterButtons) => {
 };
 
 /**
- * Sets up theme and contrast handlers
+ * Sets up theme toggle handler
  * @param {HTMLButtonElement} themeToggle - Theme toggle button
- * @param {NodeList} contrastButtons - Contrast selector buttons
  */
-const setupThemeHandlers = (themeToggle, contrastButtons) => {
+const setupThemeHandlers = (themeToggle) => {
   themeToggle?.addEventListener("click", () => toggleTheme(themeToggle));
-
-  contrastButtons.forEach((btn) =>
-    btn.addEventListener("click", (event) => {
-      const value = event.currentTarget.dataset.contrast;
-      setContrast(contrastButtons, value);
-    }),
-  );
 };
 
 /**
@@ -176,14 +165,12 @@ const setupLanguageHandlers = (languageSelector) => {
  * Sets up application keyboard shortcuts
  * @param {HTMLInputElement} input - Task input
  * @param {HTMLButtonElement} themeToggle - Theme button
- * @param {NodeList} contrastButtons - Contrast buttons
  * @param {NodeList} filterButtons - Filter buttons
  */
-const setupKeyboardShortcuts = (input, themeToggle, contrastButtons, filterButtons) => {
+const setupKeyboardShortcuts = (input, themeToggle, filterButtons) => {
   initKeyboardShortcuts({
     focusInput: () => input?.focus(),
     toggleTheme: () => toggleTheme(themeToggle),
-    toggleContrast: () => toggleContrast(contrastButtons),
     toggleLanguage: () => toggleLanguage(getCurrentFilter()),
     setFilterAll: () => applyFilter(filterButtons, "all", "filter-all"),
     setFilterActive: () => applyFilter(filterButtons, "active", "filter-active"),
@@ -219,8 +206,8 @@ const initApp = () => {
   // Fetch DOM elements
   const elements = getDOMElements();
 
-  // Load theme and contrast preferences
-  loadThemePreferences(elements.themeToggle, elements.contrastButtons);
+  // Load theme preferences
+  loadThemePreferences(elements.themeToggle);
 
   // Update texts with current language
   updateTexts(getCurrentFilter());
@@ -233,12 +220,11 @@ const initApp = () => {
   setupFormHandler(elements.form, elements.input);
   setupClearHandlers(elements.btnClear, elements.btnClearAll, elements.filterButtons);
   setupFilterHandlers(elements.filterButtons);
-  setupThemeHandlers(elements.themeToggle, elements.contrastButtons);
+  setupThemeHandlers(elements.themeToggle);
   setupLanguageHandlers(elements.languageSelector);
   setupKeyboardShortcuts(
     elements.input,
     elements.themeToggle,
-    elements.contrastButtons,
     elements.filterButtons,
   );
 };

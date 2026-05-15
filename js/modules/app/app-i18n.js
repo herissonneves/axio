@@ -31,8 +31,6 @@ export const updateTexts = (currentFilter) => {
   const languageSelector = document.getElementById("language-selector");
   const languageSelectorText = document.getElementById("language-selector-text");
 
-  // Theme controls
-  const themeControls = document.querySelector(".theme-controls");
   const todoFilters = document.querySelector(".todo-filters");
   const themeToggle = document.getElementById("theme-toggle");
 
@@ -64,10 +62,6 @@ export const updateTexts = (currentFilter) => {
     }
   }
 
-  if (themeControls) {
-    themeControls.setAttribute("aria-label", t("ariaThemeSettings"));
-  }
-
   if (todoFilters) {
     todoFilters.setAttribute("aria-label", t("ariaTaskFilters"));
   }
@@ -75,19 +69,6 @@ export const updateTexts = (currentFilter) => {
   if (themeToggle) {
     themeToggle.setAttribute("aria-label", t("ariaThemeToggle"));
   }
-
-  // Update contrast buttons
-  const contrastButtons = document.querySelectorAll(".contrast-selector__btn");
-  contrastButtons.forEach((btn) => {
-    const contrast = btn.dataset.contrast;
-    if (contrast === "default") {
-      btn.setAttribute("aria-label", t("ariaDefaultContrast"));
-    } else if (contrast === "medium") {
-      btn.setAttribute("aria-label", t("ariaMediumContrast"));
-    } else if (contrast === "high") {
-      btn.setAttribute("aria-label", t("ariaHighContrast"));
-    }
-  });
 
   // Re-render tasks to update dynamic content
   renderTasks(currentFilter);

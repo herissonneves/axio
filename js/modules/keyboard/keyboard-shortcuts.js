@@ -55,7 +55,6 @@ export const createKeyboardListener = (handlers) => {
  * @param {Object} handlers - Object with handler functions for each shortcut
  * @param {Function} handlers.focusInput - Focus the input field
  * @param {Function} handlers.toggleTheme - Toggle theme
- * @param {Function} handlers.toggleContrast - Toggle contrast level
  * @param {Function} handlers.toggleLanguage - Toggle language
  * @param {Function} handlers.setFilterAll - Show all tasks
  * @param {Function} handlers.setFilterActive - Show active tasks

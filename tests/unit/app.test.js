@@ -2,35 +2,38 @@
  * App Module Tests
  *
  * Tests application configuration modules:
- * - app-theme.js: Theme and contrast management
+ * - app-theme.js: Theme management
  * - app-filters.js: Filter management
  * - app-config.js: Constants and configuration
  */
 
 import {
   DEFAULT_THEME,
-  CONTRAST_DEFAULT,
   THEME_STORAGE_KEY,
-  CONTRAST_STORAGE_KEY,
-  VALID_CONTRASTS,
   FILTER_MAP,
   THEME_MAP,
 } from "../../js/modules/app/app-config.js";
 
 import {
   getCurrentTheme,
-  getCurrentContrast,
   applyTheme,
   loadThemePreferences,
   toggleTheme,
-  setContrast,
-  toggleContrast,
 } from "../../js/modules/app/app-theme.js";
 
 import {
   getCurrentFilter,
   setCurrentFilter,
 } from "../../js/modules/app/app-filters.js";
+
+const createMockToggle = () => ({
+  classList: {
+    toggle: () => {},
+    add: () => {},
+    remove: () => {},
+  },
+  setAttribute: () => {},
+});
 
 /**
  * Registers all app module tests
@@ -47,33 +50,15 @@ export function runAppTests(runner) {
     runner.assertEquals(DEFAULT_THEME, "light");
   });
 
-  runner.test("app-config: CONTRAST_DEFAULT is 'default'", () => {
-    runner.assertEquals(CONTRAST_DEFAULT, "default");
-  });
-
-  runner.test("app-config: VALID_CONTRASTS contains all levels", () => {
-    runner.assertTrue(VALID_CONTRASTS.includes("default"));
-    runner.assertTrue(VALID_CONTRASTS.includes("medium"));
-    runner.assertTrue(VALID_CONTRASTS.includes("high"));
-    runner.assertEquals(VALID_CONTRASTS.length, 3);
-  });
-
   runner.test("app-config: FILTER_MAP maps IDs to values", () => {
     runner.assertEquals(FILTER_MAP["filter-all"], "all");
     runner.assertEquals(FILTER_MAP["filter-active"], "active");
     runner.assertEquals(FILTER_MAP["filter-completed"], "completed");
   });
 
-  runner.test("app-config: THEME_MAP contains all combinations", () => {
-    // Light theme
-    runner.assertEquals(THEME_MAP.light.default, "light");
-    runner.assertEquals(THEME_MAP.light.medium, "light-medium-contrast");
-    runner.assertEquals(THEME_MAP.light.high, "light-high-contrast");
-
-    // Dark theme
-    runner.assertEquals(THEME_MAP.dark.default, "dark");
-    runner.assertEquals(THEME_MAP.dark.medium, "dark-medium-contrast");
-    runner.assertEquals(THEME_MAP.dark.high, "dark-high-contrast");
+  runner.test("app-config: THEME_MAP maps light and dark themes", () => {
+    runner.assertEquals(THEME_MAP.light, "light");
+    runner.assertEquals(THEME_MAP.dark, "dark");
   });
 
   // ============================================================================
@@ -85,63 +70,17 @@ export function runAppTests(runner) {
     runner.assertTrue(theme === "light" || theme === "dark");
   });
 
-  runner.test("app-theme: getCurrentContrast returns current contrast", () => {
-    const contrast = getCurrentContrast();
-    runner.assertTrue(VALID_CONTRASTS.includes(contrast));
-  });
-
   runner.test("app-theme: applyTheme sets data-theme on document", () => {
     if (typeof document === "undefined") {
-      runner.assertTrue(true); // Skip in non-browser environment
+      runner.assertTrue(true);
       return;
     }
 
-    applyTheme("dark", "default");
+    applyTheme("dark");
     runner.assertEquals(document.documentElement.dataset.theme, "dark");
 
-    applyTheme("light", "medium");
-    runner.assertEquals(document.documentElement.dataset.theme, "light-medium-contrast");
-
-    applyTheme("dark", "high");
-    runner.assertEquals(document.documentElement.dataset.theme, "dark-high-contrast");
-  });
-
-  runner.test("app-theme: setContrast validates contrast before applying", () => {
-    if (typeof document === "undefined") {
-      runner.assertTrue(true);
-      return;
-    }
-
-    // Create mock buttons
-    const buttons = [];
-    const result1 = setContrast(buttons, "invalid");
-    runner.assertFalse(result1);
-
-    const result2 = setContrast(buttons, "medium");
-    runner.assertTrue(result2);
-
-    const result3 = setContrast(buttons, "high");
-    runner.assertTrue(result3);
-  });
-
-  runner.test("app-theme: toggleContrast cycles through levels", () => {
-    if (typeof document === "undefined") {
-      runner.assertTrue(true);
-      return;
-    }
-
-    const buttons = [];
-
-    // Should cycle: default -> medium -> high -> default
-    setContrast(buttons, "default");
-    let next = toggleContrast(buttons);
-    runner.assertEquals(next, "medium");
-
-    next = toggleContrast(buttons);
-    runner.assertEquals(next, "high");
-
-    next = toggleContrast(buttons);
-    runner.assertEquals(next, "default");
+    applyTheme("light");
+    runner.assertEquals(document.documentElement.dataset.theme, "light");
   });
 
   runner.test("app-theme: loadThemePreferences loads from localStorage", () => {
@@ -150,35 +89,48 @@ export function runAppTests(runner) {
       return;
     }
 
-    // Save preferences
     localStorage.setItem(THEME_STORAGE_KEY, "dark");
-    localStorage.setItem(CONTRAST_STORAGE_KEY, "high");
 
-    // Load
-    const result = loadThemePreferences(null, []);
+    const theme = loadThemePreferences(createMockToggle());
 
-    runner.assertEquals(result.theme, "dark");
-    runner.assertEquals(result.contrast, "high");
+    runner.assertEquals(theme, "dark");
+    runner.assertEquals(getCurrentTheme(), "dark");
+    runner.assertEquals(document.documentElement.dataset.theme, "dark");
 
-    // Cleanup
     localStorage.removeItem(THEME_STORAGE_KEY);
-    localStorage.removeItem(CONTRAST_STORAGE_KEY);
   });
 
-  runner.test("app-theme: loadThemePreferences uses defaults when no data exists", () => {
+  runner.test("app-theme: loadThemePreferences uses default when no data exists", () => {
     if (typeof document === "undefined" || typeof localStorage === "undefined") {
       runner.assertTrue(true);
       return;
     }
 
-    // Ensure no data exists
     localStorage.removeItem(THEME_STORAGE_KEY);
-    localStorage.removeItem(CONTRAST_STORAGE_KEY);
 
-    const result = loadThemePreferences(null, []);
+    const theme = loadThemePreferences(createMockToggle());
 
-    runner.assertEquals(result.theme, DEFAULT_THEME);
-    runner.assertEquals(result.contrast, CONTRAST_DEFAULT);
+    runner.assertEquals(theme, DEFAULT_THEME);
+    runner.assertEquals(getCurrentTheme(), DEFAULT_THEME);
+  });
+
+  runner.test("app-theme: toggleTheme switches theme and persists", () => {
+    if (typeof document === "undefined" || typeof localStorage === "undefined") {
+      runner.assertTrue(true);
+      return;
+    }
+
+    const mockToggle = createMockToggle();
+    loadThemePreferences(mockToggle);
+
+    const nextTheme = toggleTheme(mockToggle);
+
+    runner.assertTrue(nextTheme === "light" || nextTheme === "dark");
+    runner.assertEquals(getCurrentTheme(), nextTheme);
+    runner.assertEquals(localStorage.getItem(THEME_STORAGE_KEY), nextTheme);
+    runner.assertEquals(document.documentElement.dataset.theme, nextTheme);
+
+    localStorage.removeItem(THEME_STORAGE_KEY);
   });
 
   // ============================================================================
@@ -206,11 +158,7 @@ export function runAppTests(runner) {
   runner.test("app-filters: filter persists between calls", () => {
     setCurrentFilter("completed");
     runner.assertEquals(getCurrentFilter(), "completed");
-
-    // Verify persistence
     runner.assertEquals(getCurrentFilter(), "completed");
-
-    // Reset to all
     setCurrentFilter("all");
   });
 
@@ -218,47 +166,16 @@ export function runAppTests(runner) {
   // app/* INTEGRATION TESTS
   // ============================================================================
 
-  runner.test("app: theme and contrast work together", () => {
+  runner.test("app: theme applies correct data-theme values", () => {
     if (typeof document === "undefined") {
       runner.assertTrue(true);
       return;
     }
 
-    // Apply light + medium
-    applyTheme("light", "medium");
-    runner.assertEquals(document.documentElement.dataset.theme, "light-medium-contrast");
-
-    // Apply dark + high
-    applyTheme("dark", "high");
-    runner.assertEquals(document.documentElement.dataset.theme, "dark-high-contrast");
-
-    // Apply light + default
-    applyTheme("light", "default");
+    applyTheme("light");
     runner.assertEquals(document.documentElement.dataset.theme, "light");
-  });
 
-  runner.test("app: settings persist in localStorage", () => {
-    if (typeof document === "undefined" || typeof localStorage === "undefined") {
-      runner.assertTrue(true);
-      return;
-    }
-
-    const buttons = [];
-
-    // Set theme and contrast
-    const mockToggle = { classList: { toggle: () => {}, add: () => {}, remove: () => {} }, setAttribute: () => {} };
-    toggleTheme(mockToggle);
-    setContrast(buttons, "medium");
-
-    // Verify localStorage
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    const savedContrast = localStorage.getItem(CONTRAST_STORAGE_KEY);
-
-    runner.assertTrue(savedTheme === "light" || savedTheme === "dark");
-    runner.assertEquals(savedContrast, "medium");
-
-    // Cleanup
-    localStorage.removeItem(THEME_STORAGE_KEY);
-    localStorage.removeItem(CONTRAST_STORAGE_KEY);
+    applyTheme("dark");
+    runner.assertEquals(document.documentElement.dataset.theme, "dark");
   });
 }

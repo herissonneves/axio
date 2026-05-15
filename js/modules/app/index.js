@@ -11,10 +11,7 @@
 
 export {
   DEFAULT_THEME,
-  CONTRAST_DEFAULT,
   THEME_STORAGE_KEY,
-  CONTRAST_STORAGE_KEY,
-  VALID_CONTRASTS,
   FILTER_MAP,
   SVG_NS,
   THEME_MAP,
@@ -26,14 +23,10 @@ export {
 
 export {
   getCurrentTheme,
-  getCurrentContrast,
   applyTheme,
   updateThemeToggle,
-  updateContrastButtons,
   loadThemePreferences,
   toggleTheme,
-  setContrast,
-  toggleContrast,
 } from "./app-theme.js";
 
 // ============================================================================

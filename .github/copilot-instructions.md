@@ -26,7 +26,7 @@
 
 ## Styling & Theming
 - Global styles live in [css/main.css](../css/main.css) and compose foundational layers from [css/base.css](../css/base.css), [css/layout.css](../css/layout.css), etc.; update tokens consistently across layers.
-- The `themes/` directory contains light/dark/high-contrast variants that rely on the `data-theme` attribute set in `main.js`; new themes should follow the same attribute contract.
+- The `themes/` directory contains light and dark variants that rely on the `data-theme` attribute set in `main.js`; new themes should follow the same attribute contract.
 - Buttons, checkboxes, and list items rely on CSS custom properties for colors and spacing—extend those variables before hardcoding values.
 - Animations and focus states are already tuned for accessibility; audit hover/focus/aria feedback whenever you touch interactive elements.
 
