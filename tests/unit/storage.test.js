@@ -9,6 +9,7 @@
  */
 
 import { loadTasks, saveTasks } from "../../js/modules/storage.js";
+import { migrateTask } from "../../js/modules/task-meta.js";
 
 /**
  * Registers all storage module tests
@@ -30,7 +31,8 @@ export function runStorageTests(runner) {
     ];
     localStorage.setItem("tasks", JSON.stringify(testTasks));
     const tasks = loadTasks();
-    runner.assertEquals(tasks, testTasks);
+    const expected = testTasks.map(migrateTask);
+    runner.assertEquals(tasks, expected);
   });
 
   runner.test("loadTasks should return empty array on invalid JSON", () => {

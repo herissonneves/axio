@@ -35,9 +35,19 @@ let tasks = loadTasks().map(migrateTask);
  * @returns {Task[]}
  */
 const persist = (updater) => {
-  tasks = updater(tasks);
+  tasks = updater(tasks).map(migrateTask);
   saveTasks(tasks);
   return tasks;
+};
+
+/**
+ * Reloads in-memory tasks from localStorage (migrated).
+ *
+ * @returns {Task[]}
+ */
+export const reloadTasksFromStorage = () => {
+  tasks = loadTasks();
+  return getTasks();
 };
 
 /**
@@ -129,7 +139,7 @@ export const addTaskTags = (id, ...newTags) => {
 
       return {
         ...task,
-        tags: normalizeTags([...task.tags, ...newTags]),
+        tags: normalizeTags([...(task.tags ?? []), ...newTags]),
       };
     }),
   );
@@ -154,7 +164,7 @@ export const removeTaskTag = (id, tag) => {
 
       return {
         ...task,
-        tags: task.tags.filter((stored) => stored.toLowerCase() !== needle),
+        tags: (task.tags ?? []).filter((stored) => stored.toLowerCase() !== needle),
       };
     }),
   );
@@ -199,7 +209,7 @@ export const getTags = () => {
   const tags = new Set();
 
   for (const task of getTasks()) {
-    for (const tag of task.tags) {
+    for (const tag of task.tags ?? []) {
       tags.add(tag);
     }
   }

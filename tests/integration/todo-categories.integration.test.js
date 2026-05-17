@@ -17,9 +17,9 @@ import {
   clearCompleted,
   clearAll,
   updateTask,
+  reloadTasksFromStorage,
 } from "../../js/modules/todo.js";
 import { loadTasks } from "../../js/modules/storage.js";
-import { migrateTask } from "../../js/modules/task-meta.js";
 
 /**
  * @param {import("../../tests/test-runner.js").default} runner
@@ -39,7 +39,7 @@ export function runTodoCategoriesIntegrationTests(runner) {
       tags: ["persist", "storage"],
     });
 
-    const saved = loadTasks().map(migrateTask);
+    const saved = loadTasks();
     const stored = saved.find((item) => item.id === task.id);
 
     runner.assertTrue(stored !== undefined);
@@ -55,10 +55,11 @@ export function runTodoCategoriesIntegrationTests(runner) {
       JSON.stringify([{ id: "legacy-1", text: "Legacy shape", completed: false }]),
     );
 
-    const reloaded = loadTasks().map(migrateTask);
+    const reloaded = reloadTasksFromStorage();
     runner.assertEquals(reloaded.length, 1);
     runner.assertEquals(reloaded[0].category, null);
     runner.assertEquals(JSON.stringify(reloaded[0].tags), "[]");
+    runner.assertEquals(reloaded[0].text, "Legacy shape");
   });
 
   runner.test("Integration: filter by category and tag across multiple tasks", () => {

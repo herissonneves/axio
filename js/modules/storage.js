@@ -6,6 +6,8 @@
  * with error handling to prevent parsing failures.
  */
 
+import { migrateTask } from "./task-meta.js";
+
 /**
  * Loads tasks from localStorage
  *
@@ -13,7 +15,8 @@
  */
 export function loadTasks() {
   try {
-    return JSON.parse(localStorage.getItem("tasks")) || [];
+    const raw = JSON.parse(localStorage.getItem("tasks")) || [];
+    return Array.isArray(raw) ? raw.map(migrateTask) : [];
   } catch (error) {
     console.warn("Failed to parse tasks from storage, resetting storage.", error);
     return [];
