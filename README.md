@@ -10,6 +10,10 @@ A modern todo list web app built with **HTML, CSS, and vanilla JavaScript** — 
 
 > 📋 For a detailed changelog, see [CHANGELOG.md](CHANGELOG.md)
 
+## 🧭 Architecture decisions
+
+- [ADR 0001 — Product direction: Vanilla v1.4 → Next.js v2](docs/adr/0001-direcao-do-produto.md)
+
 ## Demo
 
 ![Todo List App Flow](demo/app-flow.gif)
