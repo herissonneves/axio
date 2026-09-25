@@ -1,4 +1,4 @@
-# Changelog
+# 📝 Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -7,27 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Removed
+### Added
 
-- Medium and high contrast theme variants (`theme-*-mc.css`, `theme-*-hc.css`)
-- Contrast selector UI and contrast-related keyboard shortcut (Ctrl+J)
-- Contrast persistence and API (`setContrast`, `toggleContrast`, `getCurrentContrast`)
+- Category and tag metadata in the task domain and browser storage; the user interface is still pending.
+- Unit and integration test files for categories and tags; these files are not yet registered in the browser test runner.
+- ADR 0001 documenting the decision to stabilize the Vanilla application before the Next.js migration.
 
 ### Changed
 
-- Theme system simplified to light and dark only
-- Theme settings section and i18n strings updated accordingly
+- Split menu, dialog, and drag-and-drop UI code into smaller modules.
+- Moved the theme control next to the language selector.
+- Simplified theme settings to light and dark modes and updated the related translations.
+- Updated the README to describe current features, test execution, and known limitations.
 
-## [1.3.0] - 2026-01-30
+### Fixed
+
+- Migrate older stored tasks when loading them so category and tag fields are normalized.
+
+### Removed
+
+- Medium and high contrast theme variants (`theme-*-mc.css`, `theme-*-hc.css`).
+- Contrast selector UI and the Ctrl+J shortcut.
+- Contrast persistence and API (`setContrast`, `toggleContrast`, `getCurrentContrast`).
+
+## [1.3.0] - 2026-02-01
 
 ### Highly Modular Architecture
 
-This release represents the largest architectural refactor of the project since the initial launch. The focus was on full modularization of all core modules, elimination of unnecessary abstractions, critical bug fixes, and a major expansion of test coverage.
+This release represents the largest architectural refactor of the project since the initial launch. The focus was on full modularization of all core modules, elimination of unnecessary abstractions, critical bug fixes, and additional tests for the refactored modules.
 
 **🎯 Highlights:**
 
 - 🧩 **28 Specialized Modules**: 4 main modules refactored into focused files
-- 🧪 **128+ Tests**: +47% increase in coverage (87 → 128+, ~95% coverage)
+- 🧪 Browser-based tests added for the app and UI modules
 - 🎨 **Modularized CSS**: 10 specialized component files
 - 🧹 **Clean Code**: 114 lines of unnecessary wrappers removed
 - 🐛 **2 Critical Bugs Fixed**: SyntaxError and loss of styling
@@ -51,7 +63,6 @@ This release represents the largest architectural refactor of the project since 
   - Highly testable code (pure functions)
   - Better readability and organization
   - Simplified maintenance
-  - 89% reduction in complexity per function (228 → 25 lines average)
 
 #### Complete ui.js Modularization
 
@@ -103,23 +114,20 @@ Identified and removed 3 wrappers that only re-exported without adding value:
   - Updated from `../ui.js` to `../ui/index.js`
   - Consistent with wrapper removal
 
-#### Test Coverage Expansion
+#### Test Suite Expansion
 
-Created 41 new tests for refactored modules:
+Added tests for refactored app and UI modules.
 
-- **tests/unit/app.test.js** (27 tests)
+- **tests/unit/app.test.js** (17 registered cases at this tag)
   - Tests `app-config.js` (constants and configuration)
   - Tests `app-theme.js` (theme, contrast, persistence)
   - Tests `app-filters.js` (filter management)
   - Integration tests between app modules
 
-- **tests/unit/ui.test.js** (14 tests)
+- **tests/unit/ui.test.js** (12 registered cases at this tag)
   - Tests `ui-icons.js` (SVG icon creation)
   - Tests `ui-drag.js` (drag-and-drop functions)
   - Tests integration between UI components
-
-- **Total tests in project**: 128+ tests (was 87)
-- **Increase**: +47% test coverage (~95% of code)
 
 #### Test Structure Reorganization
 
@@ -198,17 +206,12 @@ Created 41 new tests for refactored modules:
 - **Elegant Processing Algorithm**
   - Eliminated cascade of 15+ if/else statements
   - Efficient loop over shortcut configuration
-  - 82% reduction in complexity per function (113 → 20 lines average)
 
 #### Version 2.0 — Extreme Modularization + Tests
 
-- **Complete Unit Tests**
-  - Created `tests/keyboard.test.js` with 25+ unit tests
-  - 100% coverage of utility functions in `keyboard-utils.js`
-  - Tests for modifier detection (Ctrl/Cmd)
-  - Tests for context validation and shortcut blocking
-  - Tests for event matching (including edge cases)
-  - Integrated into existing test runner in `tests.html`
+- **Unit Tests**
+  - 22 registered test cases in `tests/unit/keyboard.test.js` at tag `v.1.3.0`.
+  - Tests cover modifiers, shortcut context validation, and event matching.
 
 - **Modular Structure in 6 Specialized Files**
   - `keyboard/index.js` — Centralized exports (40 lines)
@@ -231,24 +234,18 @@ Created 41 new tests for refactored modules:
 
 - **keyboard.js**: Now acts as a legacy entry point re-exporting specialized modules
 - **Architecture**: Migration from single file to modular `keyboard/` structure
-- **Testability**: Increased from 0% to ~85% coverage (100% on core functions)
+- **Testability**: Added tests for shortcut matching and keyboard utilities.
 
 ### Improved
 
-- **Maintainability**: +450% modularization (2 → 20+ functions)
-- **Complexity**: -82% per function (113 → 20 lines average)
 - **Extensibility**: Adding a shortcut changed from 10+ lines to 1 line
-- **Code Quality**: SOLID principles and design patterns applied
 - **Documentation**: 3 detailed documents (README + 2 refactor analyses)
 
 ### Technical Implementation
 
 - Applied patterns: Module Pattern, Factory Pattern, Strategy Pattern, Pure Functions
-- SOLID principles followed across all modules
 - Dependency Injection for shortcut handlers
 - Cleanup function returned by `initKeyboardShortcuts()`
-- 100% backward compatible (existing code continues to work)
-- Zero breaking changes
 
 ### New Documentation
 
@@ -278,14 +275,9 @@ Created 41 new tests for refactored modules:
   - **Core**: `hasTranslation()`, `getAllTranslations()`
   - **Constants**: `DEFAULT_LANGUAGE`, `SUPPORTED_LANGUAGES`, `STORAGE_KEY`
 
-- **Complete Unit Tests**
-  - Expanded from 8 to 35+ unit tests
-  - ~95% code coverage
-  - 10 tests for utilities (100% coverage)
-  - 3 tests for detector (100% coverage)
-  - 4 tests for storage (100% coverage)
-  - 5 tests for advanced core functions
-  - 3 end-to-end integration tests
+- **Unit Tests**
+  - 36 registered test cases in `tests/unit/i18n.test.js` at tag `v.1.3.0`.
+  - Tests exercise utility functions, language detection, preference storage, and translation behavior.
 
 - **Modularization Benefits**
   - Smaller, focused files (~100 lines average vs 295 original)
@@ -299,15 +291,11 @@ Created 41 new tests for refactored modules:
 
 - **i18n.js**: Acts as a legacy wrapper re-exporting specialized modules
 - **Architecture**: Migration from single file to modular `i18n/` structure
-- **Testability**: Increased from 8 to 35+ tests (~95% coverage)
 - **API**: Expanded from 6 to 26+ public functions
 
 #### i18n Improvements
 
-- **Modularization**: +333% in functions (6 → 26+)
-- **Tests**: +338% in coverage (8 → 35+ tests)
 - **Files**: 8 specialized files created
-- **Pure Functions**: +1900% (1 → 20+ pure functions)
 - **Documentation**: Complete README.md with 450 lines
 
 #### i18n Technical Details
@@ -316,8 +304,6 @@ Created 41 new tests for refactored modules:
 - Utility functions with optimized regex
 - Smart browser language detection
 - Persistence with error handling
-- 100% backward compatible
-- Zero breaking changes
 
 #### i18n Documentation
 
@@ -340,7 +326,6 @@ Created 41 new tests for refactored modules:
   - `app/app-i18n.js` — Language and translation management (175 lines)
 
 - **main.js Refactored**
-  - Reduced from 483 to 216 lines (-55%)
   - Acts as module orchestrator
   - Well-organized sections with descriptive comments
   - Optimized and organized imports
@@ -354,7 +339,6 @@ Created 41 new tests for refactored modules:
 
 #### main.js Refactor Benefits
 
-- **Complexity Reduction**: -55% lines in main file
 - **Separation of Concerns**: Each module has a clear role
 - **Maintainability**: Easy to locate and modify features
 - **Testability**: Modules can be tested in isolation
@@ -378,8 +362,6 @@ Created 41 new tests for refactored modules:
 - Applied patterns: Module Pattern, Separation of Concerns
 - State managed by specialized modules
 - Delegated functions maintaining backward compatibility
-- Zero breaking changes
-- 100% backward compatible
 
 ---
 
@@ -421,7 +403,7 @@ Created 41 new tests for refactored modules:
 
 - **Accessibility**: Keyboard shortcuts significantly improve navigation for keyboard-first users
 - **User Experience**: Quick theme, contrast, and language switching via keyboard
-- **Code Quality**: Test coverage ensures greater reliability
+- **Code Quality**: Browser-based tests were added to help detect regressions.
 - **Documentation**: README updated with complete keyboard shortcuts section
 
 ### Technical Details
@@ -432,7 +414,9 @@ Created 41 new tests for refactored modules:
 - Unit tests for all main modules
 - Integration tests for full flow validation
 
-## [1.1.0] - 2024-12-29
+## [1.1.0] - 2025-12-29
+
+> The GitHub release is titled 1.1.0 but uses the tag `v1.0.1`.
 
 ### Added
 
@@ -460,12 +444,11 @@ Created 41 new tests for refactored modules:
 
 - **Clear All Tasks**
   - Button to remove all tasks at once
-  - Confirmation before clearing (via delete confirmation dialog)
 
 ### Changed
 
 - **Task ID Generation**: Changed from timestamp-based IDs to UUID-based IDs (with timestamp fallback)
-- **Delete Behavior**: Now requires confirmation via dialog before removing tasks
+- **Delete Behavior**: Deleting an individual task from its menu requires confirmation.
 - **UI Components**: All components now follow Material Design 3 guidelines
 - **Project Structure**: CSS reorganized into modular structure (base, layout, components, themes, utilities)
 
@@ -484,7 +467,7 @@ Created 41 new tests for refactored modules:
 - Implemented dropdown menu component
 - Improved drag-and-drop event handling
 
-## [1.0.0] - Initial Release
+## 1.0.0 - Initial Release
 
 ### Initial Features
 
@@ -514,21 +497,6 @@ Created 41 new tests for refactored modules:
 
 ---
 
-## [Unreleased]
-
-### Planned
-
-- Unit and integration tests
-- Additional demo GIFs
-- Task categories/tags
-- Task due dates
-- Task priorities
-- Export/import tasks (JSON)
-- Task search functionality
-- Swipe gestures on mobile devices
-
----
-
 ## Release Notes Format
 
 - **Added** for new features
@@ -538,7 +506,6 @@ Created 41 new tests for refactored modules:
 - **Fixed** for bug fixes
 - **Security** for vulnerability fixes
 
-[1.3.0]: https://github.com/herissonneves/axio/releases/tag/v1.3.0
+[1.3.0]: https://github.com/herissonneves/axio/releases/tag/v.1.3.0
 [1.2.0]: https://github.com/herissonneves/axio/releases/tag/v1.2.0
-[1.1.0]: https://github.com/herissonneves/axio/releases/tag/v1.1.0
-[1.0.0]: https://github.com/herissonneves/axio/releases/tag/v1.0.0
+[1.1.0]: https://github.com/herissonneves/axio/releases/tag/v1.0.1

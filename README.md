@@ -1,20 +1,21 @@
-# Todo List App
+# Axio
 
-A modern todo list web app built with **HTML, CSS, and vanilla JavaScript** — featuring Material Design 3, drag-and-drop reordering, task editing, theme switching, and full persistence with `localStorage`.
+A local-first task manager built with **HTML, CSS, and vanilla JavaScript** — featuring Material Design 3, drag-and-drop reordering, task editing, theme switching, and full persistence with `localStorage`.
 
 **Live Demo:** [https://herissonneves.github.io/axio/](https://herissonneves.github.io/axio/)
 
-## 📦 Current version
+## 📦 Latest tagged release
 
-**v1.3.0** — Highly Modular Architecture. This release includes: all v1.2.0 features + full modularization of `main.js`, `ui.js`, `i18n.js`, and `keyboard.js`, removal of unnecessary wrappers (114 lines removed), expanded tests (+41 new tests, 128+ total), critical bug fixes, and an architecture optimized for maximum maintainability, testability, and structural clarity.
+**v1.3.0** is the latest published release.
 
-> 📋 For a detailed changelog, see [CHANGELOG.md](CHANGELOG.md)
+The `main` branch may contain changes planned for the next release.
+See [CHANGELOG.md](CHANGELOG.md) for details.
 
 ## 🧭 Architecture decisions
 
 - [ADR 0001 — Product direction: Vanilla v1.4 → Next.js v2](docs/adr/0001-direcao-do-produto.md)
 
-## Demo
+## 🎬 Demo
 
 ![Todo List App Flow](demo/app-flow.gif)
 
@@ -25,111 +26,49 @@ A modern todo list web app built with **HTML, CSS, and vanilla JavaScript** — 
 
 ### Task management
 
-- ✅ Add a new task
-- ✅ Mark tasks as completed (toggle)
-- ✅ Edit existing tasks via dropdown menu
-- ✅ Remove tasks with confirmation dialog
-- ✅ Drag and drop to reorder tasks
-- ✅ Tasks are persisted in browser storage (`localStorage`)
-- ✅ Filter tasks: **All / Active / Completed**
-- ✅ Clear all completed tasks
-- ✅ Clear all tasks
+- Add a new task
+- Mark tasks as completed (toggle)
+- Edit existing tasks via dropdown menu
+- Remove tasks with confirmation dialog
+- Drag and drop to reorder tasks
+- Tasks are persisted in browser storage (`localStorage`)
+- Filter tasks: **All / Active / Completed**
+- Clear all completed tasks
+- Clear all tasks
 
 ### Design and themes
 
-- ✅ Material Design 3–compatible interface
-- ✅ Light and dark theme toggle
-- ✅ Smooth animations and transitions
-- ✅ Responsive layout
-- ✅ Touch device support
+- Material Design 3–compatible interface
+- Light and dark theme toggle
+- Smooth animations and transitions
+- Responsive layout
+- Touch device support
 
 ### User experience
 
-- ✅ Confirmation dialogs for destructive actions
-- ✅ Visual feedback for drag-and-drop operations
-- ✅ Keyboard navigation support (Escape to close dialogs)
-- ✅ Accessible with ARIA attributes
-- ✅ Reduced motion preference support
+- Confirmation dialog when deleting an individual task
+- Visual feedback for drag-and-drop operations
+- Keyboard navigation support (Escape to close dialogs)
+- Semantic HTML and selected ARIA attributes; known accessibility gaps are listed below
+- Reduced motion preference support
 
 ## 📂 Project structure
 
-```plaintext
-/
-├── index.html
-├── css/
-│   ├── main.css              # Main style orchestrator
-│   ├── base.css              # Base styles and resets
-│   ├── layout.css            # Layout and grid styles
-│   ├── components.css        # Component orchestrator
-│   ├── components/           # Specialized CSS components
-│   │   ├── header.css
-│   │   ├── language-selector.css
-│   │   ├── theme-controls.css
-│   │   ├── form.css
-│   │   ├── todo-item.css
-│   │   ├── filters.css
-│   │   ├── clear-buttons.css
-│   │   ├── drag-drop.css
-│   │   ├── menu.css
-│   │   ├── dialog.css
-│   │   └── README.md
-│   ├── utilities.css         # Utility classes
-│   └── themes/               # Theme definitions
-│       ├── theme-light.css
-│       └── theme-dark.css
+```text
+.
+├── index.html              # Application entry page
+├── css/                    # Design tokens, layouts, themes, and components
 ├── js/
-│   ├── main.js               # Main application orchestrator (254 lines)
+│   ├── main.js             # Application entry point
 │   └── modules/
-│       ├── storage.js        # localStorage utilities
-│       ├── todo.js           # Task management logic
-│       ├── app/              # Main application modules
-│       │   ├── index.js      # Centralized exports
-│       │   ├── app-config.js # Application configuration
-│       │   ├── app-theme.js  # Theme management
-│       │   ├── app-filters.js # Filter management
-│       │   └── app-i18n.js   # Language/translation management
-│       ├── i18n/             # Internationalization modules
-│       │   ├── index.js
-│       │   ├── i18n-config.js
-│       │   ├── i18n-core.js
-│       │   ├── i18n-detector.js
-│       │   ├── i18n-storage.js
-│       │   ├── i18n-translations.js
-│       │   ├── i18n-utils.js
-│       │   └── README.md
-│       ├── keyboard/         # Keyboard shortcut modules
-│       │   ├── index.js
-│       │   ├── keyboard-config.js
-│       │   ├── keyboard-dialog.js
-│       │   ├── keyboard-dom.js
-│       │   ├── keyboard-shortcuts.js
-│       │   ├── keyboard-utils.js
-│       │   └── README.md
-│       └── ui/               # User interface modules
-│           ├── index.js
-│           ├── ui-icons.js
-│           ├── ui-elements.js
-│           ├── ui-menu.js
-│           ├── ui-dialogs.js
-│           ├── ui-drag.js
-│           ├── ui-render.js
-│           └── README.md
-├── tests/                    # Unit and integration tests (128+ tests)
-│   ├── index.html            # Web UI to run tests
-│   ├── test-runner.js        # Custom test framework
-│   ├── test-runner-ui.js     # Test runner UI logic
-│   ├── test-runner-ui.css    # Test runner UI styles
-│   ├── unit/                 # Unit tests per module
-│   │   ├── storage.test.js
-│   │   ├── todo.test.js
-│   │   ├── i18n.test.js
-│   │   ├── keyboard.test.js
-│   │   ├── app.test.js
-│   │   └── ui.test.js
-│   ├── integration/          # Integration tests
-│   │   └── integration.test.js
-│   └── README.md
-├── demo/                     # Demo GIFs and screenshots
+│       ├── app/            # Application initialization and configuration
+│       ├── i18n/           # Internationalization
+│       ├── keyboard/       # Keyboard shortcuts
+│       ├── ui/             # Rendering and user interaction
+│       ├── storage.js      # Browser persistence
+│       └── todo.js         # Task domain logic
+├── tests/                  # Browser-based unit and integration tests
+├── docs/adr/               # Architecture Decision Records
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 └── README.md
@@ -144,9 +83,17 @@ A modern todo list web app built with **HTML, CSS, and vanilla JavaScript** — 
    cd axio
    ```
 
-2. Open `index.html` in your browser (double-click or use VS Code Live Server / any static server)
+2. The project uses native ES modules and must be served over HTTP. From the project root, run:
 
-3. Start adding tasks — the app runs entirely in the browser with no backend or build tools
+   ```bash
+   python3 -m http.server 8000
+   ```
+
+3. Open the application at: http://localhost:8000/
+
+4. No dependency installation or build step is required for the Vanilla JavaScript application.
+
+5. Start adding tasks — the app runs entirely in the browser with no backend or build tools
 
 ## 🧠 How to use
 
@@ -179,7 +126,12 @@ The app supports several keyboard shortcuts for easier use:
 
 #### Navigation and focus
 
-- **Ctrl+K** or **/** — Focus the task input field
+- **Ctrl+K** — Focus the task input field
+- **/** — Focus the task input field when focus is outside an editable field
+
+> Known issue: the `/` shortcut currently interferes with typing `/` inside
+> editable fields. A fix is planned for v1.4.
+
 - **Ctrl+?** or **F1** — Show help dialog with all shortcuts
 
 #### Filters
@@ -217,11 +169,23 @@ This app follows **Material Design 3** guidelines:
 
 ## ♿ Accessibility
 
-- **ARIA attributes**: All interactive elements have proper ARIA labels and roles
-- **Keyboard navigation**: Full keyboard support for all features
-- **Focus management**: Proper focus handling in dialogs and menus
-- **Reduced motion**: Respects the `prefers-reduced-motion` media query
-- **Screen readers**: Semantic HTML and ARIA attributes for screen reader support
+The project currently includes:
+
+- semantic HTML and selected ARIA attributes
+- visible focus styles
+- reduced-motion support
+- keyboard shortcuts for common actions
+- Escape handling for selected dialogs
+
+Known accessibility gaps:
+
+- menus do not yet implement complete arrow-key navigation
+- dialogs do not yet provide complete focus trapping and focus restoration
+- drag-and-drop reordering does not have a keyboard alternative
+- the `/` shortcut currently conflicts with typing inside editable fields
+
+These limitations are tracked as part of the v1.4 stabilization work.
+
 ## ⚙️ Implementation details
 
 ### Tech stack
@@ -246,18 +210,19 @@ This app follows **Material Design 3** guidelines:
 
 ### Architecture
 
-- **Highly modular structure**: Code organized into 28 specialized modules
-  - `app/`: Main application modules (5 files: config, theme, filters, i18n)
-  - `i18n/`: Internationalization system (7 specialized modules)
-  - `keyboard/`: Keyboard shortcut system (6 specialized modules)
-  - `ui/`: Interface components (7 specialized modules)
-  - `css/components/`: Modularized styles (10 specialized CSS files)
-- **Separation of concerns**: UI, logic, storage, and configuration are separated
-- **Event-driven**: Uses DOM events for user interactions
-- **State management**: Centralized state with localStorage persistence
-- **High testability**: 128+ unit and integration tests (~95% coverage)
-- **Design patterns**: Module, Factory, Strategy, Observer, Dependency Injection, Pure Functions
-- **SOLID principles**: Applied rigorously across all modules
+The application uses native ES modules and separates its main concerns into:
+
+- task domain logic
+- browser persistence
+- rendering and DOM interaction
+- keyboard shortcuts
+- internationalization
+- application initialization
+
+The project currently has no runtime dependencies or build step.
+
+Some areas remain more fragmented than necessary. Simplifying module boundaries
+and consolidating application initialization are planned for v1.4.
 
 ### Feature implementation
 
@@ -274,22 +239,54 @@ This app follows **Material Design 3** guidelines:
 - **localStorage**: Requires browser support for the localStorage API
 - **Drag and Drop API**: Requires browser support for HTML5 Drag and Drop
 
-## 🧪 Future improvements
+## 🧪 Testing
 
-- [x] Add unit tests ✅ (v1.3.0 — 128+ tests implemented)
-- [x] Add integration tests ✅ (v1.3.0)
-- [x] Add keyboard shortcut documentation ✅ (v1.2.0)
-- [x] Modularize entire project structure ✅ (v1.3.0 — 28 specialized modules)
-- [x] Implement light/dark theme system ✅ (v1.1.0)
-- [x] Add internationalization (PT/EN) ✅ (v1.2.0)
+The project includes a custom browser-based test runner with unit and
+integration tests. The current runner executes 110 tests. Additional test
+modules exist but are not yet registered in the runner.
+
+Automated code coverage is not currently configured.
+
+Start a local server from the project root:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open:
+- Application: http://localhost:8000/
+- Test runner: http://localhost:8000/tests/
+
+## 🛣️ Roadmap
+
+### Completed foundations
+
+- [x] Light and dark themes
+- [x] Portuguese and English internationalization
+- [x] Keyboard shortcut documentation
+- [x] Native ES module organization
+- [x] Browser-based unit and integration tests
+
+### Planned for v1.4
+
+- [ ] Register every existing test module in the test runner
+- [ ] Add reproducible code coverage reporting
+- [ ] Fix keyboard shortcut conflicts in editable fields
+- [ ] Improve menu and dialog keyboard navigation
+- [ ] Add a keyboard-accessible alternative to drag-and-drop
+- [ ] Complete categories and tags
+  - Domain logic and persistence are partially implemented.
+  - User interface support is still pending.
+- [ ] Add task search
+- [ ] Add JSON import and export
+- [ ] Add task priorities and due dates
+- [ ] Add a high-contrast mode and `forced-colors` support
+
+### Possible future work
+
 - [ ] Add more demo GIFs
-- [ ] Implement task categories/tags
-- [ ] Add task due dates
-- [ ] Add task priorities
-- [ ] Optionally: persist tasks per user (backend and database)
-- [ ] Mobile improvements (e.g. swipe gestures)
-- [ ] Export/import tasks (JSON)
-- [ ] Task search functionality
+- [ ] Explore mobile gestures
+- [ ] Evaluate optional account-based synchronization
 
 ## 🤝 Contributing
 
@@ -307,18 +304,17 @@ Please follow the existing code style and add appropriate documentation.
 
 This project was created as a hands-on exercise in vanilla JavaScript, HTML, and CSS — to learn DOM manipulation, `localStorage`, dynamic rendering, state management, and Material Design 3 implementation.
 
-The app demonstrates:
+The project demonstrates:
 
-- Modern JavaScript (ES6 modules)
-- Highly modular architecture (28 specialized modules)
-- CSS custom properties and themes
-- Component-based architecture
-- Accessibility best practices
-- Material Design 3 guidelines
-- Unit and integration tests (128+ tests, ~95% coverage)
-- Design patterns (Module, Factory, Strategy, Observer, Dependency Injection)
-- SOLID principles applied rigorously
-- Complete documentation with JSDoc
+- native JavaScript modules without runtime dependencies
+- task state and persistence with `localStorage`
+- dynamic DOM rendering and event handling
+- Portuguese and English internationalization
+- light and dark themes using CSS custom properties
+- keyboard shortcuts for common actions
+- browser-based unit and integration tests
+- explicit documentation of architectural decisions
+- incremental accessibility improvements and known limitations
 
 Feel free to fork, experiment, and extend as you like. Pull requests and suggestions are welcome.
 
