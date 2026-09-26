@@ -29,7 +29,6 @@ export const KEYBOARD_SHORTCUTS = {
 
   // Appearance
   TOGGLE_THEME: { key: "g", modifier: true, handler: "toggleTheme" },
-  TOGGLE_LANGUAGE: { key: "l", modifier: true, handler: "toggleLanguage" },
 
   // Filters
   FILTER_ALL: { key: "1", modifier: false, handler: "setFilterAll" },
@@ -55,4 +54,4 @@ export const BLOCKED_TAGS = ["INPUT", "TEXTAREA"];
  * Special keys allowed in any context
  * @type {string[]}
  */
-export const SPECIAL_ALLOWED_KEYS = ["Escape", "/"];
+export const SPECIAL_ALLOWED_KEYS = ["Escape"];

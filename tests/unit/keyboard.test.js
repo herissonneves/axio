@@ -69,24 +69,93 @@ export function runKeyboardTests(runner) {
     runner.assertTrue(shouldBlockShortcut(event));
   });
 
-  runner.test("shouldBlockShortcut allows modifier shortcuts in INPUT", () => {
+  runner.test("shouldBlockShortcut blocks Ctrl+K in INPUT", () => {
     const event = {
       key: "k",
       target: { tagName: "INPUT", isContentEditable: false },
       ctrlKey: true,
-      metaKey: false
+      metaKey: false,
     };
-    runner.assertFalse(shouldBlockShortcut(event));
+
+    runner.assertTrue(
+        shouldBlockShortcut(event),
+        "Application shortcuts must not intercept editing in INPUT"
+    );
   });
 
-  runner.test("shouldBlockShortcut allows / in INPUT", () => {
+  for (const tagName of ["INPUT", "TEXTAREA", "DIV"]) {
+    for (const modifier of ["Ctrl", "Cmd"]) {
+      for (const shiftKey of [false, true]) {
+        const shortcutName =
+            `${modifier}${shiftKey ? "+Shift" : ""}+Delete`;
+
+        const contextName =
+            tagName === "DIV" ? "contentEditable" : tagName;
+
+        runner.test(
+            `shouldBlockShortcut blocks ${shortcutName} in ${contextName}`,
+            () => {
+              const event = {
+                key: "Delete",
+                target: {
+                  tagName,
+                  isContentEditable: tagName === "DIV",
+                },
+                ctrlKey: modifier === "Ctrl",
+                metaKey: modifier === "Cmd",
+                shiftKey,
+              };
+
+              runner.assertTrue(
+                  shouldBlockShortcut(event),
+                  `${shortcutName} must not trigger task cleanup while editing`
+              );
+            }
+        );
+      }
+    }
+  }
+
+  runner.test("shouldBlockShortcut blocks / shortcut in INPUT", () => {
     const event = {
       key: "/",
       target: { tagName: "INPUT", isContentEditable: false },
       ctrlKey: false,
-      metaKey: false
+      metaKey: false,
     };
-    runner.assertFalse(shouldBlockShortcut(event));
+
+    runner.assertTrue(
+        shouldBlockShortcut(event),
+        "The / shortcut must not intercept typing in INPUT"
+    );
+  });
+
+  runner.test("shouldBlockShortcut blocks / shortcut in TEXTAREA", () => {
+    const event = {
+      key: "/",
+      target: { tagName: "TEXTAREA", isContentEditable: false },
+      ctrlKey: false,
+      metaKey: false,
+    };
+
+    runner.assertTrue(
+        shouldBlockShortcut(event),
+        "The / shortcut must not intercept typing in TEXTAREA"
+    );
+  });
+
+  runner.test("shouldBlockShortcut blocks / shortcut in contentEditable", () => {
+    const event = {
+      key: "/",
+      target: { tagName: "DIV", isContentEditable: true },
+      ctrlKey: false,
+      metaKey: false,
+    };
+
+    runner.assertTrue(
+        shouldBlockShortcut(event),
+        "The / shortcut must not intercept typing in contentEditable"
+    );
   });
 
   runner.test("shouldBlockShortcut blocks normal keys in TEXTAREA", () => {

@@ -20,7 +20,7 @@ Open the application at `http://localhost:8000/` and the browser test runner at 
 
 The Vanilla application does not require dependency installation.
 
-The browser test runner loads all 135 declared cases from ten test modules.
+The browser test runner loads all 173 declared cases from ten test modules.
 
 Code coverage is not currently measured.
 
@@ -36,7 +36,7 @@ Code coverage is not currently measured.
 
 ## ✅ Before opening a pull request
 
-- [ ] Run the current browser test suite and report any failures.
+- [ ] Run the browser test suite twice without reloading the page and report the total and any failures.
 - [ ] Manually check the changed behavior in the application.
 - [ ] For interface changes, check mouse and keyboard interaction and inspect the browser console.
 - [ ] Run `git diff --check` to find whitespace errors.

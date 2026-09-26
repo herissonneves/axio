@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Category and tag metadata in the task domain and browser storage; the user interface is still pending.
 - Unit and integration test files for categories and tags.
 - ADR 0001 documenting the decision to stabilize the Vanilla application before the Next.js migration.
+- Keyboard shortcut regression tests for editable fields, task-clearing actions, and Ctrl/Cmd+L.
 
 ### Changed
 
@@ -25,12 +26,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrate older stored tasks when loading them so category and tag fields are normalized.
 - Register task metadata, category, and tag test modules in the browser runner.
 - Translate App, UI, and category/tag test headings in Portuguese and English.
+- Preserve / typing inside input, textarea, and contenteditable regions.
+- Prevent application shortcuts with Ctrl/Cmd from intercepting text editing.
 
 ### Removed
 
 - Medium and high contrast theme variants (`theme-*-mc.css`, `theme-*-hc.css`).
 - Contrast selector UI and the Ctrl+J shortcut.
 - Contrast persistence and API (`setContrast`, `toggleContrast`, `getCurrentContrast`).
+- Ctrl/Cmd+L language shortcut to avoid conflicting with browser address-bar navigation.
 
 ## [1.3.0] - 2026-02-01
 

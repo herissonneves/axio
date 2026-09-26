@@ -97,10 +97,10 @@ runner.test("my test", () => {
 
 #### Keyboard Module (`unit/keyboard.test.js`)
 
-- Modifier key detection
-- Context validation for blocking
-- Shortcut matching with events
-- Processing utilities
+- Ctrl/Cmd modifier detection
+- Blocking application shortcuts in input, textarea, and contenteditable contexts
+- Keeping Escape available in editable contexts
+- Matching configured key combinations
 
 #### App Module (`unit/app.test.js`)
 
@@ -128,6 +128,12 @@ runner.test("my test", () => {
 - Operations maintain data integrity
 - Edge cases (empty operations)
 - Rapid multiple operations maintain consistency
+- Keyboard event cancellation and handler calls using real DOM fixtures
+- Preventing task-clearing shortcuts from running inside editable fields
+- Keeping the / focus shortcut available outside editable fields
+- Leaving Ctrl/Cmd+L events unhandled in editable and non-editable contexts
+
+Keyboard integration tests use synthetic events to check cancellation and handler calls. They do not simulate native text insertion; typing text such as a/b must also be checked manually in the application.
 
 ### Categories and Tags Integration (`integration/todo-categories.integration.test.js`)
 
@@ -135,8 +141,8 @@ runner.test("my test", () => {
 
 ## Current test status
 
-- 135 test cases are declared across the unit and integration files.
-- The browser runner loads all 135 cases from ten test modules.
+- 173 test cases are declared across the unit and integration files.
+- The browser runner loads all 173 cases from ten test modules.
 - Test category headings are available in Portuguese and English.
 - Code coverage is not currently measured.
 
