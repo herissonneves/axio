@@ -18,7 +18,11 @@ python3 -m http.server 8000
 
 Open the application at `http://localhost:8000/` and the browser test runner at `http://localhost:8000/tests/`. Click **Run Tests** on the test page.
 
-The Vanilla application does not require dependency installation. The current test runner does not yet load every existing test module, and code coverage is not measured.
+The Vanilla application does not require dependency installation.
+
+The browser test runner loads all 135 declared cases from ten test modules.
+
+Code coverage is not currently measured.
 
 ## 🔄 Contribution workflow
 

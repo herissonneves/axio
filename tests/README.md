@@ -8,15 +8,15 @@ Unit and integration test system with no external dependencies, using vanilla Ja
 tests/
 ├── integration/                            # Integration tests
 │   ├── integration.test.js                 # Full flow tests
-│   └── todo-categories.integration.test.js # Not yet loaded by the browser loader
+│   └── todo-categories.integration.test.js # Category and tag integration tests
 ├── unit/                                   # Unit tests per module
 │   ├── app.test.js                         # app/* module tests
 │   ├── i18n.test.js                        # Internationalization module tests
 │   ├── keyboard.test.js                    # Keyboard shortcuts module tests
 │   ├── storage.test.js                     # Storage module tests
-│   ├── task-meta.test.js                   # Not yet loaded by the browser loader
+│   ├── task-meta.test.js                   # Task metadata normalization and migration tests
 │   ├── todo.test.js                        # Task module tests
-│   ├── todo-categories.test.js             # Not yet loaded by the browser loader
+│   ├── todo-categories.test.js             # Category and tag unit tests
 │   └── ui.test.js                          # ui/* module tests
 ├── test-runner.js                          # Custom test framework
 ├── test-runner-ui.js                       # Test runner UI logic
@@ -78,11 +78,11 @@ runner.test("my test", () => {
 - Clear all tasks
 - Reorder tasks
 
-#### Task Metadata (`unit/task-meta.test.js`) — not loaded by the browser runner
+#### Task Metadata (`unit/task-meta.test.js`)
 
 - Declared cases for category and tag normalization, legacy task migration, and case-insensitive tag matching.
 
-#### Todo Categories (`unit/todo-categories.test.js`) — not loaded by the browser runner
+#### Todo Categories (`unit/todo-categories.test.js`)
 
 - Declared cases for adding, editing, filtering, and preserving task categories and tags.
 
@@ -129,15 +129,15 @@ runner.test("my test", () => {
 - Edge cases (empty operations)
 - Rapid multiple operations maintain consistency
 
-### Categories and Tags Integration (`integration/todo-categories.integration.test.js`) — not loaded by the browser runner
+### Categories and Tags Integration (`integration/todo-categories.integration.test.js`)
 
 - Declared cases for metadata persistence, legacy migration, filtering, and edits across task operations.
 
 ## Current test status
 
 - 135 test cases are declared across the unit and integration files.
-- The browser runner currently loads 110 cases from seven test modules.
-- `task-meta.test.js`, `todo-categories.test.js`, and `todo-categories.integration.test.js` are not registered in the runner yet.
+- The browser runner loads all 135 cases from ten test modules.
+- Test category headings are available in Portuguese and English.
 - Code coverage is not currently measured.
 
 ## Organization
@@ -155,6 +155,7 @@ The test structure follows the modular organization of the source code:
 - Some tests may interfere with each other due to shared state
 - For more isolated tests, consider clearing `localStorage` between tests
 - Run tests on an HTTP server (not `file://`) to avoid issues with ES6 modules
+- Tests can clear or overwrite localStorage. Run them on a dedicated local origin or in a separate browser profile without real task data.
 
 ## Future Improvements
 
@@ -163,4 +164,3 @@ The test structure follows the modular organization of the source code:
 - [ ] Add code coverage measurement
 - [ ] Implement end-to-end tests with Playwright or similar
 - [ ] Add performance tests
-- [ ] Register the three remaining test modules in the browser runner
