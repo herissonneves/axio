@@ -213,6 +213,18 @@ class TestRunner {
         "Testes do Módulo UI": translate("testCategoryUnitUI", "UI Module Tests"),
         "App Module Tests": translate("testCategoryUnitApp", "App Module Tests"),
         "Testes do Módulo App": translate("testCategoryUnitApp", "App Module Tests"),
+        "Integration Tests": translate(
+            "testCategoryIntegration",
+            "Integration Tests"
+        ),
+        "Unit Tests - Todo Categories & Tags": translate(
+            "testCategoryUnitTodoCategories",
+            "Unit Tests - Todo Categories & Tags"
+        ),
+        "Integration Tests - Categories & Tags": translate(
+            "testCategoryIntegrationCategories",
+            "Integration Tests - Categories & Tags"
+        ),
       };
 
       const displayName = categoryMap[categoryName] || categoryName;

@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Category and tag metadata in the task domain and browser storage; the user interface is still pending.
-- Unit and integration test files for categories and tags; these files are not yet registered in the browser test runner.
+- Unit and integration test files for categories and tags.
 - ADR 0001 documenting the decision to stabilize the Vanilla application before the Next.js migration.
 
 ### Changed
@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Migrate older stored tasks when loading them so category and tag fields are normalized.
+- Register task metadata, category, and tag test modules in the browser runner.
+- Translate App, UI, and category/tag test headings in Portuguese and English.
 
 ### Removed
 

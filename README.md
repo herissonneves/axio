@@ -242,8 +242,8 @@ and consolidating application initialization are planned for v1.4.
 ## 🧪 Testing
 
 The project includes a custom browser-based test runner with unit and
-integration tests. The current runner executes 110 tests. Additional test
-modules exist but are not yet registered in the runner.
+integration tests. The runner now loads all 135 declared test cases
+from ten test modules.
 
 Automated code coverage is not currently configured.
 
@@ -266,10 +266,10 @@ Then open:
 - [x] Keyboard shortcut documentation
 - [x] Native ES module organization
 - [x] Browser-based unit and integration tests
+- [x] Registration of all existing test modules in the browser runner
 
 ### Planned for v1.4
 
-- [ ] Register every existing test module in the test runner
 - [ ] Add reproducible code coverage reporting
 - [ ] Fix keyboard shortcut conflicts in editable fields
 - [ ] Improve menu and dialog keyboard navigation

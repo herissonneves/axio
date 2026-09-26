@@ -211,6 +211,21 @@ async function runAllTests() {
       { name: "Integration", path: "./integration/integration.test.js", fn: "runIntegrationTests" },
       { name: "App", path: "./unit/app.test.js", fn: "runAppTests" },
       { name: "UI", path: "./unit/ui.test.js", fn: "runUITests" },
+      {
+        name: "Task Metadata",
+        path: "./unit/task-meta.test.js",
+        fn: "runTaskMetaTests",
+      },
+      {
+        name: "Todo Categories",
+        path: "./unit/todo-categories.test.js",
+        fn: "runTodoCategoriesTests",
+      },
+      {
+        name: "Todo Categories Integration",
+        path: "./integration/todo-categories.integration.test.js",
+        fn: "runTodoCategoriesIntegrationTests",
+      },
     ];
 
     for (const module of testModules) {
