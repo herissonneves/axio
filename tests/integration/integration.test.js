@@ -24,6 +24,9 @@ import {
 } from "../../js/modules/todo.js";
 import { saveTasks, loadTasks } from "../../js/modules/storage.js";
 import { setLanguage, getLanguage, t, initI18n } from "../../js/modules/i18n/index.js";
+import {
+  initKeyboardShortcuts,
+} from "../../js/modules/keyboard/keyboard-shortcuts.js";
 
 /**
  * Registers all application integration tests
@@ -371,4 +374,137 @@ export function runIntegrationTests(runner) {
       runner.assertTrue(found === undefined);
     });
   });
+
+  // Keyboard shortcut regression tests
+  const checkKeyboardShortcut = (tagName, eventOptions, expected) => {
+    const previousFocus = document.activeElement;
+    const form = document.createElement("form");
+    const target = document.createElement(tagName);
+    const destination = document.createElement("input");
+
+    destination.type = "text";
+
+    if (tagName === "input") {
+      target.type = "text";
+    }
+
+    if (tagName === "div") {
+      target.contentEditable = "true";
+    }
+
+    if (tagName === "button") {
+      target.type = "button";
+      target.textContent = "Shortcut test";
+    }
+
+    form.append(target, destination);
+
+    const calls = [];
+    const recordCall = (name) => () => {
+      calls.push(name);
+    };
+
+    const cleanup = initKeyboardShortcuts({
+      focusInput: () => {
+        calls.push("focusInput");
+        destination.focus();
+      },
+      toggleLanguage: recordCall("toggleLanguage"),
+      clearCompleted: recordCall("clearCompleted"),
+      clearAll: recordCall("clearAll"),
+    });
+
+    try {
+      document.body.append(form);
+      target.focus();
+
+      const event = new KeyboardEvent("keydown", {
+        ...eventOptions,
+        bubbles: true,
+        cancelable: true,
+      });
+
+      target.dispatchEvent(event);
+
+      runner.assertEquals(
+          {
+            defaultPrevented: event.defaultPrevented,
+            calls,
+          },
+          expected
+      );
+    } finally {
+      cleanup();
+      form.remove();
+      previousFocus?.focus?.();
+    }
+  };
+
+  for (const tagName of ["input", "textarea", "div"]) {
+    runner.test(
+        `Integration: / does not intercept typing in ${tagName}`,
+        () => {
+          checkKeyboardShortcut(
+              tagName,
+              { key: "/" },
+              { defaultPrevented: false, calls: [] }
+          );
+        }
+    );
+  }
+
+  runner.test(
+      "Integration: / focuses input outside editable fields",
+      () => {
+        checkKeyboardShortcut(
+            "button",
+            { key: "/" },
+            { defaultPrevented: true, calls: ["focusInput"] }
+        );
+      }
+  );
+
+  for (const tagName of ["input", "textarea", "div"]) {
+    for (const modifier of ["Ctrl", "Cmd"]) {
+      for (const shiftKey of [false, true]) {
+        const shortcutName =
+            `${modifier}${shiftKey ? "+Shift" : ""}+Delete`;
+
+        runner.test(
+            `Integration: ${shortcutName} does not clear tasks in ${tagName}`,
+            () => {
+              checkKeyboardShortcut(
+                  tagName,
+                  {
+                    key: "Delete",
+                    ctrlKey: modifier === "Ctrl",
+                    metaKey: modifier === "Cmd",
+                    shiftKey,
+                  },
+                  { defaultPrevented: false, calls: [] }
+              );
+            }
+        );
+      }
+    }
+  }
+
+  for (const tagName of ["input", "textarea", "div", "button"]) {
+    for (const modifier of ["Ctrl", "Cmd"]) {
+      runner.test(
+          `Integration: ${modifier}+L is not intercepted in ${tagName}`,
+          () => {
+            checkKeyboardShortcut(
+                tagName,
+                {
+                  key: "l",
+                  ctrlKey: modifier === "Ctrl",
+                  metaKey: modifier === "Cmd",
+                },
+                { defaultPrevented: false, calls: [] }
+            );
+          }
+      );
+    }
+  }
 }

@@ -26,21 +26,16 @@ export const isModifierPressed = (event) => {
 export const shouldBlockShortcut = (event) => {
   const target = event.target;
 
-  // Allow special keys in any context
+  // Keep special keys available for dialog dismissal.
   if (SPECIAL_ALLOWED_KEYS.includes(event.key)) {
     return false;
   }
 
-  // Block when in input/textarea/contentEditable
-  if (
-    BLOCKED_TAGS.includes(target.tagName) ||
-    target.isContentEditable
-  ) {
-    // Allow shortcuts with modifiers even in inputs
-    return !isModifierPressed(event) && !SPECIAL_ALLOWED_KEYS.includes(event.key);
-  }
-
-  return false;
+  // Leave editing keys and modifier combinations to the browser.
+  return (
+      BLOCKED_TAGS.includes(target?.tagName) ||
+      target?.isContentEditable === true
+  );
 };
 
 /**

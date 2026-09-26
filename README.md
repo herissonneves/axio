@@ -124,14 +124,12 @@ See [CHANGELOG.md](CHANGELOG.md) for details.
 
 The app supports several keyboard shortcuts for easier use:
 
+Application shortcuts are ignored while focus is inside an input, textarea, or contenteditable region, preserving native text editing. Escape remains available to close supported dialogs, and Enter can submit forms.
+
 #### Navigation and focus
 
 - **Ctrl+K** — Focus the task input field
 - **/** — Focus the task input field when focus is outside an editable field
-
-> Known issue: the `/` shortcut currently interferes with typing `/` inside
-> editable fields. A fix is planned for v1.4.
-
 - **Ctrl+?** or **F1** — Show help dialog with all shortcuts
 
 #### Filters
@@ -143,7 +141,6 @@ The app supports several keyboard shortcuts for easier use:
 #### Quick actions
 
 - **Ctrl+G** — Toggle light and dark theme
-- **Ctrl+L** — Toggle language (Portuguese ↔ English)
 - **Ctrl+Delete** — Clear all completed tasks
 - **Ctrl+Shift+Delete** — Clear all tasks
 
@@ -152,9 +149,10 @@ The app supports several keyboard shortcuts for easier use:
 - **Escape** — Close any open dialog
 - **Enter** — Submit forms (add task, edit task)
 
-> 💡 **Tip**: Press **Ctrl+?** or **F1** at any time to see all available shortcuts!
+> 💡 **Tip**: With focus outside editable fields, press **Ctrl+?** or **F1** to open the shortcuts help dialog.
 
-**Note**: On macOS, use **Cmd** instead of **Ctrl**.
+**Note**: On macOS, use **Cmd** instead of **Ctrl**. Use the language selector to switch between Portuguese and English.
+Ctrl/Cmd+L is reserved for browser address-bar navigation.
 
 ## 🎨 Design system
 
@@ -182,7 +180,6 @@ Known accessibility gaps:
 - menus do not yet implement complete arrow-key navigation
 - dialogs do not yet provide complete focus trapping and focus restoration
 - drag-and-drop reordering does not have a keyboard alternative
-- the `/` shortcut currently conflicts with typing inside editable fields
 
 These limitations are tracked as part of the v1.4 stabilization work.
 
@@ -241,9 +238,7 @@ and consolidating application initialization are planned for v1.4.
 
 ## 🧪 Testing
 
-The project includes a custom browser-based test runner with unit and
-integration tests. The runner now loads all 135 declared test cases
-from ten test modules.
+The project includes a custom browser-based test runner with unit and integration tests. The runner now loads all 173 declared test cases from ten test modules.
 
 Automated code coverage is not currently configured.
 
@@ -267,11 +262,11 @@ Then open:
 - [x] Native ES module organization
 - [x] Browser-based unit and integration tests
 - [x] Registration of all existing test modules in the browser runner
+- [x] Prevent application shortcuts from intercepting text editing
 
 ### Planned for v1.4
 
 - [ ] Add reproducible code coverage reporting
-- [ ] Fix keyboard shortcut conflicts in editable fields
 - [ ] Improve menu and dialog keyboard navigation
 - [ ] Add a keyboard-accessible alternative to drag-and-drop
 - [ ] Complete categories and tags
